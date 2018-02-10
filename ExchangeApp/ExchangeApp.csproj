@@ -195,9 +195,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\bad_request.cs" />
+    <Compile Include="Helpers\DbSetExtended.cs" />
+    <Compile Include="Helpers\helpers.cs" />
+    <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Helpers\not_found.cs" />
+    <Compile Include="Migrations\201802101510002_20180210_added_level.cs" />
+    <Compile Include="Migrations\201802101510002_20180210_added_level.Designer.cs">
+      <DependentUpon>201802101510002_20180210_added_level.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802101520533_test.cs" />
+    <Compile Include="Migrations\201802101520533_test.Designer.cs">
+      <DependentUpon>201802101520533_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BaseObject.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NomDegreeLevel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -261,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -274,6 +291,14 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802101510002_20180210_added_level.resx">
+      <DependentUpon>201802101510002_20180210_added_level.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802101520533_test.resx">
+      <DependentUpon>201802101520533_test.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
