@@ -106,10 +106,28 @@ namespace ExchangeApp.Models
             return new ApplicationDbContext();
         }
 
-        //public System.Data.Entity.DbSet<ExchangeApp.Models.ConstGender> ConstGenders { get; set; }
         public DbSet<NomDegreeLevel> DegreeLevels { get; set; }
 
         public DbSet<NomTypeOfExchange> TypesOfExchange { get; set; }
+
+        public DbSet<NomApplicantHighestDegree> ApplicantHighestDegrees { get; set; }
+
+        public DbSet<NomCountry> Countries { get; set; }
+
+        public DbSet<NomEnglishLevel> EnglishLevel { get; set; }
+
+        public DbSet<NomNationality> Nationalities { get; set; }
+
+        public DbSet<NomRegion> Regions { get; set; }
+
+        public DbSet<NomSchoolYear> SchoolYears { get; set; }
+
+        public DbSet<Semester> Semesters { get; set; }
+
+        public DbSet<Subject> Subjects { get; set; }
+
+        public DbSet<Faculty> Faculties { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
