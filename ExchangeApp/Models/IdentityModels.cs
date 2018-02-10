@@ -32,9 +32,6 @@ namespace ExchangeApp.Models
         [StringLength(40)]
         public string LastName { get; set; }
 
-   
-
-
         public int? IdLogin { get; set; }
 
         public string Roles_keys { get; set; }
@@ -44,7 +41,6 @@ namespace ExchangeApp.Models
 
         [Display(Name = "Date locked")]
         public DateTime? Date_lock { get; set; }
-
 
         [NotMapped]
         public virtual String FullName
@@ -113,13 +109,7 @@ namespace ExchangeApp.Models
         //public System.Data.Entity.DbSet<ExchangeApp.Models.ConstGender> ConstGenders { get; set; }
         public DbSet<NomDegreeLevel> DegreeLevels { get; set; }
 
-        //public System.Data.Entity.DbSet<ExchangeApp.Models.Global> Global { get; set; }
-
-        //public System.Data.Entity.DbSet<ExchangeApp.Models.UserPasswordHistory> UserPasswordHistory { get; set; }
-
-
-
-
+        public DbSet<NomTypeOfExchange> TypesOfExchange { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -128,7 +118,7 @@ namespace ExchangeApp.Models
 
             base.OnModelCreating(modelBuilder);
         }
-        
+
 
         public override int SaveChanges()
         {
