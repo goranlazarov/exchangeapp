@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ExchangeApp.Models
 {
@@ -8,5 +9,9 @@ namespace ExchangeApp.Models
         [Display(Name = "Type of exchange")]
         [StringLength(50)]
         public string Name { get; set; }
+
+        public virtual ICollection<Faculty> StudentFaculties { get; set; }
+        public virtual ICollection<Faculty> TeacherFaculties { get; set; }
+
     }
 }

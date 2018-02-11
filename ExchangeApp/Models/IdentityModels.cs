@@ -133,6 +133,89 @@ namespace ExchangeApp.Models
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Faculty>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Faculty>()
+                .HasMany(e => e.Subjects)
+                .WithRequired(e => e.FacultyObj)
+                .HasForeignKey(e => e.FacultyId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NomApplicantHighestDegree>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomCountry>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomCountry>()
+                .HasMany(e => e.Faculties)
+                .WithRequired(e => e.CountryObj)
+                .HasForeignKey(e => e.CountryId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NomDegreeLevel>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomDegreeLevel>()
+                .HasMany(e => e.Subjects)
+                .WithRequired(e => e.DegreeLevelObj)
+                .HasForeignKey(e => e.DegreeLevelId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NomEnglishLevel>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomNationality>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomRegion>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomRegion>()
+                .HasMany(e => e.Countries)
+                .WithRequired(r=>r.RegionObj)
+                .HasForeignKey(e => e.RegionId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NomSchoolYear>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomSchoolYear>()
+                .HasMany(e => e.Semesters)
+                .WithRequired(e => e.SchoolYearObj)
+                .HasForeignKey(e => e.SchoolYearId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NomTypeOfExchange>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<NomTypeOfExchange>()
+                .HasMany(e => e.StudentFaculties)
+                .WithOptional(e => e.StudentTypeOfExchangeObj)
+                .HasForeignKey(e => e.StudentTypeOfExchangeId);
+
+            modelBuilder.Entity<NomTypeOfExchange>()
+                .HasMany(e => e.TeacherFaculties)
+                .WithOptional(e => e.FacultyTypeOfExchangeObj)
+                .HasForeignKey(e => e.FacultyTypeOfExchangeId);
+
+            modelBuilder.Entity<Semester>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Subject>()
+                .Property(e => e.RowVersion)
+                .IsFixedLength();
 
             base.OnModelCreating(modelBuilder);
         }

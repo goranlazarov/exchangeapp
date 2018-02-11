@@ -1,0 +1,193 @@
+﻿@model ExchangeApp.Models.Faculty
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Faculty</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryObj.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CountryObj.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacultyTypeOfExchangeObj.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentTypeOfExchangeObj.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Program)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Program)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Website)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfMatriculation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfMatriculation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccreditationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccreditationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfAccreditation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfAccreditation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentPlacesAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentPlacesAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentApplicationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentApplicationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentEnrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentEnrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacultyPlacesAvailable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacultyPlacesAvailable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacultyApplicationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacultyApplicationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacultyEnrollmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacultyEnrollmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Registered)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Registered)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastUpdated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastUpdated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RowVersion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RowVersion)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
