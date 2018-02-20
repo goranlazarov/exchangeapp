@@ -1,4 +1,5 @@
 ﻿using ExchangeApp.Models;
+using ExchangeApp.Toastr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +21,7 @@ namespace ExchangeApp.Controllers
         protected void DisplaySuccessMessage(string msgText)
         {
             TempData["SuccessMessage"] = msgText;
-            //VASE TOASTEROO
-          //  this.AddToastMessage(msgText, "", ToastType.Success);
+            this.AddToastMessage(msgText, "", ToastType.Success);
         }
 
         protected void DisplayErrorMessage()
@@ -32,8 +32,7 @@ namespace ExchangeApp.Controllers
         protected void DisplayErrorMessage(string message)
         {
             TempData["ErrorMessage"] = message;
-            //VASE TOASTEROO
-            // this.AddToastMessage("Error", TempData["ErrorMessage"].ToString(), ToastType.Error);
+            this.AddToastMessage("Error", TempData["ErrorMessage"].ToString(), ToastType.Error);
         }
 
         protected string GetModelStateErrors()
@@ -50,21 +49,21 @@ namespace ExchangeApp.Controllers
             return result.ToString();
         }
 
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            if (User != null)
-            {
-                var username = User.Identity.Name;
+        //protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        //{
+        //    if (User != null)
+        //    {
+        //        var username = User.Identity.Name;
 
-                if (!string.IsNullOrEmpty(username))
-                {
-                    var user = db.Users.SingleOrDefault(u => u.UserName == username);
-                    string fullName = string.Concat(new string[] { user.LastName, ", ", user.FirstName });
-                    ViewData.Add("FullName", fullName);
-                }
-            }
-            base.OnActionExecuted(filterContext);
-        }
+        //        if (!string.IsNullOrEmpty(username))
+        //        {
+        //            var user = db.Users.SingleOrDefault(u => u.UserName == username);
+        //            string fullName = string.Concat(new string[] { user.LastName, ", ", user.FirstName });
+        //            ViewData.Add("FullName", fullName);
+        //        }
+        //    }
+        //    base.OnActionExecuted(filterContext);
+        //}
 
         protected override void Dispose(bool disposing)
         {

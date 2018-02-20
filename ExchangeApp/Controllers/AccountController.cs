@@ -9,15 +9,18 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ExchangeApp.Models;
+using System.Security.Cryptography;
+using System.Text;
+using static ExchangeApp.Controllers.AccountController;
 
 namespace ExchangeApp.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        
         public AccountController()
         {
         }
@@ -25,6 +28,7 @@ namespace ExchangeApp.Controllers
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
+            UserManager.PasswordHasher = new PasswordHasherSHA1();
             SignInManager = signInManager;
         }
 
@@ -68,26 +72,166 @@ namespace ExchangeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
+
+            //// This doesn't count login failures towards account lockout
+            //// To enable password failures to trigger account lockout, change to shouldLockout: true
+            //var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        TempData["SuccessLoginMessage"] = "Welcome {0}!";
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "Invalid login attempt.");
+            //        return View(model);
+            //}
+
+
+            ViewBag.PasswordExpired = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var UserFailedLoginsData = from ANU in db.Users
+                                       where ANU.UserName == model.UserName
+                                       select new
+                                       {
+                                           ANU.AccessFailedCount,
+                                           ANU.Date_lock
+                                       };
+
+            if (UserFailedLoginsData.ToList().Count == 0)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+
+            int LockedAccountTime = Helpers.helpers.GetLockedAccountTime();
+            bool isLocked = false;
+            if (UserFailedLoginsData.ToList().First().AccessFailedCount >= Helpers.helpers.GetAccessFailedCount())
+                isLocked = true;
+            if (LockedAccountTime != 0 && UserFailedLoginsData.ToList().First().Date_lock.HasValue && DateTime.Now > UserFailedLoginsData.ToList().First().Date_lock.Value.AddSeconds(Helpers.helpers.GetLockedAccountTime()))
+            {
+                isLocked = false;
+                (from p in db.Users
+                 where p.UserName == model.UserName
+                 select p).ToList().ForEach(x => { x.AccessFailedCount = 0; x.Date_lock = null; });
+
+                db.SaveChanges();
+            }
+
+            if (UserFailedLoginsData.ToList().First().AccessFailedCount >= Helpers.helpers.GetAccessFailedCount() && isLocked)
+            {
+                (from p in db.Users
+                 where p.UserName == model.UserName
+                 select p).ToList().ForEach(x => { x.Date_lock = DateTime.Now; });
+                db.SaveChanges();
+                if (LockedAccountTime == 0)
+                    ModelState.AddModelError("", "Your account has been locked for security reasons. Please contact system administrator.");
+                else
+                    ModelState.AddModelError("", string.Format("Your account has been locked for security reasons. Please try again in {0} seconds.", LockedAccountTime.ToString()));
+                return View(model);
+            }
+            else
+            {
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        (from p in db.Users where p.UserName == model.UserName select p).ToList().ForEach(x => x.AccessFailedCount = 0);
+                        db.SaveChanges();
+                        DisplaySuccessMessage("Welcome {0}!" + model.UserName);
+                        //TempData["SuccessLoginMessage"] = "Welcome {0}!";
+                        return RedirectToAction("Index", "Admin");// RedirectToLocal("Admin/Index");
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
+
+                //string hashedPwd = UserManager.PasswordHasher.HashPassword(model.Password);
+                //var UserPwdData = from ANU in db.Users
+                //                  where ANU.UserName == model.UserName && PasswordVerificationResult.Success == UserManager.PasswordHasher.VerifyHashedPassword(ANU.PasswordHash, model.Password)// && ANU.PasswordHash == hashedPwd
+                //                  select new
+                //                  {
+                //                      ANU.IdLogin,
+                //                  };
+
+                //if (UserPwdData.ToList().Count == 0)
+                //{
+                //    (from p in db.Users
+                //     where p.UserName == model.UserName
+                //     select p).ToList().ForEach(x => { x.AccessFailedCount += 1; });
+
+                //    db.SaveChanges();
+
+                //    ModelState.AddModelError("", "Invalid login attempt.");
+                //    return View(model);
+                //}
+                //else
+                //{
+                //    (from p in db.Users
+                //     where p.UserName == model.UserName
+                //     select p).ToList().ForEach(x => { x.AccessFailedCount = 0; x.Date_lock = null; });
+
+                //    db.SaveChanges();
+
+                //    var UserData = from ANU in db.Users
+                //                   where ANU.UserName == model.UserName
+                //                   select new
+                //                   {
+                //                       ANU.Id,
+                //                       ANU.Date_lock,
+                //                       ANU.Date_pwd
+                //                   };
+
+                    
+                //    if (UserData.ToList().Count > 0 && Convert.ToBoolean(UserData.First().Date_pwd.HasValue && DateTime.Today > UserData.First().Date_pwd.Value.AddMonths(Helpers.helpers.GetPasswordExpirationPeriod())))
+                //    {
+                //        ModelState.AddModelError("", "Your password has expired. Please change your password.");
+                //        ViewBag.PasswordExpired = true;
+                //        return View(model);
+                //    }
+                //    else
+                //        ViewBag.PasswordExpired = false;
+
+
+                //    // This doesn't count login failures towards account lockout
+                //    // To enable password failures to trigger account lockout, change to shouldLockout: true
+                //    var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+                //    switch (result)
+                //    {
+                //        case SignInStatus.Success:
+                //            (from p in db.Users where p.UserName == model.UserName select p).ToList().ForEach(x => x.AccessFailedCount = 0);
+                //            db.SaveChanges();
+                //            TempData["SuccessLoginMessage"] = "Welcome {0}!";
+                //            return RedirectToLocal(returnUrl);
+                //        case SignInStatus.LockedOut:
+                //            return View("Lockout");
+                //        case SignInStatus.RequiresVerification:
+                //            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                //        case SignInStatus.Failure:
+                //        default:
+                //            ModelState.AddModelError("", "Invalid login attempt.");
+                //            return View(model);
+                //    }
+                //}
             }
         }
 
@@ -151,11 +295,12 @@ namespace ExchangeApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                string hashedPwd = UserManager.PasswordHasher.HashPassword(model.Password);
+                var user = new ApplicationUser { UserName = model.Username, PasswordHash = hashedPwd, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -163,7 +308,7 @@ namespace ExchangeApp.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 AddErrors(result);
             }
@@ -478,6 +623,34 @@ namespace ExchangeApp.Controllers
                     properties.Dictionary[XsrfKey] = UserId;
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
+            }
+        }
+
+        public class PasswordHasherSHA1 : IPasswordHasher
+        {
+            public string HashPassword(string password)
+            {
+                using (SHA1 mySHA1 = SHA1Managed.Create())
+                {
+                    byte[] hash = mySHA1.ComputeHash(Encoding.UTF8.GetBytes(password.ToString()));
+
+                    StringBuilder hashSB = new StringBuilder();
+                    for (int i = 0; i < hash.Length; i++)
+                    {
+                        hashSB.Append(hash[i].ToString("x2"));
+                    }
+                    return hashSB.ToString();
+                }
+            }
+
+
+            public PasswordVerificationResult VerifyHashedPassword(
+              string hashedPassword, string providedPassword)
+            {
+                if (hashedPassword == HashPassword(providedPassword))
+                    return PasswordVerificationResult.Success;
+                else
+                    return PasswordVerificationResult.Failed;
             }
         }
         #endregion
