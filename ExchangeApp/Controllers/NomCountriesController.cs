@@ -52,10 +52,11 @@ namespace ExchangeApp.Controllers
         public ActionResult Create([Bind(Include = "ID,Name,RegionId")] NomCountry nomCountry)
         {
             NomCountry countryToInsert = new NomCountry();
+            countryToInsert.Name = nomCountry.Name;
+            countryToInsert.RegionId = nomCountry.RegionId;
+
             if (ModelState.IsValid)
             {
-                countryToInsert.Name = nomCountry.Name;
-                countryToInsert.RegionId = nomCountry.RegionId;
                 db.Countries.Add(countryToInsert);
                 db.SaveChanges();
                 return RedirectToAction("Index");

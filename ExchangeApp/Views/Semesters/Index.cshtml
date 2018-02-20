@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ExchangeApp.Models.NomCountry>
+﻿@model IEnumerable<ExchangeApp.Models.Semester>
 
 @{
     ViewBag.Title = "Index";
@@ -13,10 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RegionObj.Name)
+            @Html.DisplayNameFor(model => model.SchoolYearObj.Name)
         </th>
         <th>
             Actions
@@ -27,10 +27,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RegionObj.Name)
+                @Html.DisplayFor(modelItem => item.SchoolYearObj.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

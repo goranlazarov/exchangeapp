@@ -114,7 +114,7 @@ namespace ExchangeApp.Models
 
         public DbSet<NomCountry> Countries { get; set; }
 
-        public DbSet<NomEnglishLevel> EnglishLevel { get; set; }
+        public DbSet<NomEnglishLevel> EnglishLevels { get; set; }
 
         public DbSet<NomNationality> Nationalities { get; set; }
 
