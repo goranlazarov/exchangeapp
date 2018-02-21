@@ -2,7 +2,7 @@
 
 namespace ExchangeApp.Controllers
 {
-    public class StudentController : Controller
+    public class StudentController : BaseController
     {
         // GET: Student
         public ActionResult Index()

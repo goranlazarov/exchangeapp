@@ -10,7 +10,7 @@ using ExchangeApp.Models;
 
 namespace ExchangeApp.Controllers
 {
-    public class NomCountriesController : BaseController
+    public class NomCountriesController : BaseAdminController
     {
         
         // GET: NomCountries
