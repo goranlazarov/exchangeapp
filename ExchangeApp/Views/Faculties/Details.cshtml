@@ -4,184 +4,187 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container">
+    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
+        <h2>Details</h2>
 
-<h2>Details</h2>
+        <div>
+            <h4>Faculty</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.CountryObj.Name)
+                </dt>
 
-<div>
-    <h4>Faculty</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CountryObj.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CountryObj.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CountryObj.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FacultyTypeOfExchangeObj.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FacultyTypeOfExchangeObj.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentTypeOfExchangeObj.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentTypeOfExchangeObj.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Program)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Program)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Program)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Program)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Website)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Website)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Website)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateOfMatriculation)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfMatriculation)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateOfMatriculation)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateOfMatriculation)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.AccreditationNumber)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AccreditationNumber)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AccreditationNumber)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AccreditationNumber)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.DateOfAccreditation)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfAccreditation)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.DateOfAccreditation)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateOfAccreditation)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentPlacesAvailable)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentPlacesAvailable)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentPlacesAvailable)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentPlacesAvailable)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentApplicationDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentApplicationDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentApplicationDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentApplicationDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.StudentEnrollmentDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentEnrollmentDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.StudentEnrollmentDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.StudentEnrollmentDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FacultyPlacesAvailable)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FacultyPlacesAvailable)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FacultyPlacesAvailable)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FacultyPlacesAvailable)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FacultyApplicationDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FacultyApplicationDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FacultyApplicationDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FacultyApplicationDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FacultyEnrollmentDate)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FacultyEnrollmentDate)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FacultyEnrollmentDate)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FacultyEnrollmentDate)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Registered)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Registered)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Registered)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Registered)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastUpdated)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdated)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastUpdated)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdated)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RowVersion)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RowVersion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RowVersion)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RowVersion)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -4,72 +4,75 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="container">
+    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
+        <h2>Details</h2>
 
-<h2>Details</h2>
+        <div>
+            <h4>Semester</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
+                </dt>
 
-<div>
-    <h4>Semester</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.SchoolYearObj.Name)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SchoolYearObj.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.SchoolYearObj.Name)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.SchoolYearObj.Name)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Registered)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Registered)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Registered)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Registered)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.LastUpdated)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdated)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LastUpdated)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdated)
-        </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.RowVersion)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RowVersion)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.RowVersion)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.RowVersion)
-        </dd>
-
-    </dl>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
