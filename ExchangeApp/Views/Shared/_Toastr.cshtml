@@ -1,0 +1,6 @@
+﻿@using ExchangeApp.Toastr
+@if (TempData.ContainsKey("Toastr"))
+{
+    Toastr t = TempData["Toastr"] as Toastr;
+    @ToastrBuilder.ShowToastMessages(t);
+}

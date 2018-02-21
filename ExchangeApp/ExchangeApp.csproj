@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FacultiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -247,6 +248,10 @@
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Toastr\ControllerExtensions.cs" />
+    <Compile Include="Toastr\ToastMessage.cs" />
+    <Compile Include="Toastr\Toastr.cs" />
+    <Compile Include="Toastr\ToastType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap.min.css" />
@@ -441,6 +446,7 @@
     <Content Include="Views\Faculties\Details.cshtml" />
     <Content Include="Views\Faculties\Edit.cshtml" />
     <Content Include="Views\Faculties\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\NomApplicantHighestDegrees\Create.cshtml" />
     <Content Include="Views\NomApplicantHighestDegrees\Delete.cshtml" />
     <Content Include="Views\NomApplicantHighestDegrees\Details.cshtml" />
@@ -456,6 +462,11 @@
     <Content Include="Views\NomEnglishLevels\Details.cshtml" />
     <Content Include="Views\NomEnglishLevels\Edit.cshtml" />
     <Content Include="Views\NomEnglishLevels\Index.cshtml" />
+    <Content Include="Views\NomNationalities\Create.cshtml" />
+    <Content Include="Views\NomNationalities\Delete.cshtml" />
+    <Content Include="Views\NomNationalities\Details.cshtml" />
+    <Content Include="Views\NomNationalities\Edit.cshtml" />
+    <Content Include="Views\NomNationalities\Index.cshtml" />
     <Content Include="Views\NomRegions\Create.cshtml" />
     <Content Include="Views\NomRegions\Delete.cshtml" />
     <Content Include="Views\NomRegions\Details.cshtml" />
@@ -471,11 +482,6 @@
     <Content Include="Views\NomTypeOfExchanges\Details.cshtml" />
     <Content Include="Views\NomTypeOfExchanges\Edit.cshtml" />
     <Content Include="Views\NomTypeOfExchanges\Index.cshtml" />
-    <Content Include="Views\NomNationalities\Create.cshtml" />
-    <Content Include="Views\NomNationalities\Delete.cshtml" />
-    <Content Include="Views\NomNationalities\Details.cshtml" />
-    <Content Include="Views\NomNationalities\Edit.cshtml" />
-    <Content Include="Views\NomNationalities\Index.cshtml" />
     <Content Include="Views\Semesters\Create.cshtml" />
     <Content Include="Views\Semesters\Delete.cshtml" />
     <Content Include="Views\Semesters\Details.cshtml" />

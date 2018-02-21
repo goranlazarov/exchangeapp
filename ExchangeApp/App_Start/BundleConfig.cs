@@ -28,7 +28,7 @@ namespace ExchangeApp
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                    "~/Content/css/bootstrap.min.css",
+                       "~/Content/css/bootstrap.min.css",
                     "~/Content/css/custom.css",
                     "~/Content/css/plugins.css",
                     "~/Content/css/style.css",
@@ -44,7 +44,12 @@ namespace ExchangeApp
                      "~/Content/css/plugins/plyr.min.css",
                     "~/Content/css/plugins/selectpicker.min.css",
                      "~/Content/css/plugins/slick.min.css",
-                    "~/Content/css/plugins/youtubepopup.min.css"));
+                        "~/Content/css/plugins/youtubepopup.min.css"
+                        "~/Content/toastr.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
+                       "~/Scripts/toastr.js*"));
+                  
         }
 
 

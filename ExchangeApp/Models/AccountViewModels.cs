@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExchangeApp.Models
@@ -49,9 +50,8 @@ namespace ExchangeApp.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,10 +64,34 @@ namespace ExchangeApp.Models
 
     public class RegisterViewModel
     {
+        public string Id { get; set; }
+
         [Required]
-        [EmailAddress]
+        [Display(Name = "First name")]
+        [StringLength(20)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last name")]
+        [StringLength(40)]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Username")]
+        [StringLength(30)]
+        public string Username { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
+        [StringLength(50)]
         public string Email { get; set; }
+
+
+        [Display(Name = "Date of password")]
+        public DateTime? Date_pwd { get; set; }
+
+        [Display(Name = "Date locked")]
+        public DateTime? Date_lock { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
