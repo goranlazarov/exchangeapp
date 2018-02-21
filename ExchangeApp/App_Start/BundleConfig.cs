@@ -44,12 +44,12 @@ namespace ExchangeApp
                      "~/Content/css/plugins/plyr.min.css",
                     "~/Content/css/plugins/selectpicker.min.css",
                      "~/Content/css/plugins/slick.min.css",
-                        "~/Content/css/plugins/youtubepopup.min.css"
+                        "~/Content/css/plugins/youtubepopup.min.css",
                         "~/Content/toastr.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*"));
-                  
+
         }
 
 
