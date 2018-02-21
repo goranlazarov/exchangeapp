@@ -1,0 +1,26 @@
+/*********************************************************************************
+
+	Template Name: Korde - Tax Service HTML Template  
+	Template URI: https://themeforest.net/user/hastech
+	Description: Korde is a beautifula and unique tax service html template.
+	Author: HasTech
+	Author URI: https://hastech.company/
+	Version: 1.0
+
+	Note: This is plugins css. All plugins css files import here.
+
+**********************************************************************************/
+
+@import url(plugins/fakeloader.css);
+@import url(plugins/meanmenu.css);
+@import url(plugins/font-awesome.min.css);
+@import url(plugins/flaticon.css);
+@import url(plugins/pe-icon-7-stroke.css);
+@import url(plugins/slick.min.css);
+@import url(plugins/animate.min.css);
+@import url(plugins/animated-headline.css);
+@import url(plugins/youtubepopup.min.css);
+@import url(plugins/calender.css);
+@import url(plugins/plyr.min.css);
+@import url(plugins/selectpicker.min.css);
+@import url(plugins/datepicker.min.css);
