@@ -10,7 +10,7 @@ using ExchangeApp.Models;
 
 namespace ExchangeApp.Controllers
 {
-    public class NomNationalitiesController : Controller
+    public class NomNationalitiesController : BaseAdminController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 

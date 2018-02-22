@@ -95,6 +95,7 @@ namespace ExchangeApp.Controllers
             //        return View(model);
             //}
 
+            returnUrl = (string.IsNullOrEmpty(returnUrl)) ? "Admin/Index" : returnUrl;
 
             ViewBag.PasswordExpired = false;
             if (!ModelState.IsValid)
@@ -152,9 +153,9 @@ namespace ExchangeApp.Controllers
                     case SignInStatus.Success:
                         (from p in db.Users where p.UserName == model.UserName select p).ToList().ForEach(x => x.AccessFailedCount = 0);
                         db.SaveChanges();
-                        DisplaySuccessMessage("Welcome {0}!" + model.UserName);
+                        DisplaySuccessMessage("Welcome " + model.UserName + "!");
                         //TempData["SuccessLoginMessage"] = "Welcome {0}!";
-                        return RedirectToAction("Index", "Admin");// RedirectToLocal("Admin/Index");
+                        return RedirectToAction("../"+returnUrl);// RedirectToLocal("Admin/Index");
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:

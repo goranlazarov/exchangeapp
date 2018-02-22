@@ -10,7 +10,7 @@ using ExchangeApp.Models;
 
 namespace ExchangeApp.Controllers
 {
-    public class NomDegreeLevelsController : Controller
+    public class NomDegreeLevelsController : BaseAdminController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
