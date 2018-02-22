@@ -206,6 +206,8 @@
     <Compile Include="Controllers\NomSchoolYearsController.cs" />
     <Compile Include="Controllers\NomTypeOfExchangesController.cs" />
     <Compile Include="Controllers\SemestersController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -245,6 +247,8 @@
     <Compile Include="Models\NomSchoolYear.cs" />
     <Compile Include="Models\NomTypeOfExchange.cs" />
     <Compile Include="Models\Semester.cs" />
+    <Compile Include="Models\TeacherViewModel.cs" />
+    <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -487,6 +491,8 @@
     <Content Include="Views\Semesters\Details.cshtml" />
     <Content Include="Views\Semesters\Edit.cshtml" />
     <Content Include="Views\Semesters\Index.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
