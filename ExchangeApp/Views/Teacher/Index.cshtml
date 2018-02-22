@@ -1,0 +1,131 @@
+﻿@model ExchangeApp.Models.TeacherViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-12 offset-0">
+                <div class="pg-appintment">
+                    <div class="pg-appintment__title text-center">
+                        <h2>TEACHER APPLICATION</h2>
+                    </div>
+                    <div class="pg-appintment__box">
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "First Name" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Last Name" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { placeholder = "Nationality" } })
+                                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("CountryOfOrigin", null, new { htmlAttributes = new { placeholder = "Country of Origin" } })
+                                        @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("ApplicantHighestDegree", null, new { htmlAttributes = new { placeholder = "Highest Degree" } })
+                                        @Html.ValidationMessageFor(model => model.ApplicantHighestDegree, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("EnglishLevel", null, new { htmlAttributes = new { placeholder = "English Level" } })
+                                        @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("SchoolName", null, new { htmlAttributes = new { placeholder = "School Name" } })
+                                        @Html.ValidationMessageFor(model => model.SchoolName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("Country", null, new { htmlAttributes = new { placeholder = "Country" } })
+                                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("Region", null, new { htmlAttributes = new { placeholder = "Region" } })
+                                        @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("FirstSubject", null, new { htmlAttributes = new { placeholder = "First Subject" } })
+                                        @Html.ValidationMessageFor(model => model.FirstSubject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("SecondSubject", null, new { htmlAttributes = new { placeholder = "Second Subject" } })
+                                        @Html.ValidationMessageFor(model => model.SecondSubject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("ThirdSubject", null, new { htmlAttributes = new { placeholder = "Third Subject" } })
+                                        @Html.ValidationMessageFor(model => model.ThirdSubject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.DropDownList("FourthSubject", null, new { htmlAttributes = new { placeholder = "Fourth Subject" } })
+                                        @Html.ValidationMessageFor(model => model.FourthSubject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.AccreditationNumber, new { htmlAttributes = new { placeholder = "Accreditation Number" } })
+                                        @Html.ValidationMessageFor(model => model.AccreditationNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="app-form">
+                                        @Html.EditorFor(model => model.AgreementNumber, new { htmlAttributes = new { placeholder = "Agreement Number" } })
+                                        @Html.ValidationMessageFor(model => model.AgreementNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="single-input button">
+                                        <button type="submit" class="cr-btn"><span>Send Application</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
