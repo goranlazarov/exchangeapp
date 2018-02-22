@@ -41,8 +41,50 @@
                             <img src="~/Content/css/images/logo_small.png" alt="header logo">
                         </a>
                     </div>
+
+                    <!-- Main Navigation -->
+                    <nav id="main-navigation" class="header__menu main-navigation" style="display: block;">
+                        <ul>
+                            <li class="cr-dropdown">
+                                <a> EDUCATION </a>
+                                <ul class="cr-dropdown-menu">
+                                    <li><a href="@Url.Action("Index", "Faculties")"> Faculties </a></li>
+                                    <li><a href="@Url.Action("Index", "Semesters")"> Semesters </a></li>
+                                    <li><a href="@Url.Action("Index", "NomSchoolYears")"> School years </a></li>
+                                    <li><a href="@Url.Action("Index", "Subjects")"> Subjects </a></li>
+                                </ul>
+                            </li>
+                            <li class="cr-dropdown">
+                                <a> INTERNATIONAL </a>
+                                <ul class="cr-dropdown-menu">
+                                    <li><a href="@Url.Action("Index", "NomCountries")"> Countries </a></li>
+                                    <li><a href="@Url.Action("Index", "NomRegions")"> Regions </a></li>
+                                    <li><a href="@Url.Action("Index", "NomNationalities")"> Nationalities </a></li>
+                                </ul>
+                            </li>
+                            <li class="cr-dropdown">
+                                <a> ABOUT APPLICANTS </a>
+                                <ul class="cr-dropdown-menu">
+                                    <li><a href="@Url.Action("Index", "NomEnglishLevels")"> English levels </a></li>
+                                    <li><a href="@Url.Action("Index", "NomDegreeLevels")"> Degree levels </a></li>
+                                    <li><a href="@Url.Action("Index", "NomAplicantHighestDegrees")"> Highest degrees </a></li>
+                                    <li><a href="@Url.Action("Index", "NomTypeOfExchanges")"> Types of exchange </a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav><!--// Main Navigation -->
+
                 </div>
             </div>
+
+            @*<!-- Mobile Menu -->
+                <div class="container d-block d-lg-none">
+                    <div class="mobile-menu clearfix d-md-block d-lg-none">
+                        <a class="mobile-logo" href="index.html"><img src="images/logo/logo-theme.png" alt="logo"></a>
+                    </div>
+                </div><!-- //Mobile Menu -->*@
+
         </div>
     </header>
     <div>

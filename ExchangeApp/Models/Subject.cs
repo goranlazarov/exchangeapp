@@ -9,8 +9,8 @@ namespace ExchangeApp.Models
 {
     public class Subject : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: Degree Level name")]
-        [Display(Name = "Degree level name")]
+        [Required(ErrorMessage = "Please enter: Subject name")]
+        [Display(Name = "Subject name")]
         [StringLength(50)]
         public string Name { get; set; }
 
