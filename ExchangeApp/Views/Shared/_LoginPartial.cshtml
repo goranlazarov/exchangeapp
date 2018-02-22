@@ -3,14 +3,16 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+        <div class="navbar-right">
+        <span style="color:white;">
+                    @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Admin", routeValues: null, htmlAttributes: new { @style = "color:white!important; " })
+                </span>
+        <span>
+            <a href="javascript:document.getElementById('logoutForm').submit()" class="cr-readmore-2">Log off</a>
+        </span>
+        </div>
     }
 }
 else

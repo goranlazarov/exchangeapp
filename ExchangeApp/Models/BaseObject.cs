@@ -13,7 +13,7 @@ namespace ExchangeApp.Models
         {
             Registered = Helpers.helpers.GlobalSystemTime();
             LastUpdated = Registered;
-            RegisteredBy = "8dde236e-1b0a-4e32-871a-7833696d74bf"; //Helpers.helpers.GetCurrentUserID();
+            RegisteredBy = Helpers.helpers.GetCurrentUserID();
             LastUpdatedBy = RegisteredBy;
         }
 
@@ -24,7 +24,7 @@ namespace ExchangeApp.Models
         {
             LastUpdated = Helpers.helpers.GlobalSystemTime();
             //if (!string.IsNullOrEmpty(Helpers.helpers.GetCurrentUserID()))
-                LastUpdatedBy = "8dde236e-1b0a-4e32-871a-7833696d74bf"; // Helpers.helpers.GetCurrentUserID();
+                LastUpdatedBy =  Helpers.helpers.GetCurrentUserID();
         }
 
         [Required(ErrorMessage = "Please enter : ID")]
