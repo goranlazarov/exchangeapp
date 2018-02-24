@@ -1681,7 +1681,7 @@ a.cr-btn, button.cr-btn, .cr-btn {
     font-weight: 600;
     font-size: 14px;
     color: #646464;
-    background: transparent;
+    background-color: white;
     border: 1px solid #9f9f9f;
     border-radius: 3px;
     height: 40px;
