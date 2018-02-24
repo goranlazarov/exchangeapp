@@ -97,8 +97,9 @@ namespace ExchangeApp.Models
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
             Database.SetInitializer<ApplicationDbContext>(null);
+            ((IObjectContextAdapter)this).ObjectContext.CommandTimeout = 300;
+
         }
 
         public static ApplicationDbContext Create()

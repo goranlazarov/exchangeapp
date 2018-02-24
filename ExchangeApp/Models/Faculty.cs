@@ -24,6 +24,16 @@ namespace ExchangeApp.Models
         [StringLength(50)]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Please enter: Description")]
+        [Display(Name = "Description")]
+        [StringLength(4000)]
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = "Please enter: Agreement number")]
+        [Display(Name = "Agreement number")]
+        [StringLength(20)]
+        public string AgreementNumber { get; set; }
+
         [Required(ErrorMessage = "Please enter: Website")]
         [Display(Name = "Website")]
         [StringLength(50)]
