@@ -1,3 +1,115 @@
-.app-form {
-    margin-bottom: 15px
+/* f51f66c5d0c38070b058a8f50c27176433a6d298 */
+
+/*body {
+    color:;
+}*/
+
+a {
+    color: #FA803B;
+}
+
+/*h1, h2, h3, h4, h5, h6, .h3, .h4, .h5, .h6 {
+    color:;
+}*/
+
+.header-content #menu li ul {
+    background-color: #eaf0f4;
+}
+
+    .header-content #menu li ul:hover {
+        background-color: #eaf0f4;
+    }
+
+.header-content #menu li a {
+    color: #002157;
+}
+
+
+.header-content #logo img {
+    max-height: 100px;
+    max-width: 100%;
+}
+
+a.primary, a.primary:visited, button.primary, button.primary:visited {
+    background-color: #FA803B;
+}
+
+#job-listing .listings .job-summary h3, #job-listing .listings .job-summary .h3 {
+    color: #FA803B;
+}
+
+a.secondary, a.secondary:visited, button.secondary, button.secondary:visited {
+    background-color: #002157;
+}
+
+a.tertiary, a.tertiary:visited, button.tertiary, button.tertiary:visited {
+    background-color: #eaf0f4;
+}
+
+#hero {
+    background: url("images/hero.jpg") no-repeat 0 0 transparent;
+}
+
+    #hero .site-name-tag {
+        background: none repeat scroll 0 0 rgba(255, 255, 255, 0.6);
+        top: 47%;
+        bottom: auto;
+        left: auto;
+        right: 5%;
+        padding: 10px;
+        text-align: left;
+        width: auto;
+        opacity: 0.84;
+    }
+
+        #hero .site-name-tag h1 {
+            margin: 0;
+            font-size: 2.3em;
+            color: inherit;
+        }
+
+        #hero .site-name-tag em {
+            font-size: 1.5em;
+            color: inherit;
+        }
+
+#featured-job-listing ul li a h3, #featured-job-listing ul li a .h3 {
+    color: #FA803B;
+}
+
+/*#inner-page-header .site-name-tag {
+    color:;
+}
+
+    #inner-page-header .site-name-tag h1 {
+        color:;
+    }*/
+
+/** For sites that change the background color of sections/modules**/
+
+/*#featured-job-listing, .featured-job-promo, #blank-module .interior, #featured-services .interior ul li, #featured-employers .interior, .footer-content, #inner-page-header, .filters h5, .filters .h5, #job-listing .listings, .sideboard-ad, .horizontal-job-alert-box form div, #basic-page .expert .our-experts, #basic-page .expert .default-form-box, #basic-page .expert .default-form-box, #basic-page .career-coaching section div, #basic-page .career-fair-registration .default-form-box form, #content-library-listings .content-category, .frequent-views, .news-feed, #basic-page .create-resume .default-form-box form, #basic-page .create-resume .default-form-box .call-to-action, .create-resume .default-form-box i, #basic-page .dual-login section, #basic-page h2, #basic-page .help .default-form-box, #basic-page table tr, .default-form-box, .job-application .wizard .content, .career-fair-banner.site, #basic-page .manage-resumes section, .order-purchase .wizard .content, .file-upload-form, #feedback .interior {
+    background-color:;
+}*/
+
+    .footer-content .social-media a {
+        color: #FA803B;
+    }
+
+@media (max-width: 480px) {
+    #hero {
+        background: none;
+    }
+
+        #hero #job-search-form form {
+            left: 0;
+        }
+
+        #hero .site-name-tag {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: relative;
+            text-align: center;
+        }
 }

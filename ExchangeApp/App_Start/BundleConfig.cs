@@ -29,22 +29,8 @@ namespace ExchangeApp
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                        "~/Content/css/bootstrap.min.css",
-                    "~/Content/css/custom.css",
-                    "~/Content/css/plugins.css",
-                    "~/Content/css/style.css",
-                    "~/Content/css/plugins/animate.min.css",
-                    "~/Content/css/plugins/animated-headline.css",
-                     "~/Content/css/plugins/calender.css",
-                    "~/Content/css/plugins/datepicker.min.css",
-                     "~/Content/css/plugins/fakeloader.css",
-                    "~/Content/css/plugins/flaticon.css",
-                     "~/Content/css/plugins/font-awesome.min.css",
-                    "~/Content/css/plugins/meanmenu.css",
-                     "~/Content/css/plugins/pe-icon-7-stroke.css",
-                     "~/Content/css/plugins/plyr.min.css",
-                    "~/Content/css/plugins/selectpicker.min.css",
-                     "~/Content/css/plugins/slick.min.css",
-                        "~/Content/css/plugins/youtubepopup.min.css",
+                        "~/Content/css/screen.css",
+                        "~/Content/css/custom.css",
                         "~/Content/toastr.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(

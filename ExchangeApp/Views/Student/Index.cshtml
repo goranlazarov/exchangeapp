@@ -4,119 +4,258 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="container">
-    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1 col-12 offset-0">
-                <div class="pg-appintment">
-                    <div class="pg-appintment__title text-center">
-                        <h2>STUDENT APPLICATION</h2>
-                    </div>
-                    <div class="pg-appintment__box">
-                        <form action="#">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "First Name" } })
-                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Last Name" } })
-                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { placeholder = "Nationality" } })
-                                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.DropDownList("CountryOfOrigin", null, new { htmlAttributes = new { placeholder = "Country of Origin" } })
-                                        @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        <input type="text" name="DateOfEnrollment" id="user-select-date" placeholder="Date of Enrollment" data-select="datepicker">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        <input type="text" name="DateOfCompletion" id="user-select-date" placeholder="Date of Completion" data-select="datepicker">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.ProgramEnrolled, new { htmlAttributes = new { placeholder = "Program Enrolled" } })
-                                        @Html.ValidationMessageFor(model => model.ProgramEnrolled, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.SemesterEnrolled, new { htmlAttributes = new { placeholder = "Semester Enrolled" } })
-                                        @Html.ValidationMessageFor(model => model.SemesterEnrolled, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.DropDownList("EnglishLevel", null, new { htmlAttributes = new { placeholder = "English Level" } })
-                                        @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.DropDownList("SchoolName", null, new { htmlAttributes = new { placeholder = "School Name" } })
-                                        @Html.ValidationMessageFor(model => model.SchoolName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.DropDownList("Country", null, new { htmlAttributes = new { placeholder = "Country" } })
-                                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.DropDownList("Region", null, new { htmlAttributes = new { placeholder = "Region" } })
-                                        @Html.ValidationMessageFor(model => model.Region, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.AccreditationNumber, new { htmlAttributes = new { placeholder = "Accreditation Number" } })
-                                        @Html.ValidationMessageFor(model => model.AccreditationNumber, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="app-form">
-                                        @Html.EditorFor(model => model.AgreementNumber, new { htmlAttributes = new { placeholder = "Agreement Number" } })
-                                        @Html.ValidationMessageFor(model => model.AgreementNumber, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="single-input button">
-                                        <button type="submit" class="cr-btn"><span>Send Application</span></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+<div id="job-view-page">
+    <div id="main-content" class="super" role="main">
+        <div class="interior site">
+
+
+
+            <section id="inner-page-header" class="clearfix">
+                <div class="site-name-tag">
+                    <h1>Accreditation Council for Business Schools and Programs</h1>
                 </div>
+
+                <div id="job-search-form" class="clearfix" role="search">
+                    <form id="jt_search" class="clearfix" action="/jobseeker/search/results/" method="get">
+                        <input type="hidden" name="site_id" value="22669">
+                        <fieldset>
+                            <legend style="position: absolute;left: -999em;">Job Search Keywords</legend>
+                            <input maxlength="500" aria-label="Job Keyword Search" type="search" title="keywords" value="" id="keywords" name="keywords" tab-index="10" placeholder="Enter Keyword or Job Title">
+                        </fieldset>
+
+                        <fieldset>
+                            <legend style="position: absolute;left: -999em;">Select Location</legend>
+                            <div class="select-style">
+                                <select aria-label="Job Search Location" tab-index="20" name="t15">
+                                    <option selected="" value="">
+                                        All States
+                                    </option>
+                                    <option value="162">Other / Non-US</option>
+                                    <option value="114">Alabama</option>
+                                    <option value="115">Alaska</option>
+                                    <option value="116">Alberta</option>
+                                    <option value="117">Arizona</option>
+                                    <option value="118">Arkansas</option>
+                                    <option value="119">British Columbia</option>
+                                    <option value="120">California</option>
+                                    <option value="121">Colorado</option>
+                                    <option value="122">Connecticut</option>
+                                    <option value="123">Delaware</option>
+                                    <option value="124">Dist. Columbia</option>
+                                    <option value="125">Florida</option>
+                                    <option value="126">Georgia</option>
+                                    <option value="127">Guam</option>
+                                    <option value="128">Hawaii</option>
+                                    <option value="129">Idaho</option>
+                                    <option value="130">Illinois</option>
+                                    <option value="131">Indiana</option>
+                                    <option value="132">Iowa</option>
+                                    <option value="133">Kansas</option>
+                                    <option value="134">Kentucky</option>
+                                    <option value="135">Louisiana</option>
+                                    <option value="136">Maine</option>
+                                    <option value="137">Manitoba</option>
+                                    <option value="138">Maryland</option>
+                                    <option value="139">Massachusetts</option>
+                                    <option value="140">Michigan</option>
+                                    <option value="141">Minnesota</option>
+                                    <option value="142">Mississippi</option>
+                                    <option value="143">Missouri</option>
+                                    <option value="144">Montana</option>
+                                    <option value="145">Nebraska</option>
+                                    <option value="146">Nevada</option>
+                                    <option value="147">New Brunswick</option>
+                                    <option value="148">New Hampshire</option>
+                                    <option value="149">New Jersey</option>
+                                    <option value="150">New Mexico</option>
+                                    <option value="151">New York</option>
+                                    <option value="152">Newfoundland</option>
+                                    <option value="153">North Carolina</option>
+                                    <option value="154">North Dakota</option>
+                                    <option value="155">Northwest Terr.</option>
+                                    <option value="156">Nova Scotia</option>
+                                    <option value="157">Nunavut</option>
+                                    <option value="158">Ohio</option>
+                                    <option value="159">Oklahoma</option>
+                                    <option value="160">Ontario</option>
+                                    <option value="161">Oregon</option>
+                                    <option value="163">Pennsylvania</option>
+                                    <option value="164">Prince Ed. Is.</option>
+                                    <option value="165">Puerto Rico</option>
+                                    <option value="166">Quebec</option>
+                                    <option value="167">Rhode Island</option>
+                                    <option value="168">Saskatchewan</option>
+                                    <option value="169">South Carolina</option>
+                                    <option value="170">South Dakota</option>
+                                    <option value="171">Tennessee</option>
+                                    <option value="172">Texas</option>
+                                    <option value="173">Utah</option>
+                                    <option value="174">Vermont</option>
+                                    <option value="175">Virgin Islands</option>
+                                    <option value="176">Virginia</option>
+                                    <option value="177">Washington</option>
+                                    <option value="178">West Virginia</option>
+                                    <option value="179">Wisconsin</option>
+                                    <option value="180">Wyoming</option>
+                                    <option value="181">Yukon Territory</option>
+
+                                </select>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset class="call-to-action">
+                            <legend style="position: absolute;left: -999em;">Submit Search</legend>
+                            <button aria-label="Submit Job Search" class="primary" onclick="$('#jt_search').submit(); return false;" tab-index="30" type="submit">Find</button>
+                        </fieldset>
+
+                    </form>
+                </div>
+
+            </section>
+
+            <div class="breadcrumbs site" role="navigation">
+                <ol>
+                    <li><a href="http://careers.acbsp.org">Career Center Home</a></li>
+
+
+                    <li><a href="/jobseeker/search/results/">Search Jobs</a></li>
+
+                    <li>Assistant/Associate Professor of Management</li>
+
+                </ol>
             </div>
-        }
+
+
+
+
+
+            <div class="clearfix">
+
+
+
+
+                <script>
+                    var referrer = document.createElement('a');
+                    referrer.href = document.referrer;
+
+                    if (!document.referrer) {
+                        ga_ref = "Direct";
+                    }
+                    else if (referrer.hostname == location.hostname) {
+                        ga_ref = "Internal";
+                    }
+                    else {
+                        ga_ref = document.referrer;
+                    }
+
+                    gajt("CCSC.send", "event", "Job", "Job View", ga_ref, {
+                        dimension3: "39576895",
+                        dimension5: "University of Indianapolis",
+                        dimension6: "Assistant/Associate Professor of Management",
+                        dimension7: "university/college",
+                        dimension8: "management",
+                        nonInteraction: 1,
+                        transport: "beacon"
+                    });
+                </script>
+
+
+                <script>
+                    var ga_j_id = '39576895';
+                    var ga_s_id = '22669';
+                </script>
+
+
+
+                <section id="job-detail-view">
+                    <div class="top-info">
+
+                        <div class="title-CTA-tools clearfix">
+                            <em><a class="inactive tooltip tooltipstered">University of Indianapolis</a></em>
+                            <h2>
+                                Assistant/Associate Professor of Management
+                            </h2>
+                            <a id="applyBtn" data-toggle="modal" data-target="#apply-options" class="primary ga_apply" onclick="return setApply(1, 0, 1, '', 'http://hrjobs.uindy.edu')">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="description-text">
+                        <div class="generic-details-text">
+                            <span class="h5">Description</span>
+                            <pre><p style="text-align: center;"><strong>Assistant/Associate Professor of Management</strong></p> <p style="text-align: center;"><strong>School of Business</strong></p> <p style="text-align: center;"><strong>University of Indianapolis</strong></p> <p>The School of Business at the University of Indianapolis is currently experiencing growth in both its undergraduate and graduate business programs.  The School seeks applicants for a tenure-track Assistant or Associate Professor of Management.  This is a full-time, nine month faculty position with a start date of August 2018 or sooner if available.</p> <p>Teaching requirements will consist of courses in management, organizational behavior, strategic management or other related courses at the undergraduate and graduate levels. The normal teaching load is 24 semester hours per academic year. Successful candidates should also have demonstrated abilities toward scholarly activity in their fields at the Assistant level or a demonstrated record of scholarship for consideration at the Associate level.  Service to the school, University and community are also requirements for the position.  Business outreach efforts will also be involved with this position.</p> <p>The University of Indianapolis is a private, comprehensive university whose motto is “Education for Service.”  Ranked in the top tier of Midwest universities by U.S. News &amp; World Report, the university is situated in the 12<sup>th</sup> largest city in the United States, located on an attractive 65 acre urban campus in an area with an affordable cost of living. It is within a 10-minute drive of what Forbes magazine lists as one of “America’s Best Downtowns” where the potential for networking includes a rich social and intellectual confluence of professionals, artists, and cultural/educational events.  Founded in 1902, UIndy has a home campus of more than 5,500 students.  The ACBSP-accredited School of Business has a collegial faculty and is home to more than 650 undergraduates in 8 majors as well as 170 plus graduate students.  The School offers MBA, Master of Science in Management and Masters of Professional Studies degrees in Human Resource Management and Real Estate Development.  The school also has a joint degree program with the Ningbo Institute of Technology in Ningbo, China.  Personal attention, small interactive classes, and flexible programming are the rule rather than the exception.</p> <p>The ideal candidate would have PhD or DBA in management or a related field. Prior experience in applied consulting or work experience in the field is desirable. Preference will be given to candidates with effective teaching experience.  Qualified candidates with Master’s degrees will be considered, provided they have significant professional experience. </p> <p>Apply electronically at hrjobs.uindy.edu. Review of applications will begin immediately.</p> <p>The University of Indianapolis is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to age, ethnicity, color, race, creed, sex, sexual orientation or identity, marital status, national origin, disability status, or protected veteran status. The University of Indianapolis does not discriminate on the basis of sex in its educational programs and activities, including employment and admission as required by Title IX.</p> 
+									</pre>
+                        </div>
+                    </div>
+                    <div class="job-data-contain">
+                        <div class="job-data-basics clearfix">
+                            <strong>Job Information</strong>
+                            <ul>
+                                <li class="clearfix">
+                                    <label>Location: </label>
+                                    <span>
+
+                                        Indianapolis, Indiana, 46227, United States
+
+                                    </span>
+                                </li>
+
+                                <li class="clearfix">
+                                    <label>Job ID: </label>
+                                    <span>39576895</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Posted: </label>
+                                    <span>February 22, 2018</span>
+                                </li>
+
+
+                                <li class="clearfix">
+                                    <label>Position Title:</label>
+                                    <span>Assistant/Associate Professor of Management</span>
+                                </li>
+
+                                <li class="clearfix">
+                                    <label>Company Name:</label>
+                                    <span>University of Indianapolis</span>
+                                </li>
+
+                                <li class="clearfix">
+                                    <label>Industry:</label>
+                                    <span>University/College</span>
+                                </li>
+
+                                <li class="clearfix">
+
+                                    <label>Job Function:</label>
+                                    <span class="break-all">Management</span>
+                                </li>
+
+                                <li class="clearfix">
+
+                                    <label>Job Type:</label>
+                                    <span class="break-all">Full-Time</span>
+                                </li>
+
+                                <li class="clearfix">
+
+                                    <label>Job Duration:</label>
+                                    <span class="break-all">6-12 months</span>
+                                </li>
+
+                                <li class="clearfix">
+
+                                    <label>Min Experience:</label>
+                                    <span class="break-all">None</span>
+                                </li>
+                            </ul>
+                            <ul class="company-contact"></ul>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
     </div>
 </div>
 
