@@ -1,64 +1,104 @@
 ﻿@model ExchangeApp.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
 }
+<div class="container">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="interior site">
+            <div class="default-form-box clearfix">
+                <form class="clearfix" id="register_form" method="post" action="/jobseeker/login/?goto=%2Fjobseeker%2Fmy%2Daccount%2F">
+                    <section class="js-information form-fields no-padding clearfix">
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    Username
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.TextBoxFor(m => m.Username, new { htmlAttributes = new { placeholder = "Enter your username", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    First Name
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.TextBoxFor(m => m.FirstName, new { htmlAttributes = new { placeholder = "Enter your first name", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    Last Name
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.TextBoxFor(m => m.LastName, new { htmlAttributes = new { placeholder = "Enter your last name", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    E-mail
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.TextBoxFor(m => m.Email, new { htmlAttributes = new { placeholder = "Enter your e-mail", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    Password
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.PasswordFor(m => m.Password, new { htmlAttributes = new { placeholder = "Enter your password", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                <label>
+                                    Confirm Password
+                                    <sup>*</sup>
+                                </label>
+                                <div class="single-input">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { htmlAttributes = new { placeholder = "Confirm your password", @class = "single-input" } })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <input type="hidden" name="register" value="1">
+                    <div class="col-md-offset-4 col-lg-4 col-md-10">
+                        <em><sup>*</sup>Required field</em>
+                        <button type="submit" class="primary" id="new-account-button" value="Register">Register</button>
+                    </div>
+                </form>
+            </div>
 
-<h2>@ViewBag.Title.</h2>
+            @Html.HiddenFor(m => m.Date_lock);
+            @Html.HiddenFor(m => m.Date_pwd);
+        </div>
+    }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-
-    @Html.HiddenFor(m => m.Date_lock);
-    @Html.HiddenFor(m => m.Date_pwd);
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -21,95 +21,6 @@ namespace ExchangeApp.Controllers
             return View(semesters.ToList());
         }
 
-        // GET: Semesters/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Semester semester = db.Semesters.Find(id);
-            if (semester == null)
-            {
-                return HttpNotFound();
-            }
-            return View(semester);
-        }
-
-        // GET: Semesters/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.SchoolYearId = new SelectList(db.SchoolYears, "ID", "Name");
-            return View();
-        }
-
-        // POST: Semesters/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Description,SchoolYearId")] Semester semester)
-        {
-            Semester semesterToCreate = new Semester();
-            semesterToCreate.Description = semester.Description;
-            semesterToCreate.SchoolYearId = semester.SchoolYearId;
-
-            if (ModelState.IsValid)
-            {
-                db.Semesters.Add(semesterToCreate);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", semester.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", semester.RegisteredBy);
-            ViewBag.SchoolYearId = new SelectList(db.SchoolYears, "ID", "Name", semester.SchoolYearId);
-            return View(semester);
-        }
-
-        // GET: Semesters/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Semester semester = db.Semesters.Find(id);
-            if (semester == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", semester.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", semester.RegisteredBy);
-            ViewBag.SchoolYearId = new SelectList(db.SchoolYears, "ID", "Name", semester.SchoolYearId);
-            return View(semester);
-        }
-
-        // POST: Semesters/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Description,SchoolYearId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Semester semester)
-        {
-            Semester semesterDb = db.Semesters.Find(semester.ID);
-            semesterDb.Description = semester.Description;
-            semesterDb.SchoolYearId = semester.SchoolYearId;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(semesterDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", semester.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", semester.RegisteredBy);
-            ViewBag.SchoolYearId = new SelectList(db.SchoolYears, "ID", "Name", semester.SchoolYearId);
-            return View(semester);
-        }
-
         // GET: Semesters/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -144,5 +55,87 @@ namespace ExchangeApp.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult AddEditSemester(int semesterId)
+        {
+            List<NomSchoolYear> sy = db.SchoolYears.ToList();
+            ViewBag.SchoolYearsList = new SelectList(sy, "ID", "Name");
+
+            Semester model = new Semester();
+
+            if (semesterId > 0)
+            {
+                Semester semester = db.Semesters.Find(semesterId);
+                model.ID = semester.ID;
+                model.Description = semester.Description;
+                model.SchoolYearId = semester.SchoolYearId;
+                model.SchoolYearObj = semester.SchoolYearObj;
+            }
+
+            return PartialView("AddEditSemester", model);
+
+        }
+
+        [HttpPost]
+        public ActionResult CreateUpdateSemester(Semester model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<NomSchoolYear> sy = db.SchoolYears.ToList();
+                    ViewBag.SchoolYearsList = new SelectList(sy, "ID", "Name");
+
+                    if (model.ID > 0)
+                    {
+                        Semester semesterDb = db.Semesters.FirstOrDefault(x => x.ID == model.ID);
+                        semesterDb.ID = model.ID;
+                        semesterDb.Description = model.Description;
+
+                        NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
+                        semesterDb.SchoolYearObj = schoolYear;
+                        semesterDb.SchoolYearId = schoolYear.ID;
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Semester semester = new Semester();
+
+                        semester.ID = model.ID;
+                        semester.Description = model.Description;
+
+                        NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
+                        semester.SchoolYearObj = schoolYear;
+                        semester.SchoolYearId = schoolYear.ID;
+
+                        db.Semesters.Add(semester);
+                        db.SaveChanges();
+                    }
+
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.ToString());
+                }
+            }
+            else
+            {
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+
+                return Json(modelErrors);
+            }
+
+        }
+
     }
 }

@@ -1,0 +1,86 @@
+﻿
+@model ExchangeApp.Models.Semester
+
+<form class="clearfix" id="addEditForm">
+    <section class="js-information form-fields no-padding clearfix">
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ID)
+            <div class="col-lg-6 col-md-10">
+                <label>
+                    Description
+                    <sup>*</sup>
+                </label>
+                <div>
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { placeholder = "Enter description" } })
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-10">
+                <div>
+                    <label>
+                        School Year
+                        <sup>*</sup>
+                    </label>
+                    <div>
+                        @Html.DropDownListFor(model => model.SchoolYearId, ViewBag.SchoolYearsList as SelectList, "-- Select school year --")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="col-lg-6 col-md-10 mt-20">
+                <ul class="err-msg" id="errors"></ul>
+            </div>
+            <div class="col-lg-6 col-md-10 mt-20">
+                <div>
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button id="btnSubmit" class="btn btn-success">Save</button>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function (e) {
+
+            clearErrors();
+            var formData = $("#addEditForm").serialize();
+            e.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                url: "/Semesters/CreateUpdateSemester",
+                data: formData,
+                success: function (data) {
+                    debugger;
+                    if (data == true) {
+                        $("#editModal").modal("hide");
+                        window.location.href = "/Semesters/Index"
+                    }
+                    else {
+                        parseErrors(data);
+                    }
+                }
+            });
+
+        })
+
+        function parseErrors(errors) {
+            for (var i = 0; i < errors.length; i++) {
+                var el = document.getElementById('errors');
+                var node = document.createElement("li");
+                node.innerHTML = errors[i];
+                el.appendChild(node);
+            }
+        }
+
+        function clearErrors() {
+            $('#errors li').remove();
+        }
+    })
+
+</script>
+

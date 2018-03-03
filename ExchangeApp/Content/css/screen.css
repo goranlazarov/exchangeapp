@@ -565,7 +565,8 @@ button::-moz-focus-inner, input::-moz-focus-inner {
 
 input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], select {
     height: 41px;
-    border: thin solid #ccc
+    border: thin solid #ccc;
+    width:100%;
 }
 
     select[multiple] {
@@ -581,7 +582,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="tel
 select {
     border: 1px solid #ccc;
     overflow: hidden;
-    overflow-y: scroll
+    overflow-y: scroll;
 }
 
 .select-style {
@@ -1998,10 +1999,9 @@ svg.icon {
     }
 
     .modal-content form button {
-        float: right;
         clear: both;
-        width: 100%;
-        margin-top: 10px
+        width: 80px !important;
+        margin-top: 10px;
     }
 
     .modal-content form a {

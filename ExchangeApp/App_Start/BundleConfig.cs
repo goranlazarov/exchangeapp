@@ -9,8 +9,9 @@ namespace ExchangeApp
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-1.10.2.min.js"));
-
+                        "~/Scripts/jquery-1.10.2.min.js",
+                        "~/Scripts/jquery-{version}.js"
+                        ));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -31,7 +32,11 @@ namespace ExchangeApp
                        "~/Content/css/bootstrap.min.css",
                         "~/Content/css/screen.css",
                         "~/Content/css/custom.css",
-                        "~/Content/toastr.css"));
+                        "~/Content/css/combined.css",
+                        "~/Content/css/ionicons.css",
+                        "~/Content/toastr.css",
+                        "~/Content/css/plugins/datepicker.min.css",
+                        "~/Content/css/plugins/selectpicker.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*"));

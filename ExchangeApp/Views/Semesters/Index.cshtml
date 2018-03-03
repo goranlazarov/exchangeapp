@@ -5,42 +5,91 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
-    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
-        <h2>Index</h2>
-
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
+    <div class="interior site">
+        <div>
+            <a href="#"><button class="primary btn-create" type="submit" onclick="AddEditSemester(0)">Create new</button></a>
+        </div>
+        <div class="table">
+            <div class="row header">
+                <div class="cell">
                     @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
+                </div>
+                <div class="cell">
                     @Html.DisplayNameFor(model => model.SchoolYearObj.Name)
-                </th>
-                <th>
+                </div>
+                <div class="cell">
                     Actions
-                </th>
-            </tr>
+                </div>
+            </div>
 
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
+                <div class="row">
+                    <div class="cell">
                         @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
+                    </div>
+                    <div class="cell">
                         @Html.DisplayFor(modelItem => item.SchoolYearObj.Name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+
+                    </div>
+                    <div class="cell-act">
+                        <a onclick="AddEditSemester(@item.ID)"><i class="icon ion-ios-compose-outline"></i></a> |
+                        <a data-item-id="@item.ID" data-item-description="@item.Description" data-toggle="modal" data-target="#confirm-delete"><i class="icon ion-ios-trash-outline"></i></a>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-sm " role="document">
+                        <div class="modal-content">
+                            <div class="modal-header pd-5">
+                                <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
+                            </div>
+                            <div class="modal-body pd-10">
+                                Are you sure you want to delete the semester?
+                            </div>
+                            <div class="modal-footer pd-0">
+                                <div>
+                                    @using (Html.BeginForm("Delete", "Semesters", new { id = item.ID }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="col-lg-6 col-md-10">
+                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        </div>
+                                        <div class="col-lg-6 col-md-10">
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
 
-        </table>
+            <div class="modal fade" id="editModal">
+                <div class="modal-dialog modal-md " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pd-5">
+                            <h4 class="modal-title" id="myModalLabel">Add/Edit semester</h4>
+                        </div>
+                        <div class="modal-body pd-10" id="editModalBody">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-</div>
+    @section scripts {
+        <script>
+            var AddEditSemester = function (semesterId) {
+                var url = "/Semesters/AddEditSemester?semesterId=" + semesterId
+
+                $("#editModalBody").load(url, function () {
+                    $("#editModal").modal("show");
+                })
+            }
+        </script>
+    }

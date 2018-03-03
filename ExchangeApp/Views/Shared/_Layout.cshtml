@@ -7,145 +7,20 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @*<header id="header" class="header sticky--header">
-            <!-- Header Top Area -->
-            <div class="header__top bg--blue">
-                <div class="container">
-                    <div class="header__top__inner">
-                        <ul class="header__top__info">
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-old-typical-phone"></i> 01354 568 787
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="flaticon-black-back-closed-envelope-shape"></i> info@info.com
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="header__bottom bg--white">
-                <div class="container d-none d-lg-block">
-                    <div class="header__bottom__inner">
-                        <div class="header__logo">
-                            <a href="http://www.acbsp.org/">
-                                <img src="~/Content/css/images/logo_small.png" alt="header logo">
-                            </a>
-                        </div>
-
-                        <!-- Main Navigation -->
-                        <nav id="main-navigation" class="header__menu main-navigation" style="display: block;">
-                            <ul>
-                                <li class="cr-dropdown">
-                                    <a> EDUCATION </a>
-                                    <ul class="cr-dropdown-menu">
-                                        <li><a href="@Url.Action("Index", "Faculties")"> Faculties </a></li>
-                                        <li><a href="@Url.Action("Index", "Semesters")"> Semesters </a></li>
-                                        <li><a href="@Url.Action("Index", "NomSchoolYears")"> School years </a></li>
-                                        <li><a href="@Url.Action("Index", "Subjects")"> Subjects </a></li>
-                                    </ul>
-                                </li>
-                                <li class="cr-dropdown">
-                                    <a> INTERNATIONAL </a>
-                                    <ul class="cr-dropdown-menu">
-                                        <li><a href="@Url.Action("Index", "NomCountries")"> Countries </a></li>
-                                        <li><a href="@Url.Action("Index", "NomRegions")"> Regions </a></li>
-                                        <li><a href="@Url.Action("Index", "NomNationalities")"> Nationalities </a></li>
-                                    </ul>
-                                </li>
-                                <li class="cr-dropdown">
-                                    <a> ABOUT APPLICANTS </a>
-                                    <ul class="cr-dropdown-menu">
-                                        <li><a href="@Url.Action("Index", "NomEnglishLevels")"> English levels </a></li>
-                                        <li><a href="@Url.Action("Index", "NomDegreeLevels")"> Degree levels </a></li>
-                                        <li><a href="@Url.Action("Index", "NomAplicantHighestDegrees")"> Highest degrees </a></li>
-                                        <li><a href="@Url.Action("Index", "NomTypeOfExchanges")"> Types of exchange </a></li>
-
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav><!--// Main Navigation -->
-
-                    </div>
-                </div>
-
-            </div>
-        </header>*@
-
     <header id="header" class="header super">
-
-
-
         <div id="header-content" class="header-content site clearfix">
-
             <a id="logo" href="http://www.acbsp.org">
-
                 <img alt="Accreditation Council for Business Schools and Programs" src="~/Content/css/images/logo-22669.png">
             </a>
-
-
-
             <nav id="menu" role="navigation" aria-label="Navigation">
                 <a id="nav-trigger"><i class="fa fa-bars"></i></a>
                 <ul class="clearfix">
-                    <li>
-                        <a class="mobile-hide">Employers</a>
-                        <ul class="sub-navigation">
-                            <li class="collapse">Employers</li>
-
-                            <li><a href="/employer/pricing/">Products</a></li>
-
-                            <li><a href="/employer/post/">Post a Job</a></li>
-
-                            <li><a href="/employer/my-account/">My Account</a></li>
-
-                            <li><a href="/employer/my-jobs/">My Jobs</a></li>
-
-                            <li><a href="/employer/clients/">My Clients</a></li>
-
-                            <li><a href="/employer/resumes/bank/">Résumé Bank</a></li>
-
-                            <li><a href="/employer/candidates/">My Candidates</a></li>
-
-                            <li><a href="/employer/company/">My Company</a></li>
-
-                            <li><a href="/employer/templates/">My Templates</a></li>
-
-                            <li><a href="/employer/help/">Help</a></li>
-
-                        </ul>
+                    <li class="nav-student">
+                        <a href="@Url.Action("Index", "Student")" class="mobile-hide">Student</a>
                     </li>
                     <li>
-                        <a class="mobile-hide">Job Seekers</a>
-                        <ul class="sub-navigation">
-                            <li class="collapse">Job Seekers</li>
-
-                            <li><a href="/jobseeker/my-account/">My Account</a></li>
-
-                            <li><a href="/jobseeker/search/">Job Search</a></li>
-
-                            <li><a href="/jobseeker/resumes/">Manage Résumés</a></li>
-
-                            <li><a href="/jobseeker/job-alerts/">Job Alerts</a></li>
-
-                            <li><a href="/jobseeker/resources/">Resources</a></li>
-
-                            <li><a href="/jobseeker/help/">Help</a></li>
-
-                        </ul>
+                        <a class="mobile-hide">Faculty</a>
                     </li>
-                    <li class="sign-in">
-                        <a class="mobile-hide">Sign-in or Create Account</a>
-                        <ul class="sub-navigation">
-                            <li class="collapse">Sign-in or Create Account</li>
-                            <li><a href="/employer/login?site_id=22669">Employer</a></li>
-                            <li><a href="/jobseeker/login?site_id=22669">Job Seeker</a></li>
-                        </ul>
-                    </li>
-
                 </ul>
             </nav>
             <div class="translator-tool-header"></div>
@@ -157,6 +32,7 @@
 
     </div>
     <footer id="footer" class="footer site" role="contentinfo" aria-label="Content Info">
+<<<<<<< HEAD
 
         @*<div class="powered-by site clearfix">
 
@@ -164,10 +40,10 @@
 
             </div>*@
 
+=======
+>>>>>>> 951415c7945632d1435294ce6e7cbfd0f885197d
         <div class="footer-content clearfix">
-
             <div class="footer-content-inner site">
-
                 <div class="footer-nav">
                     <div>
                         <ul>
@@ -188,8 +64,6 @@
                             Overland Park,
                             KS 66213
                         </b>
-
-
                         <b class="phone">
                             (913) 339-9356
                         </b>
@@ -203,7 +77,6 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </footer>
 
@@ -214,3 +87,25 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+@*@section scripts {
+    <script>
+        $(document).ready(function () {
+            debugger;
+            if (window.location.href.indexOf("Student") > -1) {
+                $(".nav-student").css({ background: "#eaf0f4" });
+            } else {
+                $(".nav-student").css({ background: "white" });
+            }
+
+            if (window.location.href.indexOf("Faculty") > -1) {
+                $(".nav-student").css({ background: "#eaf0f4" });
+            } else {
+                $(".nav-student").css({ background: "white" });
+            }
+        });
+    </script>
+}*@
+
+
+
