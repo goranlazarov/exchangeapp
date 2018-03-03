@@ -9,16 +9,16 @@ namespace ExchangeApp.Models
 {
     public class Subject : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: Subject name")]
+        [Required(ErrorMessage = "Please enter subject name")]
         [Display(Name = "Subject name")]
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose faculty")]
         [Display(Name = "Faculty")]
         public int? FacultyId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose degree level")]
         [Display(Name = "Degree level")]
         public int? DegreeLevelId { get; set; }
 

@@ -21,113 +21,87 @@ namespace ExchangeApp.Controllers
             return View(nomApplicantHighestDegrees.ToList());
         }
 
-        // GET: NomApplicantHighestDegrees/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditHighestDegree(int highestDegreeId)
         {
-            if (id == null)
+            NomApplicantHighestDegree model = new NomApplicantHighestDegree();
+
+            if (highestDegreeId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomApplicantHighestDegree highestDegree = db.ApplicantHighestDegrees.Find(highestDegreeId);
+                model.ID = highestDegree.ID;
+                model.Name = highestDegree.Name;
             }
-            NomApplicantHighestDegree nomApplicantHighestDegree = db.ApplicantHighestDegrees.Find(id);
-            if (nomApplicantHighestDegree == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomApplicantHighestDegree);
+
+            return PartialView("AddEditHighestDegree", model);
+
         }
 
-        // GET: NomApplicantHighestDegrees/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomApplicantHighestDegrees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomApplicantHighestDegree nomApplicantHighestDegree)
+        public ActionResult CreateUpdateHighestDegree(NomApplicantHighestDegree model)
         {
-            NomApplicantHighestDegree highestDegree = new NomApplicantHighestDegree();
-            highestDegree.Name = nomApplicantHighestDegree.Name;
-
             if (ModelState.IsValid)
             {
-                db.ApplicantHighestDegrees.Add(highestDegree);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (db.ApplicantHighestDegrees.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                    {
+                        throw new Exception("Highest degree already exists!");
+                    }
+
+                    if (model.ID > 0)
+                    {
+                        NomApplicantHighestDegree highestDegreeDb = db.ApplicantHighestDegrees.FirstOrDefault(x => x.ID == model.ID);
+                        highestDegreeDb.ID = model.ID;
+                        highestDegreeDb.Name = model.Name;
+
+                        message = "Successfully edited highest degree!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        NomApplicantHighestDegree highestDegree = new NomApplicantHighestDegree();
+
+                        highestDegree.ID = model.ID;
+                        highestDegree.Name = model.Name;
+
+                        message = "Successfully added highest degree!";
+
+                        db.ApplicantHighestDegrees.Add(highestDegree);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.RegisteredBy);
-            return View(nomApplicantHighestDegree);
         }
 
-        // GET: NomApplicantHighestDegrees/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomApplicantHighestDegree nomApplicantHighestDegree = db.ApplicantHighestDegrees.Find(id);
-            if (nomApplicantHighestDegree == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.RegisteredBy);
-            return View(nomApplicantHighestDegree);
-        }
-
-        // POST: NomApplicantHighestDegrees/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomApplicantHighestDegree nomApplicantHighestDegree)
+        public ActionResult DeleteHighestDegree(int id)
         {
-            NomApplicantHighestDegree highestDegreeDb = db.ApplicantHighestDegrees.Find(nomApplicantHighestDegree.ID);
-            highestDegreeDb.Name = nomApplicantHighestDegree.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(highestDegreeDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomApplicantHighestDegree.RegisteredBy);
-            return View(nomApplicantHighestDegree);
-        }
-
-        // GET: NomApplicantHighestDegrees/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomApplicantHighestDegree nomApplicantHighestDegree = db.ApplicantHighestDegrees.Find(id);
-            if (nomApplicantHighestDegree == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomApplicantHighestDegree);
-        }
-
-        // POST: NomApplicantHighestDegrees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomApplicantHighestDegree nomApplicantHighestDegree = db.ApplicantHighestDegrees.Find(id);
-            db.ApplicantHighestDegrees.Remove(nomApplicantHighestDegree);
+            NomApplicantHighestDegree highestDegreeDb = db.ApplicantHighestDegrees.Find(id);
+            db.ApplicantHighestDegrees.Remove(highestDegreeDb);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted highest degree!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

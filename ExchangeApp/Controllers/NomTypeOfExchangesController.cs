@@ -21,113 +21,87 @@ namespace ExchangeApp.Controllers
             return View(nomTypeOfExchanges.ToList());
         }
 
-        // GET: NomTypeOfExchanges/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditTypeOfExchange(int typeId)
         {
-            if (id == null)
+            NomTypeOfExchange model = new NomTypeOfExchange();
+
+            if (typeId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomTypeOfExchange typeOfExchange = db.TypesOfExchange.Find(typeId);
+                model.ID = typeOfExchange.ID;
+                model.Name = typeOfExchange.Name;
             }
-            NomTypeOfExchange nomTypeOfExchange = db.TypesOfExchange.Find(id);
-            if (nomTypeOfExchange == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomTypeOfExchange);
+
+            return PartialView("AddEditTypeOfExchange", model);
+
         }
 
-        // GET: NomTypeOfExchanges/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomTypeOfExchanges/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomTypeOfExchange nomTypeOfExchange)
+        public ActionResult CreateUpdateTypeOfExchange(NomTypeOfExchange model)
         {
-            NomTypeOfExchange typeOfExchange = new NomTypeOfExchange();
-            typeOfExchange.Name = nomTypeOfExchange.Name;
-
             if (ModelState.IsValid)
             {
-                db.TypesOfExchange.Add(typeOfExchange);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (db.TypesOfExchange.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                    {
+                        throw new Exception("Type of exchange already exists!");
+                    }
+
+                    if (model.ID > 0)
+                    {
+                        NomTypeOfExchange typeDb = db.TypesOfExchange.FirstOrDefault(x => x.ID == model.ID);
+                        typeDb.ID = model.ID;
+                        typeDb.Name = model.Name;
+
+                        message = "Successfully edited type of exchange!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        NomTypeOfExchange type = new NomTypeOfExchange();
+
+                        type.ID = model.ID;
+                        type.Name = model.Name;
+
+                        message = "Successfully added type of exchange!";
+
+                        db.TypesOfExchange.Add(type);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.RegisteredBy);
-            return View(nomTypeOfExchange);
         }
 
-        // GET: NomTypeOfExchanges/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomTypeOfExchange nomTypeOfExchange = db.TypesOfExchange.Find(id);
-            if (nomTypeOfExchange == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.RegisteredBy);
-            return View(nomTypeOfExchange);
-        }
-
-        // POST: NomTypeOfExchanges/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomTypeOfExchange nomTypeOfExchange)
+        public ActionResult DeleteTypeOfExchange(int id)
         {
-            NomTypeOfExchange typeOfExchangeDb = db.TypesOfExchange.Find(nomTypeOfExchange.ID);
-            typeOfExchangeDb.Name = nomTypeOfExchange.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(typeOfExchangeDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomTypeOfExchange.RegisteredBy);
-            return View(nomTypeOfExchange);
-        }
-
-        // GET: NomTypeOfExchanges/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomTypeOfExchange nomTypeOfExchange = db.TypesOfExchange.Find(id);
-            if (nomTypeOfExchange == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomTypeOfExchange);
-        }
-
-        // POST: NomTypeOfExchanges/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomTypeOfExchange nomTypeOfExchange = db.TypesOfExchange.Find(id);
-            db.TypesOfExchange.Remove(nomTypeOfExchange);
+            NomTypeOfExchange type = db.TypesOfExchange.Find(id);
+            db.TypesOfExchange.Remove(type);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted type of exchange!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

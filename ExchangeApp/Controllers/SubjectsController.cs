@@ -10,7 +10,7 @@ using ExchangeApp.Models;
 
 namespace ExchangeApp.Controllers
 {
-    public class SubjectsController : Controller
+    public class SubjectsController : BaseAdminController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
@@ -21,125 +21,118 @@ namespace ExchangeApp.Controllers
             return View(subjects.ToList());
         }
 
-        // GET: Subjects/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditSubject(int subjectId)
         {
-            if (id == null)
+            List<NomDegreeLevel> degreeLevels = db.DegreeLevels.ToList();
+            ViewBag.DegreeLevelsList = new SelectList(degreeLevels, "ID", "Name");
+
+            List<Faculty> facultiesList = db.Faculties.ToList();
+            ViewBag.FacultiesList = new SelectList(facultiesList, "ID", "Name");
+
+            Subject model = new Subject();
+
+            if (subjectId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Subject subject = db.Subjects.Find(subjectId);
+                model.ID = subject.ID;
+                model.Name = subject.Name;
+                model.DegreeLevelId = subject.DegreeLevelId;
+                model.FacultyId = subject.FacultyId;
             }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subject);
+
+            return PartialView("AddEditSubject", model);
+
         }
 
-        // GET: Subjects/Create
-        public ActionResult Create()
-        {
-            ViewBag.DegreeLevelId = new SelectList(db.DegreeLevels, "ID", "Name");
-            ViewBag.FacultyId = new SelectList(db.Faculties, "ID", "Name");
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: Subjects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,FacultyId,DegreeLevelId")] Subject subject)
+        public ActionResult CreateUpdateSubject(Subject model)
         {
-            Subject newSubject = new Subject();
-            newSubject.Name = subject.Name;
-            newSubject.FacultyId = subject.FacultyId;
-            newSubject.DegreeLevelId = subject.DegreeLevelId;
-
             if (ModelState.IsValid)
             {
-                db.Subjects.Add(newSubject);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    List<NomDegreeLevel> degreeLevels = db.DegreeLevels.ToList();
+                    ViewBag.DegreeLevelsList = new SelectList(degreeLevels, "ID", "Name");
+
+                    List<Faculty> facultiesList = db.Faculties.ToList();
+                    ViewBag.FacultiesList = new SelectList(facultiesList, "ID", "Name");
+
+                    if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.FacultyId == model.FacultyId &&
+                                         x.DegreeLevelId == model.DegreeLevelId))
+                    {
+                        throw new Exception("Subject for that faculty already exists!");
+                    }
+
+                    if (model.ID > 0)
+                    {
+                        Subject subjectDb = db.Subjects.FirstOrDefault(x => x.ID == model.ID);
+                        subjectDb.ID = model.ID;
+                        subjectDb.Name = model.Name;
+
+                        NomDegreeLevel degreeLevel = db.DegreeLevels.Find(model.DegreeLevelId);
+                        subjectDb.DegreeLevelObj = degreeLevel;
+                        subjectDb.DegreeLevelId = degreeLevel.ID;
+
+                        Faculty faculty = db.Faculties.Find(model.FacultyId);
+                        subjectDb.FacultyObj = faculty;
+                        subjectDb.FacultyId = faculty.ID;
+
+                        message = "Successfully edited subject!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        Subject subject = new Subject();
+
+                        subject.ID = model.ID;
+                        subject.Name = model.Name;
+
+                        NomDegreeLevel degreeLevel = db.DegreeLevels.Find(model.DegreeLevelId);
+                        subject.DegreeLevelObj = degreeLevel;
+                        subject.DegreeLevelId = degreeLevel.ID;
+
+                        Faculty faculty = db.Faculties.Find(model.FacultyId);
+                        subject.FacultyObj = faculty;
+                        subject.FacultyId = faculty.ID;
+
+                        message = "Successfully added subject!";
+
+                        db.Subjects.Add(subject);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.DegreeLevelId = new SelectList(db.DegreeLevels, "ID", "Name", subject.DegreeLevelId);
-            ViewBag.FacultyId = new SelectList(db.Faculties, "ID", "Name", subject.FacultyId);
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", subject.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", subject.RegisteredBy);
-            return View(subject);
         }
 
-        // GET: Subjects/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.DegreeLevelId = new SelectList(db.DegreeLevels, "ID", "Name", subject.DegreeLevelId);
-            ViewBag.FacultyId = new SelectList(db.Faculties, "ID", "Name", subject.FacultyId);
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", subject.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", subject.RegisteredBy);
-            return View(subject);
-        }
-
-        // POST: Subjects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,FacultyId,DegreeLevelId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Subject subject)
-        {
-            Subject subjectDb = db.Subjects.Find(subject.ID);
-            subjectDb.Name = subject.Name;
-            subjectDb.FacultyId = subject.FacultyId;
-            subjectDb.DegreeLevelId = subject.DegreeLevelId;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(subjectDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.DegreeLevelId = new SelectList(db.DegreeLevels, "ID", "Name", subject.DegreeLevelId);
-            ViewBag.FacultyId = new SelectList(db.Faculties, "ID", "Name", subject.FacultyId);
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", subject.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", subject.RegisteredBy);
-            return View(subject);
-        }
-
-        // GET: Subjects/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Subject subject = db.Subjects.Find(id);
-            if (subject == null)
-            {
-                return HttpNotFound();
-            }
-            return View(subject);
-        }
-
-        // POST: Subjects/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteSubject(int id)
         {
             Subject subject = db.Subjects.Find(id);
             db.Subjects.Remove(subject);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted subject!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

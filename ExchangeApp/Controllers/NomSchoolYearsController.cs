@@ -21,113 +21,87 @@ namespace ExchangeApp.Controllers
             return View(nomSchoolYears.ToList());
         }
 
-        // GET: NomSchoolYears/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditSchoolYear(int schoolYearId)
         {
-            if (id == null)
+            NomSchoolYear model = new NomSchoolYear();
+
+            if (schoolYearId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomSchoolYear schoolYear = db.SchoolYears.Find(schoolYearId);
+                model.ID = schoolYear.ID;
+                model.Name = schoolYear.Name;
             }
-            NomSchoolYear nomSchoolYear = db.SchoolYears.Find(id);
-            if (nomSchoolYear == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomSchoolYear);
+
+            return PartialView("AddEditSchoolYear", model);
+
         }
 
-        // GET: NomSchoolYears/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomSchoolYears/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomSchoolYear nomSchoolYear)
+        public ActionResult CreateUpdateSchoolYear(NomSchoolYear model)
         {
-            NomSchoolYear schoolYear = new NomSchoolYear();
-            schoolYear.Name = nomSchoolYear.Name;
-
             if (ModelState.IsValid)
             {
-                db.SchoolYears.Add(schoolYear);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (db.SchoolYears.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                    {
+                        throw new Exception("School year already exists!");
+                    }
+
+                    if (model.ID > 0)
+                    {
+                        NomSchoolYear schoolYearDb = db.SchoolYears.FirstOrDefault(x => x.ID == model.ID);
+                        schoolYearDb.ID = model.ID;
+                        schoolYearDb.Name = model.Name;
+
+                        message = "Successfully edited school year!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        NomSchoolYear schoolYear = new NomSchoolYear();
+
+                        schoolYear.ID = model.ID;
+                        schoolYear.Name = model.Name;
+
+                        message = "Successfully added school year!";
+
+                        db.SchoolYears.Add(schoolYear);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.RegisteredBy);
-            return View(nomSchoolYear);
         }
 
-        // GET: NomSchoolYears/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomSchoolYear nomSchoolYear = db.SchoolYears.Find(id);
-            if (nomSchoolYear == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.RegisteredBy);
-            return View(nomSchoolYear);
-        }
-
-        // POST: NomSchoolYears/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomSchoolYear nomSchoolYear)
+        public ActionResult DeleteSchoolYear(int id)
         {
-            NomSchoolYear schoolYearDb = db.SchoolYears.Find(nomSchoolYear.ID);
-            schoolYearDb.Name = nomSchoolYear.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(schoolYearDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomSchoolYear.RegisteredBy);
-            return View(nomSchoolYear);
-        }
-
-        // GET: NomSchoolYears/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomSchoolYear nomSchoolYear = db.SchoolYears.Find(id);
-            if (nomSchoolYear == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomSchoolYear);
-        }
-
-        // POST: NomSchoolYears/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomSchoolYear nomSchoolYear = db.SchoolYears.Find(id);
-            db.SchoolYears.Remove(nomSchoolYear);
+            NomSchoolYear schoolYearDb = db.SchoolYears.Find(id);
+            db.SchoolYears.Remove(schoolYearDb);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted school year!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

@@ -6,12 +6,12 @@ namespace ExchangeApp.Models
 {
     public class NomCountry : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: Country")]
+        [Required(ErrorMessage = "Please enter country name")]
         [Display(Name = "Country")]
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose region")]
         [Display(Name = "Region")]
         public int? RegionId { get; set; }
 

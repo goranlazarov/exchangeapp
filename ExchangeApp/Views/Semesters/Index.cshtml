@@ -7,7 +7,7 @@
 <div class="container">
     <div class="interior site">
         <div>
-            <a href="#"><button class="primary btn-create" type="submit" onclick="AddEditSemester(0)">Create new</button></a>
+            <a href="#"><button class="primary btn-create" type="submit" onclick="AddEditSemester(0)">Add new</button></a>
         </div>
         <div class="table">
             <div class="row header">
@@ -34,37 +34,34 @@
                     </div>
                     <div class="cell-act">
                         <a onclick="AddEditSemester(@item.ID)"><i class="icon ion-ios-compose-outline"></i></a> |
-                        <a data-item-id="@item.ID" data-item-description="@item.Description" data-toggle="modal" data-target="#confirm-delete"><i class="icon ion-ios-trash-outline"></i></a>
+                        <a onclick="DeleteSemester(@item.ID)"><i class="icon ion-ios-trash-outline"></i></a>
                     </div>
                 </div>
-                <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog modal-sm " role="document">
-                        <div class="modal-content">
-                            <div class="modal-header pd-5">
-                                <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
-                            </div>
-                            <div class="modal-body pd-10">
-                                Are you sure you want to delete the semester?
-                            </div>
-                            <div class="modal-footer pd-0">
-                                <div>
-                                    @using (Html.BeginForm("Delete", "Semesters", new { id = item.ID }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <div class="col-lg-6 col-md-10">
-                                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        </div>
-                                        <div class="col-lg-6 col-md-10">
-                                            <button class="btn btn-danger" type="submit">Delete</button>
-                                        </div>
-                                    }
-                                </div>
 
+            }
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pd-5">
+                            <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
+                        </div>
+                        <div class="modal-body pd-10">
+                            Are you sure you want to delete the semester?
+                        </div>
+                        <div class="modal-footer pd-0">
+                            <div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-danger" type="submit" onclick="ConfirmDelete()">Delete</button>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
-            }
+            </div>
 
             <div class="modal fade" id="editModal">
                 <div class="modal-dialog modal-md " role="document">
@@ -78,7 +75,7 @@
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" id="hiddenId" />
         </div>
 
     </div>
@@ -90,6 +87,25 @@
                 $("#editModalBody").load(url, function () {
                     $("#editModal").modal("show");
                 })
+            }
+
+            var DeleteSemester = function (semesterId) {
+                $("#deleteModal").modal("show");
+                $("#hiddenId").val(semesterId)
+            }
+
+            var ConfirmDelete = function () {
+                var semesterId = $("#hiddenId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Semesters/DeleteSemester",
+                    data: { id: semesterId },
+                    success: function (data) {
+                        $("#deleteModal").modal("hide");
+                        window.location.href = "/Semesters/Index"
+                    }
+                });
             }
         </script>
     }

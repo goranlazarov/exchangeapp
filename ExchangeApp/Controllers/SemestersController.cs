@@ -21,41 +21,6 @@ namespace ExchangeApp.Controllers
             return View(semesters.ToList());
         }
 
-        // GET: Semesters/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Semester semester = db.Semesters.Find(id);
-            if (semester == null)
-            {
-                return HttpNotFound();
-            }
-            return View(semester);
-        }
-
-        // POST: Semesters/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Semester semester = db.Semesters.Find(id);
-            db.Semesters.Remove(semester);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         public ActionResult AddEditSemester(int semesterId)
         {
             List<NomSchoolYear> sy = db.SchoolYears.ToList();
@@ -83,8 +48,16 @@ namespace ExchangeApp.Controllers
             {
                 try
                 {
+                    var message = "";
+
                     List<NomSchoolYear> sy = db.SchoolYears.ToList();
                     ViewBag.SchoolYearsList = new SelectList(sy, "ID", "Name");
+
+                    if (db.Semesters.Any(x => x.Description.ToLower() == model.Description.ToLower() &&
+                                              x.SchoolYearId == model.SchoolYearId))
+                    {
+                        throw new Exception("Semester for that school year already exists!");
+                    }
 
                     if (model.ID > 0)
                     {
@@ -95,6 +68,7 @@ namespace ExchangeApp.Controllers
                         NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
                         semesterDb.SchoolYearObj = schoolYear;
                         semesterDb.SchoolYearId = schoolYear.ID;
+                        message = "Successfully edited semester!";
 
                         db.SaveChanges();
                     }
@@ -108,33 +82,50 @@ namespace ExchangeApp.Controllers
                         NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
                         semester.SchoolYearObj = schoolYear;
                         semester.SchoolYearId = schoolYear.ID;
+                        message = "Successfully added semester!";
 
                         db.Semesters.Add(semester);
                         db.SaveChanges();
                     }
 
+                    DisplaySuccessMessage(message);
                     return Json(true);
                 }
 
                 catch (Exception ex)
                 {
-                    throw new Exception(ex.ToString());
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
                 }
             }
             else
             {
-                var modelErrors = new List<string>();
-                foreach (var modelState in ModelState.Values)
-                {
-                    foreach (var modelError in modelState.Errors)
-                    {
-                        modelErrors.Add(modelError.ErrorMessage);
-                    }
-                }
-
-                return Json(modelErrors);
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSemester(int id)
+        {
+            Semester semester = db.Semesters.Find(id);
+            db.Semesters.Remove(semester);
+            db.SaveChanges();
+
+            DisplaySuccessMessage("Successfully deleted semester!");
+            return Json(true);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

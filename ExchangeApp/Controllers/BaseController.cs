@@ -3,6 +3,7 @@ using ExchangeApp.Toastr;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -81,6 +82,29 @@ namespace ExchangeApp.Controllers
             var result = db.Database.SqlQuery<int>(query).SingleOrDefault();
 
             return result == 1;
+        }
+
+        public void OnException(ExceptionContext filterContext)
+        {
+            var response = filterContext.RequestContext.HttpContext.Response;
+            response.Write(filterContext.Exception.Message);
+            response.ContentType = MediaTypeNames.Text.Plain;
+            filterContext.ExceptionHandled = true;
+        }
+
+        public List<string> GetModelStateErrors(ICollection<ModelState> Values)
+        {
+            var modelErrors = new List<string>();
+
+            foreach (var modelState in Values)
+            {
+                foreach (var modelError in modelState.Errors)
+                {
+                    modelErrors.Add(modelError.ErrorMessage);
+                }
+            }
+
+            return modelErrors;
         }
     }
 }

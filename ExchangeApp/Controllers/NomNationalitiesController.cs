@@ -21,113 +21,87 @@ namespace ExchangeApp.Controllers
             return View(nomNationalities.ToList());
         }
 
-        // GET: NomNationalities/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditNationality(int nationalityId)
         {
-            if (id == null)
+            NomNationality model = new NomNationality();
+
+            if (nationalityId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomNationality nationality = db.Nationalities.Find(nationalityId);
+                model.ID = nationality.ID;
+                model.Name = nationality.Name;
             }
-            NomNationality nomNationality = db.Nationalities.Find(id);
-            if (nomNationality == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomNationality);
+
+            return PartialView("AddEditNationality", model);
+
         }
 
-        // GET: NomNationalities/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomNationalities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomNationality nomNationality)
+        public ActionResult CreateUpdateNationality(NomNationality model)
         {
-            NomNationality nationality = new NomNationality();
-            nationality.Name = nomNationality.Name;
-
             if (ModelState.IsValid)
             {
-                db.Nationalities.Add(nationality);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (db.Nationalities.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                    {
+                        throw new Exception("Nationality already exists!");
+                    }
+
+                    if (model.ID > 0)
+                    {
+                        NomNationality nationalityDb = db.Nationalities.FirstOrDefault(x => x.ID == model.ID);
+                        nationalityDb.ID = model.ID;
+                        nationalityDb.Name = model.Name;
+
+                        message = "Successfully edited nationality!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        NomNationality nationality = new NomNationality();
+
+                        nationality.ID = model.ID;
+                        nationality.Name = model.Name;
+
+                        message = "Successfully added nationality!";
+
+                        db.Nationalities.Add(nationality);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.RegisteredBy);
-            return View(nomNationality);
         }
 
-        // GET: NomNationalities/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomNationality nomNationality = db.Nationalities.Find(id);
-            if (nomNationality == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.RegisteredBy);
-            return View(nomNationality);
-        }
-
-        // POST: NomNationalities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomNationality nomNationality)
+        public ActionResult DeleteNationality(int id)
         {
-            NomNationality nationalityDb = db.Nationalities.Find(nomNationality.ID);
-            nationalityDb.Name = nomNationality.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(nationalityDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomNationality.RegisteredBy);
-            return View(nomNationality);
-        }
-
-        // GET: NomNationalities/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomNationality nomNationality = db.Nationalities.Find(id);
-            if (nomNationality == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomNationality);
-        }
-
-        // POST: NomNationalities/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomNationality nomNationality = db.Nationalities.Find(id);
-            db.Nationalities.Remove(nomNationality);
+            NomNationality nationalityDb = db.Nationalities.Find(id);
+            db.Nationalities.Remove(nationalityDb);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted nationality!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

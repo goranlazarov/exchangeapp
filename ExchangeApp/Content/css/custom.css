@@ -24,11 +24,18 @@ a {
     color: #002157;
 }
 
+.fl{
+    float:left !important;
+}
+
 .err-msg {
     float: left;
-    font-style: italic;
-    color: red
+    color: #b94a48;
 }
+
+    .err-msg > li {
+        text-align: left;
+    }
 
 .modal-btn {
     width: 80px !important;
@@ -46,8 +53,24 @@ a {
     float: right;
 }
 
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mt-10{
+    margin-top:10px !important;
+}
+
+.pl-31{
+    padding-left:31% !important;
+}
+
 .mt-20 {
     margin-top: 20px !important;
+}
+
+.hr-modal{
+    margin-bottom:0px !important;
 }
 
 .mt-15 {
