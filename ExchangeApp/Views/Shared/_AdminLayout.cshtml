@@ -8,73 +8,63 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <header id="header" class="header sticky--header">
-        <!-- Header Top Area -->
-        <div class="header__top bg--blue">
-            <div class="container">
-                <div class="header__top__inner">
-                    <ul class="header__top__info">
-                        <li>
-                            <a href="#">
-                                <i class="flaticon-old-typical-phone"></i> 0111 111 111
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="flaticon-black-back-closed-envelope-shape"></i> info@info.com
-                            </a>
-                        </li>
-                    </ul>
-
-                    @Html.Partial("_LoginPartial")
-
-                    @*<div class="header__top__button">
-                        <a class="cr-btn cr-btn--lg" href="appointment.html">
-                            <span>Make an appointment </span>
-                        </a>
-                    </div>*@
-                </div>
-            </div>
-        </div>
-        <div class="header__bottom bg--white">
-            <div class="container d-none d-lg-block">
-                <div class="header__bottom__inner">
-                    <div class="header__logo">
-                        <a href="http://www.acbsp.org/">
-                            <img src="~/Content/css/images/logo_small.png" alt="header logo" style="max-width:70%;">
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <header id="header" class="header super">
+        <div id="header-content" class="header-content site clearfix">
+            <a id="logo" href="http://www.acbsp.org">
+                <img alt="Accreditation Council for Business Schools and Programs" src="~/Content/css/images/logo-22669.png">
+            </a>
+            @Html.Partial("_LoginPartial")
+            <nav id="menu" role="navigation" aria-label="Navigation" style="float:right">
+                <ul class="clearfix">
+                    <li class="nav-student">
+                    </li>
+                </ul>
+            </nav>
+            <div class="translator-tool-header"></div>
         </div>
     </header>
     <div>
         @RenderBody()
 
     </div>
-    <footer id="footer" class="footer-area fixed--footer">
-        @*<div class="footer-area__widgets section-padding--md bg--dark--light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="footer-area__logo text-center">
-                            <a href="index.html"><img src="~/Content/css/images/foot-logo.png" alt="footer logo"></a>
-                        </div>
+    <footer id="footer" class="footer site" role="contentinfo" aria-label="Content Info">
+        <div class="footer-content clearfix">
+            <div class="footer-content-inner site">
+                <div class="footer-nav">
+                    <div>
+                        <ul>
+                            <li> <a href="https://careers.acbsp.org/sitemap/">Site Map</a> </li>
+                            <li> <a href="https://careers.acbsp.org/jobseeker/terms/">Terms of Use</a> </li>
+                            <li> <a href="https://careers.acbsp.org/jobseeker/privacy/">Privacy Policy</a> </li>
+                        </ul>
+
                     </div>
                 </div>
-            </div>
-        </div>*@
-        @*<div class="footer-area__copyright bg--dark">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="copyright text-center">
-                            ©COPYRIGHT, ALL RIGHTS RESERVED
-                        </div>
-                    </div>
+                <div class="copyright-contact center">
+                    <p class="copyright">
+                        © 2018 Accreditation Council for Business Schools and Programs. All Rights Reserved.
+                    </p>
+                    <p>
+                        <b class="address-1">11520 West 19th Street, </b>
+                        <b class="address-2"></b>
+                        <b class="city-state-zip">
+                            Overland Park,
+                            KS 66213
+                        </b>
+                        <b class="phone">
+                            (913) 339-9356
+                        </b>
+                    </p>
+                </div>
+                <div class="social-media clearfix">
+                    <ul>
+                        <li><a aria-label="Facebook" href="http://www.facebook.com/acbsp" target="_blank" class="facebook-icon"><span class="fa fa-facebook"></span></a></li>
+                        <li><a aria-label="Linkedin" href="http://www.acbsp.org/linkedin" target="_blank" class="linkedin-icon"><span class="fa fa-linkedin"></span></a></li>
+                        <li><a aria-label="Twitter" href="http://www.twitter.com/acbspaccredited" target="_blank" class="twitter-icon"><span class="fa fa-twitter"></span></a></li>
+                    </ul>
                 </div>
             </div>
-        </div>*@
+        </div>
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/toastr")

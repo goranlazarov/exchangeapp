@@ -8,6 +8,7 @@ namespace ExchangeApp.Models
 {
     public class StudentViewModel
     {
+        public Faculty Faculty { get; set; }
 
         public string FirstName { get; set; }
 

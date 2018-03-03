@@ -3,7 +3,7 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
-    Layout = null;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <!DOCTYPE html>
 
@@ -15,109 +15,57 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    <h2>@ViewBag.Title.</h2>
-    <header id="header" class="header sticky--header">
-        <!-- Header Top Area -->
-        <div class="header__top bg--blue">
-            <div class="container">
-                <div class="header__top__inner">
-                    <ul class="header__top__info">
-                        <li>
-                            <a href="#">
-                                <i class="flaticon-old-typical-phone"></i> 0111 111 111
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="flaticon-black-back-closed-envelope-shape"></i> info@info.com
-                            </a>
-                        </li>
-                    </ul>
-                    </div>
-            </div>
-        </div>
-        <div class="header__bottom bg--white">
-            <div class="container d-none d-lg-block">
-                <div class="header__bottom__inner">
-                    <div class="header__logo">
-                        <a href="http://www.acbsp.org/">
-                            <img src="~/Content/css/images/logo_small.png" alt="header logo" style="max-width:70%;">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <div class="row">
-
-        <div class="col-md-8" style="margin-top:110px; margin-left:15%;">
-            <section id="loginForm">
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @*@Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })*@
-
-                        <div class="col-md-offset-2 col-lg-4 col-md-10">
-                            <div class="single-input">
-                                @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { placeholder = "Username", @class = "single-input" } })
-                                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @*@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })*@
-                        <div class="col-md-offset-2 col-lg-4 col-md-10">
-                            <div class="single-input">
-                                @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Password", type = "password" } })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <div class="checkbox">
-                                    @Html.CheckBoxFor(m => m.RememberMe)
-                                    @Html.LabelFor(m => m.RememberMe)
+    <div class="container">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="interior site">
+                <div class="default-form-box clearfix">
+                    <form class="clearfix" id="register_form" method="post" action="/jobseeker/login/?goto=%2Fjobseeker%2Fmy%2Daccount%2F">
+                        <section class="js-information form-fields no-padding clearfix">
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                    <label>
+                                        Username
+                                        <sup>*</sup>
+                                    </label>
+                                    <div class="single-input">
+                                        @Html.EditorFor(m => m.UserName, new { htmlAttributes = new { placeholder = "Enter your username", @class = "single-input" } })
+                                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                             </div>
-                        </div>*@
-                    <div class="form-group">
-                        <div class="button-holder col-md-offset-2 col-md-8">
-                            <button type="submit" value="Log in" class="cr-btn">
-                                <span>Log in</span>
-                            </button>
+                            <div class="form-group">
+                                <div class="col-md-offset-4 col-lg-4 col-md-10">
+                                    <label>
+                                        Password
+                                        <sup>*</sup>
+                                    </label>
+                                    <div class="single-input">
+                                        @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Enter your password", type = "password" } })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <input type="hidden" name="register" value="1">
+                        <div class="col-md-offset-4 col-lg-4 col-md-10">
+                            <div style="float:right">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            </div>
+                            <em><sup>*</sup>Required field</em>
+                            <button type="submit" class="primary" id="new-account-button" value="Log in" style="margin-top: 20px;">Log in</button>
                         </div>
-                    </div>
-                    @*<p>
-                            @Html.ActionLink("Register as a new user", "Register")
-                        </p>*@
-                    @* Enable this once you have account confirmation enabled for password reset functionality
-                        <p>
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                        </p>*@
-                }
-            </section>
-        </div>
-        @*<div class="col-md-4">
-                <section id="socialLoginForm">
-                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                </section>
-            </div>*@
+                    </form>
+                </div>
+            </div>
+        }
     </div>
-
-
-    @section Scripts { @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/toastr")
-    @Html.Partial("_Toastr")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    }
 </body>
-
-
-
 </html>
+
+@section Scripts { @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/toastr")
+@Html.Partial("_Toastr")
+@Scripts.Render("~/bundles/bootstrap")
+}

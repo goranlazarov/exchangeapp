@@ -9,12 +9,12 @@ namespace ExchangeApp.Models
 {
     public class Semester : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: Semester")]
+        [Required(ErrorMessage = "Please enter semester description")]
         [Display(Name = "Semester")]
         [StringLength(50)]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose school year")]
         [Display(Name = "School year")]
         public int? SchoolYearId { get; set; }
 

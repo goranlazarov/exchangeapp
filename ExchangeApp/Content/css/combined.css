@@ -1,0 +1,225 @@
+﻿.cust-imglink {
+    margin-bottom: 20px;
+}
+
+#isth-imglinks.left {
+    float: left;
+    margin-top: 45px;
+    margin-left: 0.8%;
+    margin-right: 0.8%;
+    width: 15%;
+}
+
+.link-text > p {
+    font-size: 11px;
+}
+
+#isth-imglinks.right {
+    float: left;
+    margin-top: 45px;
+    width: 15%;
+}
+
+.link-text a {
+    color: #fff;
+}
+
+.link-text p {
+    color: #fff;
+}
+
+.link-text {
+    border: 1px solid #464646;
+    background-color: #464646;
+    font-family: 'Montserrat', sans-serif !important;
+    display: block;
+    font-size: 14px;
+    padding: 18px 6%;
+    text-align: center;
+    transition: all 200ms linear 0s;
+    text-transform: uppercase;
+}
+
+    .link-text:hover {
+        background-color: #f46a07;
+        border: 1px solid #f46a07;
+    }
+
+.link-image img {
+    width: 100%;
+}
+
+.link-image {
+    height: 171px;
+}
+
+.cust-imglink:hover {
+    background-color: #f46a07;
+}
+
+.smallWhite {
+    font-size: 21px;
+    font-weight: 600;
+}
+
+@media (max-width: 479px) {
+    #isth-imglinks.left {
+        width: 100%;
+    }
+
+    #isth-imglinks.right {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+@media (max-width:1200px) {
+    .pageLinks {
+        height: auto;
+        margin: 0 auto;
+        overflow: hidden;
+        width: 550px;
+    }
+
+    .pageLink.four, .pageLink.five, .pageLink.six {
+        margin-top: 4px;
+    }
+}
+
+
+@media (max-width: 425px) {
+    .pageLinks {
+        width: 180px;
+    }
+
+    .pageLink {
+        margin-right: 0 !important;
+        width: 180px;
+    }
+
+        .pageLink.two, .pageLink.three, .pageLink.four, .pageLink.five, .pageLink.six {
+            margin-top: 10px;
+        }
+
+    .pageLink-link {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+}
+
+.link-text {
+    padding: 6px 4%;
+    color: #fff;
+}
+
+@media (min-width: 1659px) {
+    .pageLink {
+        width: 181px;
+    }
+
+    .pageLinks .pageLinks-inner td {
+        border-left: 0px solid #fff;
+    }
+}
+
+.pageLink-link {
+    font-size: 14px !important;
+}
+
+.bottom-left-out {
+    background-color: #fff;
+    padding: 20px 0;
+    position: relative;
+}
+
+.pageLink {
+    background: #464646 none repeat scroll 0 0;
+    float: left;
+    opacity: 1;
+    position: relative;
+    transition: all 200ms linear 0s;
+    width: 155px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+    .pageLink:hover {
+        background: #f47525;
+    }
+
+.pageLinks table {
+    width: 100%;
+}
+
+.pageLinks .pageLinks-inner td {
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+
+.toolbar-out {
+    background-color: #002157;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 18;
+    border-bottom: 6px solid #f47525;
+}
+.pageLink-img {
+    /*background: transparent url("/graphics/img-sprite.png") no-repeat scroll 0 0;*/
+    height: auto;
+    min-height: 185px;
+}
+
+    .pageLink-img.one {
+        min-height: 185px;
+    }
+
+    .pageLink-img.one {
+        border-left: medium none !important;
+    }
+
+    .pageLink-img.six {
+        border-right: medium none !important;
+    }
+
+    .pageLink-img.two {
+        background-position: -184px 0 !important;
+    }
+
+    .pageLink-img.three {
+        background-position: -368px 0 !important;
+    }
+
+    .pageLink-img.four {
+        background-position: -552px 0 !important;
+    }
+
+    .pageLink-img.five {
+        background-position: -736px 0 !important;
+    }
+
+    .pageLink-img.six {
+        background-position: -920px 0 !important;
+    }
+
+.pageLink-link {
+    color: #fff;
+    font-size: 15px;
+    height: 54px;
+    padding: 0 20px;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+
+@media (max-width: 480px) {
+    .bottom-left-out::before {
+        height: 990px;
+    }
+
+    .partImgBox img {
+        width: 65%;
+        margin: 0 auto;
+    }
+}
+
