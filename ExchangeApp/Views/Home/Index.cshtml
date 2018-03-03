@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ExchangeApp.Models.Faculty>
+
+@{
     ViewBag.Title = "Home Page";
 }
 <div id="home-page">
@@ -8,106 +10,12 @@
         <section id="hero" class="site" aria-label="Hero">
 
 
-            <div class="site-name-tag"> <div style="padding:5px; background-color:#E7EEFA"><h2>ACBSP Career Center<br>Connecting Talent with Opportunity</h2></div>  </div>
+            @*<div class="site-name-tag"> <div style="padding:5px; background-color:#E7EEFA"><h2>ACBSP Career Center<br>Connecting Talent with Opportunity</h2></div>  </div>*@
 
             <div id="job-search-form" class="clearfix" role="search">
-              @*  @Html.Partial("_SearchPartial")*@
-                <form id="jt_search" action="/jobseeker/search/results/" method="post">
-                    <input aria-label="Job Keyword Search" type="hidden" name="site_id" value="22669">
-                    <fieldset>
-                        <legend style="position: absolute;left: -999em;">Job Search Keywords</legend>
-                        <input type="search" title="keywords" value="" id="keywords" name="keywords" tab-index="10" maxlength="500" placeholder="Enter Keyword or Job Title">
-                    </fieldset>
-
-                    <fieldset>
-                        <legend style="position: absolute;left: -999em;">Location Select</legend>
-                        <div class="select-style">
-                            <select aria-label="Job Search Location" tab-index="20" name="t735">
-                                <option selected="" value="">
-                                    All States
-                                </option>
-                                <option value="162">Other / Non-US</option>
-                                <option value="114">Alabama</option>
-                                <option value="115">Alaska</option>
-                                <option value="116">Alberta</option>
-                                <option value="117">Arizona</option>
-                                <option value="118">Arkansas</option>
-                                <option value="119">British Columbia</option>
-                                <option value="120">California</option>
-                                <option value="121">Colorado</option>
-                                <option value="122">Connecticut</option>
-                                <option value="123">Delaware</option>
-                                <option value="124">Dist. Columbia</option>
-                                <option value="125">Florida</option>
-                                <option value="126">Georgia</option>
-                                <option value="127">Guam</option>
-                                <option value="128">Hawaii</option>
-                                <option value="129">Idaho</option>
-                                <option value="130">Illinois</option>
-                                <option value="131">Indiana</option>
-                                <option value="132">Iowa</option>
-                                <option value="133">Kansas</option>
-                                <option value="134">Kentucky</option>
-                                <option value="135">Louisiana</option>
-                                <option value="136">Maine</option>
-                                <option value="137">Manitoba</option>
-                                <option value="138">Maryland</option>
-                                <option value="139">Massachusetts</option>
-                                <option value="140">Michigan</option>
-                                <option value="141">Minnesota</option>
-                                <option value="142">Mississippi</option>
-                                <option value="143">Missouri</option>
-                                <option value="144">Montana</option>
-                                <option value="145">Nebraska</option>
-                                <option value="146">Nevada</option>
-                                <option value="147">New Brunswick</option>
-                                <option value="148">New Hampshire</option>
-                                <option value="149">New Jersey</option>
-                                <option value="150">New Mexico</option>
-                                <option value="151">New York</option>
-                                <option value="152">Newfoundland</option>
-                                <option value="153">North Carolina</option>
-                                <option value="154">North Dakota</option>
-                                <option value="155">Northwest Terr.</option>
-                                <option value="156">Nova Scotia</option>
-                                <option value="157">Nunavut</option>
-                                <option value="158">Ohio</option>
-                                <option value="159">Oklahoma</option>
-                                <option value="160">Ontario</option>
-                                <option value="161">Oregon</option>
-                                <option value="163">Pennsylvania</option>
-                                <option value="164">Prince Ed. Is.</option>
-                                <option value="165">Puerto Rico</option>
-                                <option value="166">Quebec</option>
-                                <option value="167">Rhode Island</option>
-                                <option value="168">Saskatchewan</option>
-                                <option value="169">South Carolina</option>
-                                <option value="170">South Dakota</option>
-                                <option value="171">Tennessee</option>
-                                <option value="172">Texas</option>
-                                <option value="173">Utah</option>
-                                <option value="174">Vermont</option>
-                                <option value="175">Virgin Islands</option>
-                                <option value="176">Virginia</option>
-                                <option value="177">Washington</option>
-                                <option value="178">West Virginia</option>
-                                <option value="179">Wisconsin</option>
-                                <option value="180">Wyoming</option>
-                                <option value="181">Yukon Territory</option>
-                            </select>
-                        </div>
-
-                    </fieldset>
-
-                    <fieldset class="call-to-action">
-                        <legend style="position: absolute;left: -999em;">Submit Search</legend>
-                        <button aria-label="Submit Job Search" class="primary" onclick="$('#jt_search').submit(); return false;" tab-index="30" type="submit">Find a Job</button>
-                    </fieldset>
-                </form>
+               @Html.Partial("../Shared/_SearchPartial", new ExchangeApp.Models.SearchViewModel())
             </div>
         </section>
-
-
 
 
         <section id="featured-jobs" class="site" aria-label="Featured Jobs">
@@ -119,71 +27,23 @@
 
                 <div id="featured-job-listing" class="clearfix">
                     <ul>
+                        @foreach (var item in Model)
+                        {
+                    <li>
 
-                        <li>
+                        <a href="">
 
-                            <a href="https://careers.acbsp.org/job/director-teaching-excellence-center/39577282/">
+                            <h3>@item.Name</h3>
 
-                                <h3>Director, Teaching Excellence Center</h3>
-
-                            </a>
-                            <strong>University of Mount Olive</strong>
-                            <em>Mount Olive, NC</em>
-
-
-                            <input type="hidden" value="39577282" class="ga_job_id">
-                            <input type="hidden" value="1" class="ga_rank">
-                        </li>
+                        </a>
+                        <strong>@item.Program</strong>
+                        <em>@item.StudentPlacesAvailable</em>
 
 
-                        <li>
-
-                            <a href="https://careers.acbsp.org/job/assistant-or-associate-professor-of-tourism-hospitality-management/39577942/">
-
-                                <h3>Assistant or Associate Professor of Tourism &amp; Hospitality Management</h3>
-
-                            </a>
-                            <strong>Southeastern University</strong>
-                            <em>Lakeland, FL</em>
-
-
-                            <input type="hidden" value="39577942" class="ga_job_id">
-                            <input type="hidden" value="2" class="ga_rank">
-                        </li>
-
-
-                        <li>
-
-                            <a href="https://careers.acbsp.org/job/dean-of-the-school-of-business-economics/39577387/">
-
-                                <h3>Dean of the School of Business &amp; Economics</h3>
-
-                            </a>
-                            <strong>Lynchburg College</strong>
-                            <em>Lynchburg, VA</em>
-
-
-                            <input type="hidden" value="39577387" class="ga_job_id">
-                            <input type="hidden" value="3" class="ga_rank">
-                        </li>
-
-
-                        <li>
-
-                            <a href="https://careers.acbsp.org/job/assistantassociate-professor-of-management/39576895/">
-
-                                <h3>Assistant/Associate Professor of Management</h3>
-
-                            </a>
-                            <strong>University of Indianapolis</strong>
-                            <em>Indianapolis, IN</em>
-
-
-                            <input type="hidden" value="39576895" class="ga_job_id">
-                            <input type="hidden" value="4" class="ga_rank">
-                        </li>
-
-
+                        <input type="hidden" value="39577282" class="ga_job_id">
+                        <input type="hidden" value="1" class="ga_rank">
+                    </li>
+                        }
 
                     </ul>
                     <a class="secondary clearfix" href="http://careers.acbsp.org/jobseeker/search/results/">View All Jobs</a>
@@ -250,15 +110,33 @@
                     </li>
                     @*</div><div class="owl-item active" style="width: 313.333px; margin-right: 10px;">
 
-        </div><div class="owl-item active" style="width: 313.333px; margin-right: 10px;">*@
+                        </div><div class="owl-item active" style="width: 313.333px; margin-right: 10px;">*@
 
                     @*</div>*@
                     @*</div>*@
                     @*</div>*@
                     @*<div class="owl-nav disabled"><div class="owl-prev disabled"><em class="fa fa-angle-left"></em></div><div class="owl-next disabled"><em class="fa fa-angle-right"></em></div></div>
-        <div class="owl-dots disabled"><div class="owl-dot active"><span></span></div></div>*@
+                        <div class="owl-dots disabled"><div class="owl-dot active"><span></span></div></div>*@
                 </ul>
             </div>
         </section>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    var url = '@Url.Action("getCountries", "Home")';
+    var countries = $('#CountryId');
+        function CallChangeFunc(val) {
+        countries.empty();
+            var id = val;
+            $.getJSON(url, { regionId: id }, function (response) {
+                $.each(response, function (index, item) {
+                    $('#CountryId').append('<option value=' + item.ID + '>' + item.Name + '</option > ');
+                });
+            });
+        
+    }
+    </script>
+}

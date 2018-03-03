@@ -1,0 +1,179 @@
+﻿@*@model IEnumerable<ExchangeApp.Models.Faculty>*@
+@model PagedList.IPagedList<ExchangeApp.Models.Faculty>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "ListFaculties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="main-content" class="super">
+    <div class="interior site">
+
+        <section id="inner-page-header" class="clearfix" aria-label="Page Header">
+            <div class="site-name-tag">
+                <h1></h1>
+            </div>
+
+            <div id="job-search-form" class="clearfix" role="search">
+                @Html.Partial("_SearchPartial", (ExchangeApp.Models.SearchViewModel)ViewBag.SearchViewModel)
+            </div>
+
+        </section>
+
+        <div class="breadcrumbs" role="navigation">
+            <ol>
+                <li><a href="http://careers.acbsp.org">Career Center Home</a></li>
+
+
+                <li class="">Job Search</li>
+
+
+
+
+            </ol>
+        </div>
+
+
+
+
+
+        <div class="clearfix results-content">
+
+
+
+            <aside aria-label="refine search">
+                <div class="filters">
+                    <p class="clearfix"> Additional search options: </p>
+                    <fieldset>
+                        <legend style="position: absolute;left: -999em;">Study program</legend>
+                        <span class="h5">Study program:</span>
+                        <p class="clearfix"> Suggestions: </p>
+                        @foreach (var item in ViewBag.Programs)
+                        {
+                                            <p class="spotlight">@item</p>
+                        }
+                    </fieldset>
+                </div>
+
+            </aside>
+
+            <section id="job-listing" aria-label="Job Listings" role="main">
+
+                <div class="listing-options clearfix">
+                    @*<strong>Sort by: </strong>
+                        <ol>
+
+                            <li class="jt_search_results_heading jt_search_pos"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=position&amp;vnet=0&amp;long=1" id="Position_Asc"> Position</a> </li>
+
+                            <li class="jt_search_results_heading jt_search_comp"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=company&amp;vnet=0&amp;long=1" id="Company_Asc"> Company</a> </li>
+
+                            <li class="jt_search_results_heading jt_search_loc"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=location&amp;vnet=0&amp;long=1" id="Location_Asc"> Location</a> </li>
+
+                            <li class="jt_search_results_heading jt_search_posted">
+                                <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=start_&amp;vnet=0&amp;long=1" id="Posted_Desc"> Posted</a>
+                            </li>
+                        </ol>
+                        <em><a href="#" id="show-hide">Show All Details</a></em>*@
+                </div>
+
+
+                <!-- if this is true we display the vertical network header --->
+
+                <div class="listings">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li>
+                                <div class='job-summary'>
+                                    <div class="job-summary-top clearfix">
+
+                                        <p class="preferred">Preferred</p>
+
+                                    </div>
+                                    <div class="job-summary-top-left clearfix">
+                                        <a class="ga_job" href="/job/economics/39431667/" aria-label="Job ID - 39431667">
+
+
+                                            <span class="h3">
+                                                @item.Name
+                                            </span>
+                                        </a>
+                                        <strong>@item.Program</strong> &ndash;
+                                        <em>
+                                            @item.CountryObj.Name
+                                        </em>
+                                    </div>
+
+                                    <div class="listing-logo" alt="">
+
+                                    </div>
+                                    <div class="clearfix">
+                                        <ol class="designations"></ol>
+                                        <em class="date">
+                                            @item.StudentPlacesAvailable
+
+                                        </em>
+                                        <ol class="save-open">
+
+
+                                            <li><a onclick="saveJob(39431667, event, this, '/jobseeker/login/?msg=1&goto=%2Fjobseeker%2Fsearch%2Fresults%2F%3F');" id="save-job-39431667"><b class="fa fa-bookmark"></b>Save</a></li>
+
+
+                                            <li class="detail-trigger"><a class="fa fa-chevron-down"></a></li>
+                                        </ol>
+                                    </div>
+
+                                    <div class="job-listing-detail clearfix">
+                                        <p class="clearfix">
+                                            @item.Description
+                                        </p>
+                                        <em><a href="/job/economics/39431667/" target="">See full Job description</a></em>
+                                        <ul class="affiliations-fairs">
+                                            <li>
+
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                                <input type="hidden" value="regular" class="ga_jsrc">
+                            </li>
+                            <li>
+                                <input type="hidden" value=39431667 class="ga_job_id">
+                                <input type="hidden" value=1 class="ga_rank">
+                            </li>
+                        }
+                    </ul>
+                </div>
+                Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+                @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
+             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry }))
+            </section>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+    var url = '@Url.Action("getCountries", "Home")';
+    var countries = $('#CountryId');
+        function CallChangeFunc(val) {
+        countries.empty();
+            var id = val;
+            $.getJSON(url, { regionId: id }, function (response) {
+                $.each(response, function (index, item) {
+                    $('#CountryId').append('<option value=' + item.ID + '>' + item.Name + '</option > ');
+                });
+            });
+    }
+    </script>
+}

@@ -604,6 +604,9 @@ select:-moz-focusring {
     text-shadow: 0 0 0 #000
 }
 
+.primary-applied {
+    height:41px;
+}
 textarea {
     overflow: auto;
     vertical-align: top
@@ -1497,7 +1500,7 @@ textarea {
         border: none;
         margin: 0;
         padding: 0 20px 0 0;
-        width: 35%
+        width: 28%
     }
 
         #job-search-form form fieldset input {
@@ -4538,7 +4541,7 @@ form#qCreate {
         font-size: 1.2em
     }
 
-#four-oh-four #job-search-form form input#keywords {
+#four-oh-four #job-search-form form input#SearchKeyword {
     width: 100%
 }
 
@@ -4570,7 +4573,7 @@ form#qCreate {
             width: 100%
         }
 
-            #four-oh-four #job-search-form form input#keywords {
+            #four-oh-four #job-search-form form input#SearchKeyword {
                 width: 100%;
                 margin-left: 10px
             }
@@ -4631,7 +4634,7 @@ form#qCreate {
                 width: 100%
             }
 
-                #four-oh-four #job-search-form form input#keywords {
+                #four-oh-four #job-search-form form input#SearchKeyword {
                     width: 100%;
                     margin-left: 0
                 }

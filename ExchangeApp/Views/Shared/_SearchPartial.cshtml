@@ -1,0 +1,34 @@
+﻿@model ExchangeApp.Models.SearchViewModel
+
+@using (Html.BeginForm("ListFaculties", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @*<input aria-label="Job Keyword Search" type="hidden" name="site_id" value="22669">*@
+<fieldset>
+    <legend style="position: absolute;left: -999em;">Faculty Search Keywords</legend>
+    @*  <input type="search" title="keywords" value="" id="keywords" name="keywords" tab-index="10" maxlength="500" placeholder="Enter Keyword or Job Title">*@
+        @Html.TextBoxFor(m => m.SearchKeyword, null, new { placeholder = "Enter Search keyword", type = "search", maxlength = "500" })   
+</fieldset>
+
+    <fieldset>
+        <legend style="position: absolute;left: -999em;">Region Select</legend>
+        <div class="select-style">
+            @Html.DropDownList("RegionId", null, new { @onchange = "CallChangeFunc(this.value)" })
+
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend style="position: absolute;left: -999em;">Country Select</legend>
+        <div class="select-style">
+            @Html.DropDownList("CountryId")
+        </div>
+
+    </fieldset>
+    <button class="primary primary-applied" type="submit">Search</button>
+
+
+
+
+        }
