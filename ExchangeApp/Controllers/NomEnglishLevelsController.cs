@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.EnglishLevels.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("English level already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomEnglishLevel englishLevelDb = db.EnglishLevels.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomEnglishLevel englishLevel = new NomEnglishLevel();
+                        if (db.EnglishLevels.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("English level already exists!");
+                        }
 
+                        NomEnglishLevel englishLevel = new NomEnglishLevel();
                         englishLevel.ID = model.ID;
                         englishLevel.Name = model.Name;
 

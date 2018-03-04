@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.Nationalities.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("Nationality already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomNationality nationalityDb = db.Nationalities.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomNationality nationality = new NomNationality();
+                        if (db.Nationalities.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Nationality already exists!");
+                        }
 
+                        NomNationality nationality = new NomNationality();
                         nationality.ID = model.ID;
                         nationality.Name = model.Name;
 

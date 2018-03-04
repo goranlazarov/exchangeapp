@@ -12,7 +12,7 @@ namespace ExchangeApp.Controllers
 {
     public class NomCountriesController : BaseAdminController
     {
-        
+
         // GET: NomCountries
         public ActionResult Index()
         {
@@ -49,23 +49,13 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    List<NomRegion> regions = db.Regions.ToList();
-                    ViewBag.RegionsList = new SelectList(regions, "ID", "Name");
-
-                    if (db.Countries.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.RegionId == model.RegionId))
-                    {
-                        throw new Exception("Country already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomCountry countryDb = db.Countries.FirstOrDefault(x => x.ID == model.ID);
                         countryDb.ID = model.ID;
                         countryDb.Name = model.Name;
-
-                        NomRegion region = db.Regions.Find(model.RegionId);
-                        countryDb.RegionObj = region;
-                        countryDb.RegionId = region.ID;
+                        countryDb.RegionObj = model.RegionObj;
+                        countryDb.RegionId = model.RegionId;
 
                         message = "Successfully edited country!";
 
@@ -73,8 +63,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomCountry country = new NomCountry();
+                        if (db.Countries.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.RegionId == model.RegionId))
+                        {
+                            throw new Exception("Country already exists!");
+                        }
 
+                        NomCountry country = new NomCountry();
                         country.ID = model.ID;
                         country.Name = model.Name;
 

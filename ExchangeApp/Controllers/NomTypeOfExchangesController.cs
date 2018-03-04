@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.TypesOfExchange.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("Type of exchange already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomTypeOfExchange typeDb = db.TypesOfExchange.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomTypeOfExchange type = new NomTypeOfExchange();
+                        if (db.TypesOfExchange.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Type of exchange already exists!");
+                        }
 
+                        NomTypeOfExchange type = new NomTypeOfExchange();
                         type.ID = model.ID;
                         type.Name = model.Name;
 

@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.ApplicantHighestDegrees.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("Highest degree already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomApplicantHighestDegree highestDegreeDb = db.ApplicantHighestDegrees.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomApplicantHighestDegree highestDegree = new NomApplicantHighestDegree();
+                        if (db.ApplicantHighestDegrees.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Highest degree already exists!");
+                        }
 
+                        NomApplicantHighestDegree highestDegree = new NomApplicantHighestDegree();
                         highestDegree.ID = model.ID;
                         highestDegree.Name = model.Name;
 

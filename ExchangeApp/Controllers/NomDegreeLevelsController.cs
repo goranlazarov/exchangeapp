@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.DegreeLevels.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("Degree level already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomDegreeLevel degreeLevelDb = db.DegreeLevels.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomDegreeLevel degreeLevel = new NomDegreeLevel();
+                        if (db.DegreeLevels.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Degree level already exists!");
+                        }
 
+                        NomDegreeLevel degreeLevel = new NomDegreeLevel();
                         degreeLevel.ID = model.ID;
                         degreeLevel.Name = model.Name;
 

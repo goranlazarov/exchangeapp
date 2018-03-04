@@ -50,38 +50,34 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    List<NomSchoolYear> sy = db.SchoolYears.ToList();
-                    ViewBag.SchoolYearsList = new SelectList(sy, "ID", "Name");
-
-                    if (db.Semesters.Any(x => x.Description.ToLower() == model.Description.ToLower() &&
-                                              x.SchoolYearId == model.SchoolYearId))
-                    {
-                        throw new Exception("Semester for that school year already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         Semester semesterDb = db.Semesters.FirstOrDefault(x => x.ID == model.ID);
                         semesterDb.ID = model.ID;
                         semesterDb.Description = model.Description;
+                        semesterDb.SchoolYearObj = model.SchoolYearObj;
+                        semesterDb.SchoolYearId = model.SchoolYearId;
 
-                        NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
-                        semesterDb.SchoolYearObj = schoolYear;
-                        semesterDb.SchoolYearId = schoolYear.ID;
                         message = "Successfully edited semester!";
 
                         db.SaveChanges();
                     }
                     else
                     {
-                        Semester semester = new Semester();
+                        if (db.Semesters.Any(x => x.Description.ToLower() == model.Description.ToLower() &&
+                                              x.SchoolYearId == model.SchoolYearId))
+                        {
+                            throw new Exception("Semester for that school year already exists!");
+                        }
 
+                        Semester semester = new Semester();
                         semester.ID = model.ID;
                         semester.Description = model.Description;
 
                         NomSchoolYear schoolYear = db.SchoolYears.Find(model.SchoolYearId);
                         semester.SchoolYearObj = schoolYear;
                         semester.SchoolYearId = schoolYear.ID;
+
                         message = "Successfully added semester!";
 
                         db.Semesters.Add(semester);

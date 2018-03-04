@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.SchoolYears.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("School year already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomSchoolYear schoolYearDb = db.SchoolYears.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomSchoolYear schoolYear = new NomSchoolYear();
+                        if (db.SchoolYears.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("School year already exists!");
+                        }
 
+                        NomSchoolYear schoolYear = new NomSchoolYear();
                         schoolYear.ID = model.ID;
                         schoolYear.Name = model.Name;
 

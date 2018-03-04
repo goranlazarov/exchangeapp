@@ -53,31 +53,15 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    List<NomDegreeLevel> degreeLevels = db.DegreeLevels.ToList();
-                    ViewBag.DegreeLevelsList = new SelectList(degreeLevels, "ID", "Name");
-
-                    List<Faculty> facultiesList = db.Faculties.ToList();
-                    ViewBag.FacultiesList = new SelectList(facultiesList, "ID", "Name");
-
-                    if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.FacultyId == model.FacultyId &&
-                                         x.DegreeLevelId == model.DegreeLevelId))
-                    {
-                        throw new Exception("Subject for that faculty already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         Subject subjectDb = db.Subjects.FirstOrDefault(x => x.ID == model.ID);
                         subjectDb.ID = model.ID;
                         subjectDb.Name = model.Name;
-
-                        NomDegreeLevel degreeLevel = db.DegreeLevels.Find(model.DegreeLevelId);
-                        subjectDb.DegreeLevelObj = degreeLevel;
-                        subjectDb.DegreeLevelId = degreeLevel.ID;
-
-                        Faculty faculty = db.Faculties.Find(model.FacultyId);
-                        subjectDb.FacultyObj = faculty;
-                        subjectDb.FacultyId = faculty.ID;
+                        subjectDb.DegreeLevelObj = model.DegreeLevelObj;
+                        subjectDb.DegreeLevelId = model.DegreeLevelId;
+                        subjectDb.FacultyObj = model.FacultyObj;
+                        subjectDb.FacultyId = model.FacultyId;
 
                         message = "Successfully edited subject!";
 
@@ -85,8 +69,13 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        Subject subject = new Subject();
+                        if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.FacultyId == model.FacultyId &&
+                                       x.DegreeLevelId == model.DegreeLevelId))
+                        {
+                            throw new Exception("Subject for that faculty already exists!");
+                        }
 
+                        Subject subject = new Subject();
                         subject.ID = model.ID;
                         subject.Name = model.Name;
 

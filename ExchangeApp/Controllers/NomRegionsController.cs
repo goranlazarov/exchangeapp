@@ -45,11 +45,6 @@ namespace ExchangeApp.Controllers
                 {
                     var message = "";
 
-                    if (db.Regions.Any(x => x.Name.ToLower() == model.Name.ToLower()))
-                    {
-                        throw new Exception("Region with that name already exists!");
-                    }
-
                     if (model.ID > 0)
                     {
                         NomRegion regionDb = db.Regions.FirstOrDefault(x => x.ID == model.ID);
@@ -62,8 +57,12 @@ namespace ExchangeApp.Controllers
                     }
                     else
                     {
-                        NomRegion region = new NomRegion();
+                        if (db.Regions.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Region with that name already exists!");
+                        }
 
+                        NomRegion region = new NomRegion();
                         region.ID = model.ID;
                         region.Name = model.Name;
 
