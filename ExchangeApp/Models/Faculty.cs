@@ -9,7 +9,7 @@ namespace ExchangeApp.Models
 {
     public class Faculty : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: School name")]
+        [Required(ErrorMessage = "Please enter faculty name")]
         [Display(Name = "Faculty name")]
         [StringLength(50)]
         public string Name { get; set; }
@@ -39,7 +39,7 @@ namespace ExchangeApp.Models
         [StringLength(50)]
         public string Website { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose country")]
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
 
@@ -47,7 +47,7 @@ namespace ExchangeApp.Models
         [ForeignKey("CountryId")]
         public virtual NomCountry CountryObj { get; set; }
 
-        [Required(ErrorMessage = "Please enter date of matriculation")]
+        [Required(ErrorMessage = "Please choose date of matriculation")]
         [Display(Name = "Date of Matriculation")]
         public DateTime? DateOfMatriculation { get; set; }
 
@@ -55,7 +55,7 @@ namespace ExchangeApp.Models
         [Display(Name = "Accreditation number")]
         public int AccreditationNumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter date of accreditation")]
+        [Required(ErrorMessage = "Please choose date of accreditation")]
         [Display(Name = "Date of Accreditation")]
         public DateTime? DateOfAccreditation { get; set; }
 
@@ -92,5 +92,6 @@ namespace ExchangeApp.Models
         public virtual NomTypeOfExchange FacultyTypeOfExchangeObj { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
+
     }
 }

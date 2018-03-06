@@ -5,186 +5,76 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
-    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
-        <h2>Details</h2>
-
+    <div class="interior site">
         <div>
-            <h4>Faculty</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.CountryObj.Name)
-                </dt>
+            <div>
+                <a href="@Url.Action("Index", "Faculties")" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
+                <span class="fax-title">@Html.DisplayFor(model => model.Name)</span>
+                <a href="@Url.Action("Edit", "Faculties", new { id = Model.ID })" class="fr"><button class="primary" type="submit">Edit</button></a>
+            </div>
+            <div class="tab-content mt-20">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="details"><i class="fa fa-user"></i>Country</td>
+                            <td>@Html.DisplayFor(model => model.CountryObj.Name)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-user"></i>Program</td>
+                            <td>@Html.DisplayFor(model => model.Program)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.Email)</td>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-calendar"></i>  @Html.DisplayNameFor(model => model.Website)</td>
+                            <td>@Html.DisplayFor(model => model.Website)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.DateOfMatriculation)</td>
+                            <td>@Html.DisplayFor(model => model.DateOfMatriculation)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.AccreditationNumber)</td>
+                            <td>@Html.DisplayFor(model => model.AccreditationNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.DateOfAccreditation)</td>
+                            <td>@Html.DisplayFor(model => model.DateOfAccreditation)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="5" class="details" style="vertical-align: middle"><i class="fa fa-group"></i>Student</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Type of exchange: @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Places Available: @Html.DisplayFor(model => model.StudentPlacesAvailable)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Application Date: @Html.DisplayFor(model => model.StudentApplicationDate)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Enrollment Date: @Html.DisplayFor(model => model.StudentEnrollmentDate)</td>
+                        </tr>
 
-                <dd>
-                    @Html.DisplayFor(model => model.CountryObj.Name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.FacultyTypeOfExchangeObj.Name)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.LastUpdatedByUser.FirstName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.RegisteredByUser.FirstName)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.StudentTypeOfExchangeObj.Name)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Name)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Program)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Program)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Email)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Email)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Website)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Website)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.DateOfMatriculation)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.DateOfMatriculation)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.AccreditationNumber)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.AccreditationNumber)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.DateOfAccreditation)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.DateOfAccreditation)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.StudentPlacesAvailable)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.StudentPlacesAvailable)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.StudentApplicationDate)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.StudentApplicationDate)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.StudentEnrollmentDate)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.StudentEnrollmentDate)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.FacultyPlacesAvailable)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.FacultyPlacesAvailable)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.FacultyApplicationDate)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.FacultyApplicationDate)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.FacultyEnrollmentDate)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.FacultyEnrollmentDate)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.Registered)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.Registered)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.LastUpdated)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.LastUpdated)
-                </dd>
-
-                <dt>
-                    @Html.DisplayNameFor(model => model.RowVersion)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.RowVersion)
-                </dd>
-
-            </dl>
+                        <tr>
+                            <td rowspan="5" class="details" style="vertical-align: middle"><i class="fa fa-group"></i>Faculty</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Type of exchange: @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Places Available: @Html.DisplayFor(model => model.FacultyPlacesAvailable)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Application Date: @Html.DisplayFor(model => model.FacultyApplicationDate)</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-group"></i>Enrollment Date: @Html.DisplayFor(model => model.FacultyEnrollmentDate)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
-    </div>
-</div>

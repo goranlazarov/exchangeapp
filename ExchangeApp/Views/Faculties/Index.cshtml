@@ -5,154 +5,92 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
-    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
-        <h2>Index</h2>
-
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CountryObj.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FacultyTypeOfExchangeObj.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastUpdatedByUser.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RegisteredByUser.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentTypeOfExchangeObj.Name)
-                </th>
-                <th>
+    <div class="interior site">
+        <div>
+            <a href="@Url.Action("Index", "Admin" )" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
+            <a href="@Url.Action("Create", "Faculties")"><button class="primary btn-create" type="submit">Add new</button></a>
+        </div>
+        <div class="table">
+            <div class="row header">
+                <div class="cell">
                     @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
+                </div>
+                <div class="cell">
                     @Html.DisplayNameFor(model => model.Program)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Website)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfMatriculation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AccreditationNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfAccreditation)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentPlacesAvailable)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentApplicationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentEnrollmentDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FacultyPlacesAvailable)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FacultyApplicationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FacultyEnrollmentDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Registered)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastUpdated)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.RowVersion)
-                </th>
-                <th></th>
-            </tr>
+                </div>
+                <div class="cell">
+                    @Html.DisplayNameFor(model => model.CountryObj.Name)
+                </div>
+                <div class="cell">
+                    Actions
+                </div>
+            </div>
 
             @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CountryObj.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FacultyTypeOfExchangeObj.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastUpdatedByUser.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegisteredByUser.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentTypeOfExchangeObj.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Program)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Website)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateOfMatriculation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AccreditationNumber)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateOfAccreditation)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentPlacesAvailable)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentApplicationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentEnrollmentDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FacultyPlacesAvailable)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FacultyApplicationDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FacultyEnrollmentDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Registered)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastUpdated)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RowVersion)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+        {
+            <div class="row">
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.Program)
+                </div>
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </div>
+                <div class="cell-act">
+                    <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                    <a href="@Url.Action("Details", "Faculties", new { id = item.ID })" title="Details"><i class="icon ion-ios-list-outline"></i></a> |
+                    <a onclick="DeleteFaculty(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
+                </div>
+            </div>
+
+    }
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pd-5">
+                            <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
+                        </div>
+                        <div class="modal-body pd-10">
+                            Are you sure you want to delete this faculty?
+                        </div>
+                        <div class="modal-footer pd-0">
+                            <div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-danger" type="submit" onclick="ConfirmDelete()">Delete</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="hiddenId" />
+    </div>
+    @section scripts {
+        <script>
+            var DeleteFaculty = function (facultyId) {
+                $("#deleteModal").modal("show");
+                $("#hiddenId").val(facultyId)
             }
 
-        </table>
-    </div>
-</div>
+            var ConfirmDelete = function () {
+                var subjectId = $("#hiddenId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Faculties/DeleteFaculty",
+                    data: { id: subjectId },
+                    success: function (data) {
+                        $("#deleteModal").modal("hide");
+                        window.location.href = "/Faculties/Index"
+                    }
+                });
+            }
+        </script>
+    }

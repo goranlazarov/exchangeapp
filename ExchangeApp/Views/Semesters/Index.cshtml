@@ -7,6 +7,7 @@
 <div class="container">
     <div class="interior site">
         <div>
+            <a href="@Url.Action("Index", "Admin" )" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
             <a href="#"><button class="primary btn-create" type="submit" onclick="AddEditSemester(0)">Add new</button></a>
         </div>
         <div class="table">
@@ -33,8 +34,8 @@
 
                     </div>
                     <div class="cell-act">
-                        <a onclick="AddEditSemester(@item.ID)"><i class="icon ion-ios-compose-outline"></i></a> |
-                        <a onclick="DeleteSemester(@item.ID)"><i class="icon ion-ios-trash-outline"></i></a>
+                        <a onclick="AddEditSemester(@item.ID)" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                        <a onclick="DeleteSemester(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
                     </div>
                 </div>
 
@@ -46,7 +47,7 @@
                             <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
                         </div>
                         <div class="modal-body pd-10">
-                            Are you sure you want to delete the semester?
+                            Are you sure you want to delete this semester?
                         </div>
                         <div class="modal-footer pd-0">
                             <div>

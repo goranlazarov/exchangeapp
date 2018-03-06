@@ -1869,7 +1869,9 @@ input[type="checkbox"]:focus {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     height: auto;
+    -webkit-appearance:none ;
 }
+
 
 .form-control:-moz-placeholder {
     color: #999999;
