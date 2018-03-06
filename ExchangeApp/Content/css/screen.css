@@ -341,7 +341,7 @@ body {
 }
 
 .interior {
-    padding: 5px 0
+    padding: 20px 0
 }
 
 aside {
@@ -563,10 +563,10 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     padding: 0
 }
 
-input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], select {
+input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], input[type="number"],select {
     height: 41px;
     border: thin solid #ccc;
-    width:100%;
+    width: 100%;
 }
 
     select[multiple] {

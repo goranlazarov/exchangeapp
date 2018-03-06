@@ -21,113 +21,86 @@ namespace ExchangeApp.Controllers
             return View(nomEnglishLevels.ToList());
         }
 
-        // GET: NomEnglishLevels/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditEnglishLevel(int englishLevelId)
         {
-            if (id == null)
+            NomEnglishLevel model = new NomEnglishLevel();
+
+            if (englishLevelId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomEnglishLevel englishLevel = db.EnglishLevels.Find(englishLevelId);
+                model.ID = englishLevel.ID;
+                model.Name = englishLevel.Name;
             }
-            NomEnglishLevel nomEnglishLevel = db.EnglishLevels.Find(id);
-            if (nomEnglishLevel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomEnglishLevel);
+
+            return PartialView("AddEditEnglishLevel", model);
+
         }
 
-        // GET: NomEnglishLevels/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomEnglishLevels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomEnglishLevel nomEnglishLevel)
+        public ActionResult CreateUpdateEnglishLevel(NomEnglishLevel model)
         {
-            NomEnglishLevel englishLevel = new NomEnglishLevel();
-            englishLevel.Name = nomEnglishLevel.Name;
-
             if (ModelState.IsValid)
             {
-                db.EnglishLevels.Add(englishLevel);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (model.ID > 0)
+                    {
+                        NomEnglishLevel englishLevelDb = db.EnglishLevels.FirstOrDefault(x => x.ID == model.ID);
+                        englishLevelDb.ID = model.ID;
+                        englishLevelDb.Name = model.Name;
+
+                        message = "Successfully edited english level!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        if (db.EnglishLevels.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("English level already exists!");
+                        }
+
+                        NomEnglishLevel englishLevel = new NomEnglishLevel();
+                        englishLevel.ID = model.ID;
+                        englishLevel.Name = model.Name;
+
+                        message = "Successfully added english level!";
+
+                        db.EnglishLevels.Add(englishLevel);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.RegisteredBy);
-            return View(nomEnglishLevel);
         }
 
-        // GET: NomEnglishLevels/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomEnglishLevel nomEnglishLevel = db.EnglishLevels.Find(id);
-            if (nomEnglishLevel == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.RegisteredBy);
-            return View(nomEnglishLevel);
-        }
-
-        // POST: NomEnglishLevels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomEnglishLevel nomEnglishLevel)
+        public ActionResult DeleteEnglishLevel(int id)
         {
-            NomEnglishLevel englishLevelDb = db.EnglishLevels.Find(nomEnglishLevel.ID);
-            englishLevelDb.Name = nomEnglishLevel.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(englishLevelDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomEnglishLevel.RegisteredBy);
-            return View(nomEnglishLevel);
-        }
-
-        // GET: NomEnglishLevels/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomEnglishLevel nomEnglishLevel = db.EnglishLevels.Find(id);
-            if (nomEnglishLevel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomEnglishLevel);
-        }
-
-        // POST: NomEnglishLevels/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomEnglishLevel nomEnglishLevel = db.EnglishLevels.Find(id);
-            db.EnglishLevels.Remove(nomEnglishLevel);
+            NomEnglishLevel englishLevelDb = db.EnglishLevels.Find(id);
+            db.EnglishLevels.Remove(englishLevelDb);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted english level!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

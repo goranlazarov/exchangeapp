@@ -21,113 +21,86 @@ namespace ExchangeApp.Controllers
             return View(nomRegions.ToList());
         }
 
-        // GET: NomRegions/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditRegion(int regionId)
         {
-            if (id == null)
+            NomRegion model = new NomRegion();
+
+            if (regionId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomRegion region = db.Regions.Find(regionId);
+                model.ID = region.ID;
+                model.Name = region.Name;
             }
-            NomRegion nomRegion = db.Regions.Find(id);
-            if (nomRegion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomRegion);
+
+            return PartialView("AddEditRegion", model);
+
         }
 
-        // GET: NomRegions/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomRegions/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] NomRegion nomRegion)
+        public ActionResult CreateUpdateRegion(NomRegion model)
         {
-            NomRegion region = new NomRegion();
-            region.Name = nomRegion.Name;
-
             if (ModelState.IsValid)
             {
-                db.Regions.Add(region);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (model.ID > 0)
+                    {
+                        NomRegion regionDb = db.Regions.FirstOrDefault(x => x.ID == model.ID);
+                        regionDb.ID = model.ID;
+                        regionDb.Name = model.Name;
+
+                        message = "Successfully edited region!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        if (db.Regions.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                        {
+                            throw new Exception("Region with that name already exists!");
+                        }
+
+                        NomRegion region = new NomRegion();
+                        region.ID = model.ID;
+                        region.Name = model.Name;
+
+                        message = "Successfully added region!";
+
+                        db.Regions.Add(region);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.RegisteredBy);
-            return View(nomRegion);
         }
 
-        // GET: NomRegions/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomRegion nomRegion = db.Regions.Find(id);
-            if (nomRegion == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.RegisteredBy);
-            return View(nomRegion);
-        }
-
-        // POST: NomRegions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomRegion nomRegion)
+        public ActionResult DeleteRegion(int id)
         {
-            NomRegion regionDb = db.Regions.Find(nomRegion.ID);
-            regionDb.Name = nomRegion.Name;
-
-            if (ModelState.IsValid)
-            {
-                db.Entry(regionDb).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.LastUpdatedBy);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomRegion.RegisteredBy);
-            return View(nomRegion);
-        }
-
-        // GET: NomRegions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomRegion nomRegion = db.Regions.Find(id);
-            if (nomRegion == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomRegion);
-        }
-
-        // POST: NomRegions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomRegion nomRegion = db.Regions.Find(id);
-            db.Regions.Remove(nomRegion);
+            NomRegion regionDb = db.Regions.Find(id);
+            db.Regions.Remove(regionDb);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted region!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

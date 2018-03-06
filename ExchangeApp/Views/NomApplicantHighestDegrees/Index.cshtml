@@ -5,36 +5,101 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
-    <div id="cr-breadcrumb-area" class="cr-breadcrumb-area section-padding--md" style="margin-top: 160px;">
-        <h2>Applicant highest degrees</h2>
-        <p>
-            @Html.ActionLink("Create New Entry", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
+    <div class="interior site">
+        <div>
+            <a href="@Url.Action("Index", "Admin" )" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
+            <a href="#"><button class="primary btn-create" type="submit" onclick="AddEditHighestDegree(0)">Add new</button></a>
+        </div>
+        <div class="table">
+            <div class="row header">
+                <div class="cell">
                     @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    Manage entries
-                </th>
-            </tr>
+                </div>
+                <div class="cell">
+                    Actions
+                </div>
+            </div>
 
             @foreach (var item in Model)
             {
-                <tr>
-
-                    <td>
+                <div class="row">
+                    <div class="cell">
                         @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
+                    </div>
+                    <div class="cell-act">
+                        <a onclick="AddEditHighestDegree(@item.ID)" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                        <a onclick="DeleteHighestDegree(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
+                    </div>
+                </div>
+
+            }
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pd-5">
+                            <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
+                        </div>
+                        <div class="modal-body pd-10">
+                            Are you sure you want to delete this highest degree?
+                        </div>
+                        <div class="modal-footer pd-0">
+                            <div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col-lg-6 col-md-10 mt-20">
+                                    <button class="btn btn-danger" type="submit" onclick="ConfirmDelete()">Delete</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="editModal">
+                <div class="modal-dialog modal-md " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header pd-5">
+                            <h4 class="modal-title" id="myModalLabel">Add/Edit highest degree</h4>
+                        </div>
+                        <div class="modal-body pd-10" id="editModalBody">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="hiddenId" />
+        </div>
+
+    </div>
+    @section scripts {
+        <script>
+            var AddEditHighestDegree = function (highestDegreeId) {
+                var url = "/NomApplicantHighestDegrees/AddEditHighestDegree?highestDegreeId=" + highestDegreeId
+
+                $("#editModalBody").load(url, function () {
+                    $("#editModal").modal("show");
+                })
             }
 
-        </table>
-    </div>
-</div>
+            var DeleteHighestDegree = function (highestDegreeId) {
+                $("#deleteModal").modal("show");
+                $("#hiddenId").val(highestDegreeId)
+            }
+
+            var ConfirmDelete = function () {
+                var highestDegreeId = $("#hiddenId").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/NomApplicantHighestDegrees/DeleteHighestDegree",
+                    data: { id: highestDegreeId },
+                    success: function (data) {
+                        $("#deleteModal").modal("hide");
+                        window.location.href = "/NomApplicantHighestDegrees/Index"
+                    }
+                });
+            }
+        </script>
+    }

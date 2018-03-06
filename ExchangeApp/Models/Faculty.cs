@@ -9,37 +9,37 @@ namespace ExchangeApp.Models
 {
     public class Faculty : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: School name")]
-        [Display(Name = "School name")]
+        [Required(ErrorMessage = "Please enter faculty name")]
+        [Display(Name = "Faculty name")]
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter: School program")]
-        [Display(Name = "School program")]
+        [Required(ErrorMessage = "Please enter program")]
+        [Display(Name = "Program")]
         [StringLength(50)]
         public string Program { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Email")]
+        [Required(ErrorMessage = "Please enter email")]
         [Display(Name = "Email")]
         [StringLength(50)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Description")]
+        [Required(ErrorMessage = "Please enter description")]
         [Display(Name = "Description")]
         [StringLength(4000)]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Agreement number")]
+        [Required(ErrorMessage = "Please enter agreement number")]
         [Display(Name = "Agreement number")]
         [StringLength(20)]
         public string AgreementNumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Website")]
+        [Required(ErrorMessage = "Please enter website")]
         [Display(Name = "Website")]
         [StringLength(50)]
         public string Website { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please choose country")]
         [Display(Name = "Country")]
         public int? CountryId { get; set; }
 
@@ -47,15 +47,15 @@ namespace ExchangeApp.Models
         [ForeignKey("CountryId")]
         public virtual NomCountry CountryObj { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Date of Matriculation")]
+        [Required(ErrorMessage = "Please choose date of matriculation")]
         [Display(Name = "Date of Matriculation")]
         public DateTime? DateOfMatriculation { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Accreditation number")]
+        [Required(ErrorMessage = "Please enter accreditation number")]
         [Display(Name = "Accreditation number")]
         public int AccreditationNumber { get; set; }
 
-        [Required(ErrorMessage = "Please enter: Date of Accreditation")]
+        [Required(ErrorMessage = "Please choose date of accreditation")]
         [Display(Name = "Date of Accreditation")]
         public DateTime? DateOfAccreditation { get; set; }
 
@@ -92,5 +92,6 @@ namespace ExchangeApp.Models
         public virtual NomTypeOfExchange FacultyTypeOfExchangeObj { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
+
     }
 }

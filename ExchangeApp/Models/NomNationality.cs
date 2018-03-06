@@ -8,7 +8,7 @@ namespace ExchangeApp.Models
 {
     public class NomNationality : BaseObject
     {
-        [Required(ErrorMessage = "Please enter: Natonality name")]
+        [Required(ErrorMessage = "Please enter natonality")]
         [Display(Name = "Nationality")]
         [StringLength(50)]
         public string Name { get; set; }

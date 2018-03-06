@@ -1,28 +1,17 @@
 ﻿
-@model ExchangeApp.Models.Semester
+@model ExchangeApp.Models.NomSchoolYear
 
 <form class="clearfix" id="addEditForm">
     <section class="js-information form-fields no-padding clearfix">
         <div class="form-group">
             @Html.HiddenFor(model => model.ID)
-            <div class="col-lg-6 col-md-10 mt-10">
+            <div class="col-lg-12 col-md-10 mt-10">
                 <label class="fl">
-                    Description
+                    School Year
                     <sup>*</sup>
                 </label>
                 <div>
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { placeholder = "Enter description" } })
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-10 mt-10">
-                <div>
-                    <label class="fl">
-                        School Year
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.DropDownListFor(model => model.SchoolYearId, ViewBag.SchoolYearsList as SelectList, "Select school year")
-                    </div>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter school year" } })
                 </div>
             </div>
         </div>
@@ -52,12 +41,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Semesters/CreateUpdateSemester",
+                url: "/NomSchoolYears/CreateUpdateSchoolYear",
                 data: formData,
                 success: function (data) {
                     if (data == true) {
                         $("#editModal").modal("hide");
-                        window.location.href = "/Semesters/Index"
+                        window.location.href = "/NomSchoolYears/Index"
                     }
                     else {
                         parseErrors(data);

@@ -12,7 +12,7 @@ namespace ExchangeApp.Controllers
 {
     public class NomCountriesController : BaseAdminController
     {
-        
+
         // GET: NomCountries
         public ActionResult Index()
         {
@@ -20,118 +20,97 @@ namespace ExchangeApp.Controllers
             return View(nomCountries.ToList());
         }
 
-        // GET: NomCountries/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult AddEditCountry(int countryId)
         {
-            if (id == null)
+            List<NomRegion> regions = db.Regions.ToList();
+            ViewBag.RegionsList = new SelectList(regions, "ID", "Name");
+
+            NomCountry model = new NomCountry();
+
+            if (countryId > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                NomCountry country = db.Countries.Find(countryId);
+                model.ID = country.ID;
+                model.Name = country.Name;
+                model.RegionId = country.RegionId;
+                model.RegionObj = country.RegionObj;
             }
-            NomCountry nomCountry = db.Countries.Find(id);
-            if (nomCountry == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomCountry);
+
+            return PartialView("AddEditCountry", model);
+
         }
 
-        // GET: NomCountries/Create
-        public ActionResult Create()
-        {
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.RegionId = new SelectList(db.Regions, "ID", "Name");
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            return View();
-        }
-
-        // POST: NomCountries/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,RegionId")] NomCountry nomCountry)
+        public ActionResult CreateUpdateCountry(NomCountry model)
         {
-            NomCountry countryToInsert = new NomCountry();
-            countryToInsert.Name = nomCountry.Name;
-            countryToInsert.RegionId = nomCountry.RegionId;
-
             if (ModelState.IsValid)
             {
-                db.Countries.Add(countryToInsert);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var message = "";
+
+                    if (model.ID > 0)
+                    {
+                        NomCountry countryDb = db.Countries.FirstOrDefault(x => x.ID == model.ID);
+                        countryDb.ID = model.ID;
+                        countryDb.Name = model.Name;
+                        countryDb.RegionObj = model.RegionObj;
+                        countryDb.RegionId = model.RegionId;
+
+                        message = "Successfully edited country!";
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        if (db.Countries.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.RegionId == model.RegionId))
+                        {
+                            throw new Exception("Country already exists!");
+                        }
+
+                        NomCountry country = new NomCountry();
+                        country.ID = model.ID;
+                        country.Name = model.Name;
+
+                        NomRegion region = db.Regions.Find(model.RegionId);
+                        country.RegionObj = region;
+                        country.RegionId = region.ID;
+
+                        message = "Successfully added country!";
+
+                        db.Countries.Add(country);
+                        db.SaveChanges();
+                    }
+
+                    DisplaySuccessMessage(message);
+                    return Json(true);
+                }
+
+                catch (Exception ex)
+                {
+                    var modelErrors = new List<string>();
+                    modelErrors.Add(ex.Message);
+
+                    return Json(modelErrors);
+                }
+            }
+            else
+            {
+                var errors = GetModelStateErrors(ModelState.Values);
+                return Json(errors);
             }
 
-            ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomCountry.LastUpdatedBy);
-            ViewBag.RegionId = new SelectList(db.Regions, "ID", "Name", nomCountry.RegionId);
-            ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomCountry.RegisteredBy);
-            return View(nomCountry);
         }
 
-        // GET: NomCountries/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomCountry nomCountry = db.Countries.Find(id);
-            if (nomCountry == null)
-            {
-                return HttpNotFound();
-            }
-          
-            ViewBag.RegionId = new SelectList(db.Regions, "ID", "Name", nomCountry.RegionId);
-            return View(nomCountry);
-        }
-
-        // POST: NomCountries/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,RegionId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] NomCountry nomCountry)
+        public ActionResult DeleteCountry(int id)
         {
-            NomCountry country = db.Countries.Find(nomCountry.ID);
-
-            country.Name = nomCountry.Name;
-            country.RegionId = nomCountry.RegionId;
-            if (ModelState.IsValid)
-            {
-                db.Entry(country).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            //ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", nomCountry.LastUpdatedBy);
-            ViewBag.RegionId = new SelectList(db.Regions, "ID", "Name", nomCountry.RegionId);
-            //ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", nomCountry.RegisteredBy);
-            return View(nomCountry);
-        }
-
-        // GET: NomCountries/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            NomCountry nomCountry = db.Countries.Find(id);
-            if (nomCountry == null)
-            {
-                return HttpNotFound();
-            }
-            return View(nomCountry);
-        }
-
-        // POST: NomCountries/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            NomCountry nomCountry = db.Countries.Find(id);
-            db.Countries.Remove(nomCountry);
+            NomCountry country = db.Countries.Find(id);
+            db.Countries.Remove(country);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted country!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

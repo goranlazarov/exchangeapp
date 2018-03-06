@@ -10,9 +10,9 @@ using ExchangeApp.Models;
 
 namespace ExchangeApp.Controllers
 {
-    public class FacultiesController : BaseController
+    public class FacultiesController : BaseAdminController
     {
-        
+
         // GET: Faculties
         public ActionResult Index()
         {
@@ -38,11 +38,14 @@ namespace ExchangeApp.Controllers
         // GET: Faculties/Create
         public ActionResult Create()
         {
-            ViewBag.CountryId = new SelectList(db.Countries, "ID", "Name");
-            ViewBag.FacultyTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name");
+            List<NomCountry> countriesList = db.Countries.ToList();
+            ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
+            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
-            ViewBag.StudentTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name");
             return View();
         }
 
@@ -51,8 +54,53 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty)
+        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId")] Faculty faculty, bool StudentSelected, bool FacultySelected)
         {
+            if (!StudentSelected && !FacultySelected)
+            {
+                ModelState.AddModelError("", "Please select type of exchange that you offer");
+            }
+
+            if (StudentSelected)
+            {
+                if (faculty.StudentTypeOfExchangeId == null)
+                {
+                    ModelState.AddModelError("StudentTypeOfExchangeId", "Please choose student type of exchange");
+                }
+                if (faculty.StudentPlacesAvailable == null || faculty.StudentPlacesAvailable == 0)
+                {
+                    ModelState.AddModelError("StudentPlacesAvailable", "Please enter student places available");
+                }
+                if (faculty.StudentApplicationDate == null)
+                {
+                    ModelState.AddModelError("StudentApplicationDate", "Please choose application date");
+                }
+                if (faculty.StudentEnrollmentDate == null)
+                {
+                    ModelState.AddModelError("StudentEnrollmentDate", "Please choose enrollment date");
+                }
+            }
+
+            if (FacultySelected)
+            {
+                if (faculty.FacultyTypeOfExchangeId == null)
+                {
+                    ModelState.AddModelError("FacultyTypeOfExchangeId", "Please choose faculty type of exchange");
+                }
+                if (faculty.FacultyPlacesAvailable == null || faculty.FacultyPlacesAvailable == 0)
+                {
+                    ModelState.AddModelError("FacultyPlacesAvailable", "Please enter faculty places available");
+                }
+                if (faculty.FacultyApplicationDate == null)
+                {
+                    ModelState.AddModelError("FacultyApplicationDate", "Please choose application date");
+                }
+                if (faculty.FacultyEnrollmentDate == null)
+                {
+                    ModelState.AddModelError("FacultyEnrollmentDate", "Please choose enrollment date");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Faculties.Add(faculty);
@@ -60,11 +108,16 @@ namespace ExchangeApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CountryId = new SelectList(db.Countries, "ID", "Name", faculty.CountryId);
-            ViewBag.FacultyTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.FacultyTypeOfExchangeId);
+            List<NomCountry> countriesList = db.Countries.ToList();
+            ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
+            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
-            ViewBag.StudentTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.StudentTypeOfExchangeId);
+
+            DisplaySuccessMessage("Successfully added new faculty!");
             return View(faculty);
         }
 
@@ -94,46 +147,82 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty)
+        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty, bool StudentSelected, bool FacultySelected)
         {
+            if (!StudentSelected && !FacultySelected)
+            {
+                ModelState.AddModelError("", "Please select type of exchange that you offer");
+            }
+
+            if (StudentSelected)
+            {
+                if (faculty.StudentTypeOfExchangeId == null)
+                {
+                    ModelState.AddModelError("StudentTypeOfExchangeId", "Please choose student type of exchange");
+                }
+                if (faculty.StudentPlacesAvailable == null || faculty.StudentPlacesAvailable == 0)
+                {
+                    ModelState.AddModelError("StudentPlacesAvailable", "Please enter student places available");
+                }
+                if (faculty.StudentApplicationDate == null)
+                {
+                    ModelState.AddModelError("StudentApplicationDate", "Please choose application date");
+                }
+                if (faculty.StudentEnrollmentDate == null)
+                {
+                    ModelState.AddModelError("StudentEnrollmentDate", "Please choose enrollment date");
+                }
+            }
+
+            if (FacultySelected)
+            {
+                if (faculty.FacultyTypeOfExchangeId == null)
+                {
+                    ModelState.AddModelError("FacultyTypeOfExchangeId", "Please choose faculty type of exchange");
+                }
+                if (faculty.FacultyPlacesAvailable == null || faculty.FacultyPlacesAvailable == 0)
+                {
+                    ModelState.AddModelError("FacultyPlacesAvailable", "Please enter faculty places available");
+                }
+                if (faculty.FacultyApplicationDate == null)
+                {
+                    ModelState.AddModelError("FacultyApplicationDate", "Please choose application date");
+                }
+                if (faculty.FacultyEnrollmentDate == null)
+                {
+                    ModelState.AddModelError("FacultyEnrollmentDate", "Please choose enrollment date");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(faculty).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CountryId = new SelectList(db.Countries, "ID", "Name", faculty.CountryId);
-            ViewBag.FacultyTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.FacultyTypeOfExchangeId);
+
+            List<NomCountry> countriesList = db.Countries.ToList();
+            ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
+            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
-            ViewBag.StudentTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.StudentTypeOfExchangeId);
+
+            DisplaySuccessMessage("Successfully edited faculty!");
             return View(faculty);
         }
 
-        // GET: Faculties/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Faculty faculty = db.Faculties.Find(id);
-            if (faculty == null)
-            {
-                return HttpNotFound();
-            }
-            return View(faculty);
-        }
-
-        // POST: Faculties/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult DeleteFaculty(int id)
         {
             Faculty faculty = db.Faculties.Find(id);
             db.Faculties.Remove(faculty);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            DisplaySuccessMessage("Successfully deleted faculty!");
+            return Json(true);
         }
 
         protected override void Dispose(bool disposing)

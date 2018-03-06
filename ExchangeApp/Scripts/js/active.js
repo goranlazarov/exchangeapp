@@ -46,13 +46,13 @@
 	'use strict';
 
 	
-	/* Scroll Up Activation */
-	$.scrollUp({
-	    scrollText: '<i class="fa fa-angle-up"></i>',
-	    easingType: 'linear',
-	    scrollSpeed: 900,
-	    animation: 'slide'
-	});
+	///* Scroll Up Activation */
+	//$.scrollUp({
+	//    scrollText: '<i class="fa fa-angle-up"></i>',
+	//    easingType: 'linear',
+	//    scrollSpeed: 900,
+	//    animation: 'slide'
+	//});
 
 
 

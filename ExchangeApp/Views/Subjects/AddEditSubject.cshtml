@@ -1,5 +1,5 @@
 ﻿
-@model ExchangeApp.Models.Semester
+@model ExchangeApp.Models.Subject
 
 <form class="clearfix" id="addEditForm">
     <section class="js-information form-fields no-padding clearfix">
@@ -7,21 +7,32 @@
             @Html.HiddenFor(model => model.ID)
             <div class="col-lg-6 col-md-10 mt-10">
                 <label class="fl">
-                    Description
+                    Name
                     <sup>*</sup>
                 </label>
                 <div>
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { placeholder = "Enter description" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter subject name" } })
                 </div>
             </div>
             <div class="col-lg-6 col-md-10 mt-10">
                 <div>
                     <label class="fl">
-                        School Year
+                        Degree Level
                         <sup>*</sup>
                     </label>
                     <div>
-                        @Html.DropDownListFor(model => model.SchoolYearId, ViewBag.SchoolYearsList as SelectList, "Select school year")
+                        @Html.DropDownListFor(model => model.DegreeLevelId, ViewBag.DegreeLevelsList as SelectList, "Select degree level")
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-10 mt-10">
+                <div>
+                    <label class="fl">
+                        Faculty
+                        <sup>*</sup>
+                    </label>
+                    <div>
+                        @Html.DropDownListFor(model => model.FacultyId, ViewBag.FacultiesList as SelectList, "Select faculty")
                     </div>
                 </div>
             </div>
@@ -52,12 +63,12 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Semesters/CreateUpdateSemester",
+                url: "/Subjects/CreateUpdateSubject",
                 data: formData,
                 success: function (data) {
                     if (data == true) {
                         $("#editModal").modal("hide");
-                        window.location.href = "/Semesters/Index"
+                        window.location.href = "/Subjects/Index"
                     }
                     else {
                         parseErrors(data);
