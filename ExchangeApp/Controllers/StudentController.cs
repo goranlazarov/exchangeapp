@@ -32,17 +32,6 @@ namespace ExchangeApp.Controllers
         // GET: Faculties/Create
         public ActionResult Index(int? id)
         {
-            //ViewBag.Faculty = db.Faculties.Find(1);
-
-            //ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
-            //ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
-            //ViewBag.SchoolName = new SelectList(db.Faculties, "ID", "Name");
-            //ViewBag.Country = new SelectList(db.Countries, "ID", "Name");
-            //ViewBag.Region = new SelectList(db.Regions, "ID", "Name");
-            //return View();
-
-            
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -59,13 +48,16 @@ namespace ExchangeApp.Controllers
             AddSearchFields();
 
             StudentViewModel svm = new StudentViewModel(faculty);
+            svm.DateOfEnrollment = DateTime.Today;
+            svm.DateOfCompletion = DateTime.Today;
+
             return View(svm);
         }
 
         [HttpPost]
         public ActionResult SendApplication(StudentViewModel model)
         {
-            if (model.CV !=null && model.CV.ContentLength > 0)
+            if (model.CV != null && model.CV.ContentLength > 0)
             {
                 Attachment messageAttachment = new Attachment(model.CV.InputStream, model.CV.FileName);
                 string from = model.Email;
@@ -111,7 +103,7 @@ namespace ExchangeApp.Controllers
             Faculty facultyOth = db.Faculties.Find(model.Faculty.ID);
             StudentViewModel svmOth = new StudentViewModel(facultyOth);
             return View("Index", svmOth);
-            
+
         }
 
 
