@@ -16,29 +16,44 @@ namespace ExchangeApp.Models
 
         public string Email { get; set; }
 
+        public string Password { get; set; }
+
         public string Nationality { get; set; }
 
         public string CountryOfOrigin { get; set; }
 
-        public DateTime DateOfEnrollment { get; set; }
+        public HttpPostedFileBase CV { get; set; }
 
-        public DateTime DateOfCompletion { get; set; }
+        //public DateTime DateOfEnrollment { get; set; }
 
-        public string ProgramEnrolled { get; set; }
+        //public DateTime DateOfCompletion { get; set; }
 
-        public string SemesterEnrolled { get; set; }
+        //public string ProgramEnrolled { get; set; }
 
-        public string EnglishLevel { get; set; }
+        //public string SemesterEnrolled { get; set; }
 
-        public string SchoolName { get; set; }
+        //public string EnglishLevel { get; set; }
 
-        public string Country { get; set; }
+        //public string SchoolName { get; set; }
 
-        public string Region { get; set; }
+        //public string Country { get; set; }
 
-        public int AgreementNumber { get; set; }
+        //public string Region { get; set; }
 
-        public int AccreditationNumber { get; set; }
+        //public int AgreementNumber { get; set; }
+
+        //public int AccreditationNumber { get; set; }
+
+
+        public StudentViewModel(Faculty faculty)
+        {
+            this.Faculty = faculty;
+        }
+
+        public StudentViewModel()
+        {
+
+        }
 
     }
 }

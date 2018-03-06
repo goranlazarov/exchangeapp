@@ -29,21 +29,36 @@ namespace ExchangeApp.Controllers
             ViewBag.RegionId = new SelectList(list, "ID", "Name");
 
             ViewBag.CountryId = new SelectList(listCountries, "ID", "Name");
+            var ReturnModel = new FacultiesViewModel();
 
-            var FacultyInstitutions = db.Faculties.ToList().OrderBy(l=>l.Registered).Take(5);
-            return View(FacultyInstitutions);
+
+            var facultiesFiltered = db.Faculties.ToList();
+            var facultiesStudentsFiltered = facultiesFiltered.Where(f =>
+                                            f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
+                                            f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(5);
+            var facultiesTeachersFiltered = facultiesFiltered.Where(f =>
+                                           f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(5);
+
+            ReturnModel.StudentsPlaces = new List<Faculty>(facultiesStudentsFiltered);
+            ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
+
+            return View(ReturnModel);
             
         }
 
-        public ActionResult ListFaculties(string SearchKeyword, string currentFilter, int? CountryId, int? currentCountry, int? page)
+        public ActionResult ListFaculties(bool? StudentSelected, bool? FacultySelected, bool? currStud, bool? currFac, string SearchProgram, string currentProgram, string SearchKeyword, string currentFilter, int? CountryId, int? currentCountry, int? page)
         {
             ViewBag.CurrentFilter = string.IsNullOrEmpty(SearchKeyword) ? currentFilter : SearchKeyword;
             ViewBag.CurrentCountry = CountryId.HasValue ? CountryId : currentCountry;
+            ViewBag.CurrentProgram = string.IsNullOrEmpty(SearchProgram) ? currentProgram : SearchProgram;
+            ViewBag.CurrentStudent = StudentSelected.HasValue ? StudentSelected : currStud;
+            ViewBag.CurrentFaculty = FacultySelected.HasValue ? FacultySelected : currFac;
 
             var programs = from faculties in db.Faculties
                          select faculties.Program;
 
-            ViewBag.Programs = programs.ToList().Distinct();
+            ViewBag.Programs = programs.ToList().Distinct().Take(10);
 
             int x = 0;
             NomRegion initial = new NomRegion();
@@ -74,6 +89,21 @@ namespace ExchangeApp.Controllers
                 CountryId = currentCountry;
             }
 
+            if (string.IsNullOrEmpty(SearchProgram))
+            {
+                SearchProgram = currentProgram;
+            }
+
+            if (!StudentSelected.HasValue)
+            {
+                StudentSelected = currStud;
+            }
+
+            if (!FacultySelected.HasValue)
+            {
+                FacultySelected = currFac;
+            }
+
             var facultiesFiltered = db.Faculties.ToList();
             if(!string.IsNullOrEmpty(SearchKeyword))
             {
@@ -82,6 +112,25 @@ namespace ExchangeApp.Controllers
             if(CountryId.HasValue && CountryId != -1)
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.CountryId.HasValue && f.CountryId == CountryId).ToList();
+            }
+            if (!string.IsNullOrEmpty(SearchProgram))
+            {
+                facultiesFiltered = facultiesFiltered.Where(f => f.Program.Contains(SearchProgram)).ToList();
+            }
+
+            //TO DO - logika so datumi za sporedba so momentalen datum
+            if((StudentSelected.HasValue && StudentSelected.Value) || (FacultySelected.HasValue && FacultySelected.Value))
+            {
+                facultiesFiltered = facultiesFiltered.Where(f =>
+                                            (f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
+                                                f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue &&
+                                                (StudentSelected.HasValue && StudentSelected.Value)
+                                        ) ||
+                                           (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue &&
+                                                (FacultySelected.HasValue && FacultySelected.Value)
+                                        )
+                                        ).ToList();
             }
 
             SearchViewModel svm = new SearchViewModel();

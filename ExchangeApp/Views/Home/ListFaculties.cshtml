@@ -24,42 +24,51 @@
         <div class="breadcrumbs" role="navigation">
             <ol>
                 <li><a href="http://careers.acbsp.org">Career Center Home</a></li>
-
-
                 <li class="">Job Search</li>
-
-
-
-
             </ol>
         </div>
-
-
-
-
-
         <div class="clearfix results-content">
-
-
-
             <aside aria-label="refine search">
                 <div class="filters">
                     <p class="clearfix"> Additional search options: </p>
                     <fieldset>
-                        <legend style="position: absolute;left: -999em;">Study program</legend>
-                        <span class="h5">Study program:</span>
-                        <p class="clearfix"> Suggestions: </p>
+                        @using (Html.BeginForm("ListFaculties", "Home", new { SearchKeyword = ViewBag.CurrentFilter, CountryId = ViewBag.CurrentCountry }, FormMethod.Post))
+    {
+                    @Html.AntiForgeryToken()
+                    <span class="h5">Find places for</span>
+
+                    <div style="display:flex; flex-wrap: wrap;">
+                        <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                            @Html.CheckBox("StudentSelected", ((bool?)ViewBag.CurrentStudent).HasValue ? ((bool?)ViewBag.CurrentStudent).Value : false)
+                            @Html.Label("STUDENT")
+                        </span>
+                        &nbsp;&nbsp;&nbsp;
+                        <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                            @Html.CheckBox("FacultySelected", ((bool?)ViewBag.CurrentFaculty).HasValue ? ((bool?)ViewBag.CurrentFaculty).Value : false)
+                            @Html.Label("FACULTY")
+                        </span>
+                    </div>
+                    <hr />
+                    <legend style="position: absolute;left: -999em;">Study program</legend>
+                    <span class="h5">Study program</span>
+                    <p class="clearfix"> Suggestions: </p>
+                    <span>
                         @foreach (var item in ViewBag.Programs)
-                        {
-                                            <p class="spotlight">@item</p>
-                        }
+    {
+                    <strong style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;"> @item </strong>
+}
+                    </span>
+                    <p class="clearfix"></p>
+
+                    @Html.TextBox("SearchProgram", (string)ViewBag.CurrentProgram, new { placeholder = "Enter program keyword", type = "search", maxlength = "500" })
+                    <p class="clearfix"></p>
+                    <button class="primary primary-applied" type="submit">Search</button>
+}
+
                     </fieldset>
                 </div>
-
             </aside>
-
             <section id="job-listing" aria-label="Job Listings" role="main">
-
                 <div class="listing-options clearfix">
                     @*<strong>Sort by: </strong>
                         <ol>
@@ -76,10 +85,7 @@
                         </ol>
                         <em><a href="#" id="show-hide">Show All Details</a></em>*@
                 </div>
-
-
                 <!-- if this is true we display the vertical network header --->
-
                 <div class="listings">
                     <ul>
                         @foreach (var item in Model)
@@ -92,7 +98,7 @@
 
                                     </div>
                                     <div class="job-summary-top-left clearfix">
-                                        <a class="ga_job" href="/job/economics/39431667/" aria-label="Job ID - 39431667">
+                                        <a class="ga_job" href='@Url.Action("Index", "Student", new { id = @item.ID })' aria-label="Job ID - 39431667">
 
 
                                             <span class="h3">
@@ -150,7 +156,7 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                 @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
-             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry }))
+             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry,currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty}))
             </section>
 
         </div>

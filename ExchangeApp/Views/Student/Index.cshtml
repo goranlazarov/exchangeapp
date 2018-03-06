@@ -10,106 +10,17 @@
         <div class="interior site">
             <section id="inner-page-header" class="clearfix">
                 <div class="site-name-tag">
-                    <h1>@ViewBag.Faculty.Name</h1>
+                    <h1>@Model.Faculty.Name</h1>
                 </div>
                 <div id="job-search-form" class="clearfix" role="search">
-                    <form id="jt_search" class="clearfix" action="/jobseeker/search/results/" method="get">
-                        <input type="hidden" name="site_id" value="22669">
-                        <fieldset>
-                            <legend style="position: absolute;left: -999em;">Job Search Keywords</legend>
-                            <input maxlength="500" aria-label="Job Keyword Search" type="search" title="keywords" value="" id="keywords" name="keywords" tab-index="10" placeholder="Enter Keyword or Job Title">
-                        </fieldset>
-                        <fieldset>
-                            <legend style="position: absolute;left: -999em;">Select Location</legend>
-                            <div class="select-style">
-                                <select aria-label="Job Search Location" tab-index="20" name="t15">
-                                    <option selected="" value="">
-                                        All States
-                                    </option>
-                                    <option value="162">Other / Non-US</option>
-                                    <option value="114">Alabama</option>
-                                    <option value="115">Alaska</option>
-                                    <option value="116">Alberta</option>
-                                    <option value="117">Arizona</option>
-                                    <option value="118">Arkansas</option>
-                                    <option value="119">British Columbia</option>
-                                    <option value="120">California</option>
-                                    <option value="121">Colorado</option>
-                                    <option value="122">Connecticut</option>
-                                    <option value="123">Delaware</option>
-                                    <option value="124">Dist. Columbia</option>
-                                    <option value="125">Florida</option>
-                                    <option value="126">Georgia</option>
-                                    <option value="127">Guam</option>
-                                    <option value="128">Hawaii</option>
-                                    <option value="129">Idaho</option>
-                                    <option value="130">Illinois</option>
-                                    <option value="131">Indiana</option>
-                                    <option value="132">Iowa</option>
-                                    <option value="133">Kansas</option>
-                                    <option value="134">Kentucky</option>
-                                    <option value="135">Louisiana</option>
-                                    <option value="136">Maine</option>
-                                    <option value="137">Manitoba</option>
-                                    <option value="138">Maryland</option>
-                                    <option value="139">Massachusetts</option>
-                                    <option value="140">Michigan</option>
-                                    <option value="141">Minnesota</option>
-                                    <option value="142">Mississippi</option>
-                                    <option value="143">Missouri</option>
-                                    <option value="144">Montana</option>
-                                    <option value="145">Nebraska</option>
-                                    <option value="146">Nevada</option>
-                                    <option value="147">New Brunswick</option>
-                                    <option value="148">New Hampshire</option>
-                                    <option value="149">New Jersey</option>
-                                    <option value="150">New Mexico</option>
-                                    <option value="151">New York</option>
-                                    <option value="152">Newfoundland</option>
-                                    <option value="153">North Carolina</option>
-                                    <option value="154">North Dakota</option>
-                                    <option value="155">Northwest Terr.</option>
-                                    <option value="156">Nova Scotia</option>
-                                    <option value="157">Nunavut</option>
-                                    <option value="158">Ohio</option>
-                                    <option value="159">Oklahoma</option>
-                                    <option value="160">Ontario</option>
-                                    <option value="161">Oregon</option>
-                                    <option value="163">Pennsylvania</option>
-                                    <option value="164">Prince Ed. Is.</option>
-                                    <option value="165">Puerto Rico</option>
-                                    <option value="166">Quebec</option>
-                                    <option value="167">Rhode Island</option>
-                                    <option value="168">Saskatchewan</option>
-                                    <option value="169">South Carolina</option>
-                                    <option value="170">South Dakota</option>
-                                    <option value="171">Tennessee</option>
-                                    <option value="172">Texas</option>
-                                    <option value="173">Utah</option>
-                                    <option value="174">Vermont</option>
-                                    <option value="175">Virgin Islands</option>
-                                    <option value="176">Virginia</option>
-                                    <option value="177">Washington</option>
-                                    <option value="178">West Virginia</option>
-                                    <option value="179">Wisconsin</option>
-                                    <option value="180">Wyoming</option>
-                                    <option value="181">Yukon Territory</option>
-                                </select>
-                            </div>
-                        </fieldset>
-                        <fieldset class="call-to-action">
-                            <legend style="position: absolute;left: -999em;">Submit Search</legend>
-                            <button aria-label="Submit Job Search" class="secondary fa fa-search" tab-index="30" type="submit" onclick="$('#jt_search').submit(); return false;">Search</button>
-                        </fieldset>
-
-                    </form>
+                    @Html.Partial("../Shared/_SearchPartial", new ExchangeApp.Models.SearchViewModel())
                 </div>
             </section>
             <div class="breadcrumbs site" role="navigation">
                 <ol>
                     <li><a href="#">Mobility</a></li>
                     <li><a href="#">University</a></li>
-                    <li>@ViewBag.Faculty.Name</li>
+                    <li>@Model.Faculty.Name</li>
                 </ol>
             </div>
             <div class="clearfix">
@@ -124,7 +35,7 @@
                     <div class="description-text">
                         <div class="generic-details-text">
                             <span class="h5">Description</span>
-                            <p>@ViewBag.Faculty.Description</p>
+                            <p>@Model.Faculty.Description</p>
                         </div>
                     </div>
                     <div class="job-data-contain">
@@ -133,7 +44,7 @@
                                 <li class="clearfix">
                                     <label>Location:</label>
                                     <span>
-                                        @ViewBag.Faculty.CountryObj.Name, @ViewBag.Faculty.CountryObj.RegionObj.Name
+                                        @Model.Faculty.CountryObj.Name, @Model.Faculty.CountryObj.RegionObj.Name
                                     </span>
                                 </li>
                                 <li class="clearfix">
@@ -142,31 +53,31 @@
                                 </li>
                                 <li class="clearfix">
                                     <label>E-mail:</label>
-                                    <span>@ViewBag.Faculty.Email</span>
+                                    <span>@Model.Faculty.Email</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Website:</label>
-                                    <span>@ViewBag.Faculty.Website</span>
+                                    <span>@Model.Faculty.Website</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Date of Matriculation: </label>
-                                    <span>@ViewBag.Faculty.DateOfMatriculation</span>
+                                    <span>@Model.Faculty.DateOfMatriculation</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Date of Accreditation: </label>
-                                    <span>@ViewBag.Faculty.DateOfAccreditation</span>
+                                    <span>@Model.Faculty.DateOfAccreditation</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Accreditation Number:</label>
-                                    <span>@ViewBag.Faculty.AccreditationNumber</span>
+                                    <span>@Model.Faculty.AccreditationNumber</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Student Type of Exchange:</label>
-                                    <span>@ViewBag.Faculty.StudentTypeOfExchangeObj.Name</span>
+                                    <span>@Model.Faculty.StudentTypeOfExchangeObj.Name</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Student Places Available:</label>
-                                    <span>@ViewBag.Faculty.StudentPlacesAvailable</span>
+                                    <span>@Model.Faculty.StudentPlacesAvailable</span>
                                 </li>
                             </ul>
                             <ul class="company-contact"></ul>
@@ -180,7 +91,8 @@
                 <div class="default-form-box clearfix">
                     <div class="">
                         <strong>Create your application</strong>
-                        <form class="clearfix" id="register_form" method="post" action="/jobseeker/login/?goto=%2Fjobseeker%2Fmy%2Daccount%2F">
+                        @using (Html.BeginForm("SendApplication", "Student", FormMethod.Post, new { enctype = "multipart/form-data", facultyMail = Model.Faculty.Email }))
+                        {
                             <section class="js-information form-fields no-padding clearfix">
                                 <fieldset class="name">
                                     <legend style="position: absolute;left: -999em;">First Name</legend>
@@ -213,6 +125,19 @@
                                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your email address" } })
                                     @*   <input aria-label="Email Address" type="email" name="email" placeholder="Enter your email address">*@
                                 </fieldset>
+
+                                <fieldset class="email">
+                                    <legend style="position: absolute;left: -999em;">Email Address</legend>
+                                    <label>
+                                        Email Address password
+                                        <sup>*</sup>
+
+                                    </label>
+                                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Enter your password", type = "password" } })
+                                    @*   <input aria-label="Email Address" type="email" name="email" placeholder="Enter your email address">*@
+                                </fieldset>
+                                @Html.HiddenFor(m => m.Faculty.Email)
+                                @Html.HiddenFor(m => m.Faculty.ID)
 
                                 <fieldset class="email">
                                     <legend style="position: absolute;left: -999em;">Nationality</legend>
@@ -255,7 +180,7 @@
                                         Program Enrolled
                                         <sup>*</sup>
                                     </label>
-                                    @Html.EditorFor(model => model.ProgramEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
+                                    @Html.EditorFor(model => model.Faculty.Program, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
                                     @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
                                 </fieldset>
                                 <fieldset class="name">
@@ -264,7 +189,7 @@
                                         Program Enrolled
                                         <sup>*</sup>
                                     </label>
-                                    @Html.EditorFor(model => model.SemesterEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })
+                                    @*   @Html.EditorFor(model => model.Faculty.Semseter, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })*@
                                     @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
                                 </fieldset>
                                 <fieldset class="name">
@@ -282,7 +207,7 @@
                                         University Name
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="University" type="text" name="last_name" value="@ViewBag.Faculty.Name" disabled>
+                                    <input aria-label="University" type="text" name="last_name" value="@Model.Faculty.Name" disabled>
                                 </fieldset>
                                 <fieldset class="name">
                                     <legend style="position: absolute;left: -999em;">University Country</legend>
@@ -290,7 +215,7 @@
                                         University Country
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="University Country" type="text" name="last_name" value="@ViewBag.Faculty.CountryObj.Name" disabled>
+                                    <input aria-label="University Country" type="text" name="last_name" value="@Model.Faculty.CountryObj.Name" disabled>
                                 </fieldset>
                                 <fieldset class="name">
                                     <legend style="position: absolute;left: -999em;">University Region</legend>
@@ -298,7 +223,7 @@
                                         University Region
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="School Region" type="text" name="last_name" value="@ViewBag.Faculty.CountryObj.RegionObj.Name" disabled>
+                                    <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.CountryObj.RegionObj.Name" disabled>
                                 </fieldset>
                                 <fieldset class="name">
                                     <legend style="position: absolute;left: -999em;">Accreditation Number</legend>
@@ -306,7 +231,7 @@
                                         Accreditation Number
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="School Region" type="text" name="last_name" value="@ViewBag.Faculty.AccreditationNumber" disabled>
+                                    <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.AccreditationNumber" disabled>
                                 </fieldset>
                                 <fieldset class="name">
                                     <legend style="position: absolute;left: -999em;">Agreement Number</legend>
@@ -314,13 +239,24 @@
                                         Agreement Number
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="School Region" type="text" name="last_name" value="@ViewBag.Faculty.AgreementNumber" disabled>
+                                    <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.AgreementNumber" disabled>
+                                </fieldset>
+                                <fieldset class="name">
+                                    <legend style="position: absolute;left: -999em;">Agreement Number</legend>
+                                    <label>
+                                        Uploaded CV
+                                        <sup>*</sup>
+                                    </label>
+                                    <div>
+                                        @Html.TextBox("CV", "", new { type = "file" }) <br />
+                                    </div>
+                                    @* <input aria-label="School Region" type="file" name="CV">*@
                                 </fieldset>
                             </section>
 
                             <input type="hidden" name="register" value="1">
                             <button type="submit" class="primary" id="new-account-button">Send my application</button>
-                        </form>
+                        }
                         <em><sup>*</sup>Required field</em>
                     </div>
                 </div>
@@ -331,6 +267,7 @@
     </div>
 </div>
 @section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $("#applyBtn").click(function () {
             $('html,body').animate({
@@ -338,6 +275,21 @@
             }, 'slow');
         });
     </script>
+    <script>
+    var url = '@Url.Action("getCountries", "Home")';
+    var countries = $('#CountryId');
+        function CallChangeFunc(val) {
+        countries.empty();
+            var id = val;
+            $.getJSON(url, { regionId: id }, function (response) {
+                $.each(response, function (index, item) {
+                    $('#CountryId').append('<option value=' + item.ID + '>' + item.Name + '</option > ');
+                });
+            });
+
+    }
+    </script>
 }
+
 
 

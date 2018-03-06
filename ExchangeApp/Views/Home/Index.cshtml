@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ExchangeApp.Models.Faculty>
+﻿@model ExchangeApp.Models.FacultiesViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -18,62 +18,90 @@
         </section>
 
 
-        <section id="featured-jobs" class="site" aria-label="Featured Jobs">
+        <section id="featured-jobs" class="site" aria-label="Featured Faculties">
             <div class="category-header">
-                <h2> Featured Jobs <span><i class="dotted-rule"></i></span> </h2>
+                <h2> Featured Faculties <span><i class="dotted-rule"></i></span> </h2>
             </div>
 
-            <div class="interior clearfix">
+            <div class="default-form-box clearfix">
+                @*id="featured-job-listing"*@
+                <div class="login">
+                    <strong>Student places available</strong>
+                            <div id="featured-job-listing">
 
-                <div id="featured-job-listing" class="clearfix">
-                    <ul>
-                        @foreach (var item in Model)
-                        {
-                    <li>
+                                <ul>
+                                    @foreach (var item in Model.StudentsPlaces)
+            {
+                        <li>
 
-                        <a href="">
+                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
 
-                            <h3>@item.Name</h3>
+                                <h3>@item.Name</h3>
 
-                        </a>
-                        <strong>@item.Program</strong>
-                        <em>@item.StudentPlacesAvailable</em>
+                            </a>
+                            <strong>@item.Program</strong>
+                            <em>@item.StudentPlacesAvailable</em>
 
 
-                        <input type="hidden" value="39577282" class="ga_job_id">
-                        <input type="hidden" value="1" class="ga_rank">
-                    </li>
-                        }
+                            <input type="hidden" value="39577282" class="ga_job_id">
+                            <input type="hidden" value="1" class="ga_rank">
+                        </li>
+}
 
-                    </ul>
-                    <a class="secondary clearfix" href="http://careers.acbsp.org/jobseeker/search/results/">View All Jobs</a>
+                                </ul>
+                                </div>
                 </div>
+                <div class="new-account">
+                    <strong> Faculty places available</strong>
+                            <div id="featured-job-listing">
+                                <ul>
+                                    @foreach (var item in Model.TeacherPlaces)
+        {
+                            <li>
+
+                                <a  href='@Url.Action("Index", "Student", new { id = item.ID })'>
+
+                                    <h3>@item.Name</h3>
+
+                                </a>
+                                <strong>@item.Program</strong>
+                                <em>@item.FacultyPlacesAvailable</em>
 
 
+                                <input type="hidden" value="39577282" class="ga_job_id">
+                                <input type="hidden" value="1" class="ga_rank">
+                            </li>
+}
 
-                <div class="featured-job-promo">
-                    <div class="sideboard-adspace">
-                        <div class="job-alert-signup">
-                            <span class="h5">
-                                Résumé  Review
-
-                            </span>
-                            <div>
-
-                                <em>
-
-                                    Improve your résumé with a free review
-
-                                </em>
+                                </ul>
                             </div>
-
-                            <a href="/c/resumes/edit/upload.cfm?site_id=22669" class="tertiary">Upload Résumé</a>
-
-                        </div>
-                    </div>
                 </div>
-
             </div>
+            
+            @*<div id="featured-job-listing" class="col-sm-4 news mbottom-15">
+                <ul>
+                    @foreach (var item in Model)
+            {
+                <li>
+
+                    <a href="">
+
+                        <h3>@item.Name</h3>
+
+                    </a>
+                    <strong>@item.Program</strong>
+                    <em>@item.StudentPlacesAvailable</em>
+
+
+                    <input type="hidden" value="39577282" class="ga_job_id">
+                    <input type="hidden" value="1" class="ga_rank">
+                </li>
+    }
+
+                </ul>
+                <a class="secondary clearfix" href="http://careers.acbsp.org/jobseeker/search/results/">View All Jobs</a>
+            </div>*@
+
 
         </section>
         <section id="featured-services" class="site" aria-label="Featured Services">

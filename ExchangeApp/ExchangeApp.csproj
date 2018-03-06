@@ -262,6 +262,7 @@
     <Compile Include="Models\Semester.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\SemesterViewModel.cs" />
+    <Compile Include="Models\FacultiesViewModel.cs" />
     <Compile Include="Models\TeacherViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
     <Compile Include="Models\Subject.cs" />
@@ -283,6 +284,7 @@
     <Content Include="Content\css\images\logo-22669.png" />
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
+    <Content Include="App_Data\MailBody.txt" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
@@ -518,7 +520,6 @@
     <Content Include="Views\Semesters\AddEditSemester.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\ViewModel\" />
   </ItemGroup>

@@ -92,7 +92,7 @@ namespace ExchangeApp.Controllers
         {
             NomNationality nationalityDb = db.Nationalities.Find(nomNationality.ID);
             nationalityDb.Name = nomNationality.Name;
-
+           
             if (ModelState.IsValid)
             {
                 db.Entry(nationalityDb).State = EntityState.Modified;
