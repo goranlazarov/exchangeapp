@@ -79,6 +79,30 @@
                                     <label>Student Places Available:</label>
                                     <span>@Model.Faculty.StudentPlacesAvailable</span>
                                 </li>
+                                <li class="clearfix">
+                                    <label>Student Application Date:</label>
+                                    <span>@Model.Faculty.StudentApplicationDate</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Student Enrollment Date:</label>
+                                    <span>@Model.Faculty.StudentEnrollmentDate</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Faculty Type of Exchange:</label>
+                                    <span>@Model.Faculty.FacultyTypeOfExchangeObj.Name</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Faculty Places Available:</label>
+                                    <span>@Model.Faculty.FacultyPlacesAvailable</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Faculty Application Date:</label>
+                                    <span>@Model.Faculty.FacultyApplicationDate</span>
+                                </li>
+                                <li class="clearfix">
+                                    <label>Faculty Enrollment Date:</label>
+                                    <span>@Model.Faculty.FacultyEnrollmentDate</span>
+                                </li>
                             </ul>
                             <ul class="company-contact"></ul>
                         </div>
@@ -162,7 +186,9 @@
                                         Date of Enrollment
                                         <sup>*</sup>
                                     </label>
-                                    <input type="text" name="DateOfEnrollment" id="user-select-date" placeholder="Choose date of enrollment" data-select="datepicker">
+                                    @Html.TextBoxFor(model => model.DateOfEnrollment, new { @class = "datepicker", onkeydown = "return false", placeholder = "Choose date of enrollment" })
+                                    @*@Html.TextBox("DateOfEnrollment", null, new { htmlAttributes = new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of enrollment" } })*@
+                                    @*<input type="text" name="DateOfEnrollment" id="user-select-date" placeholder="Choose date of enrollment" data-select="datepicker">*@
                                     @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
                                 </fieldset>
                                 <fieldset class="name">
@@ -171,7 +197,9 @@
                                         Date of Completion
                                         <sup>*</sup>
                                     </label>
-                                    <input type="text" name="DateOfCompletion" id="user-select-date" placeholder="Choose date of completion" data-select="datepicker">
+                                    @Html.TextBoxFor(model => model.DateOfCompletion, new { @class = "datepicker", onkeydown = "return false", placeholder = "Choose date of completion" })
+
+                                    @*<input type="text" name="DateOfCompletion" id="user-select-date" placeholder="Choose date of completion" data-select="datepicker">*@
                                     @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
                                 </fieldset>
                                 <fieldset class="name">
@@ -181,15 +209,6 @@
                                         <sup>*</sup>
                                     </label>
                                     @Html.EditorFor(model => model.Faculty.Program, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Program Enrolled</legend>
-                                    <label>
-                                        Program Enrolled
-                                        <sup>*</sup>
-                                    </label>
-                                    @*   @Html.EditorFor(model => model.Faculty.Semseter, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })*@
                                     @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
                                 </fieldset>
                                 <fieldset class="name">
@@ -252,10 +271,14 @@
                                     </div>
                                     @* <input aria-label="School Region" type="file" name="CV">*@
                                 </fieldset>
+                                <div class="clearfix"></div>
+                                <fieldset class="name" style="margin-left:38%">
+                                    <button type="submit" class="primary" id="new-account-button">Send my application</button>
+
+                                </fieldset>
                             </section>
 
                             <input type="hidden" name="register" value="1">
-                            <button type="submit" class="primary" id="new-account-button">Send my application</button>
                         }
                         <em><sup>*</sup>Required field</em>
                     </div>
@@ -288,6 +311,12 @@
             });
 
     }
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+        });
     </script>
 }
 

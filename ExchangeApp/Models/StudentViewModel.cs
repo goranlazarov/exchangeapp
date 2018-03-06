@@ -24,9 +24,9 @@ namespace ExchangeApp.Models
 
         public HttpPostedFileBase CV { get; set; }
 
-        //public DateTime DateOfEnrollment { get; set; }
+        public DateTime? DateOfEnrollment { get; set; }
 
-        //public DateTime DateOfCompletion { get; set; }
+        public DateTime? DateOfCompletion { get; set; }
 
         //public string ProgramEnrolled { get; set; }
 
