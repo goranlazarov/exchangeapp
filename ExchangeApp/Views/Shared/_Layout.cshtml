@@ -16,10 +16,7 @@
                 <a id="nav-trigger"><i class="fa fa-bars"></i></a>
                 <ul class="clearfix">
                     <li class="nav-student">
-                        <a href="@Url.Action("Index", "Student")" class="mobile-hide">Student</a>
-                    </li>
-                    <li>
-                        <a class="mobile-hide">Faculty</a>
+                        <a href="@Url.Action("Index", "Home", new { flag = (@ViewBag.LinkToOther == "Faculty" ? 1 : 0) })" class="mobile-hide">@ViewBag.LinkToOther</a>
                     </li>
                 </ul>
             </nav>
@@ -79,23 +76,23 @@
 </html>
 
 @*@section scripts {
-    <script>
-        $(document).ready(function () {
-            debugger;
-            if (window.location.href.indexOf("Student") > -1) {
-                $(".nav-student").css({ background: "#eaf0f4" });
-            } else {
-                $(".nav-student").css({ background: "white" });
-            }
+        <script>
+            $(document).ready(function () {
+                debugger;
+                if (window.location.href.indexOf("Student") > -1) {
+                    $(".nav-student").css({ background: "#eaf0f4" });
+                } else {
+                    $(".nav-student").css({ background: "white" });
+                }
 
-            if (window.location.href.indexOf("Faculty") > -1) {
-                $(".nav-student").css({ background: "#eaf0f4" });
-            } else {
-                $(".nav-student").css({ background: "white" });
-            }
-        });
-    </script>
-}*@
+                if (window.location.href.indexOf("Faculty") > -1) {
+                    $(".nav-student").css({ background: "#eaf0f4" });
+                } else {
+                    $(".nav-student").css({ background: "white" });
+                }
+            });
+        </script>
+    }*@
 
 
 

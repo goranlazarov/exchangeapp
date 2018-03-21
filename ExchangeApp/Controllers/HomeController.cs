@@ -10,39 +10,37 @@ namespace ExchangeApp.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(int? flag)
         {
-            NomRegion initial = new NomRegion();
-            initial.ID = -1;
-            initial.Name = "Select region";
-            List<Models.NomRegion> list = new List<Models.NomRegion>();
-            list.Add(initial);
-            list.AddRange(db.Regions);
+            if (flag.HasValue)
+               ViewBag.LinkToOther = (flag.Value == 1 ? "Student" : "Faculty");
+            else
+               ViewBag.LinkToOther = "Faculty";
 
-            NomCountry initialC = new NomCountry();
-            initialC.ID = -1;
-            initialC.Name = "Select country";
-            List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
-            listCountries.Add(initialC);
-            listCountries.AddRange(db.Countries);
 
-            ViewBag.RegionId = new SelectList(list, "ID", "Name");
+            AddFields();
 
-            ViewBag.CountryId = new SelectList(listCountries, "ID", "Name");
             var ReturnModel = new FacultiesViewModel();
-
-
             var facultiesFiltered = db.Faculties.ToList();
-            var facultiesStudentsFiltered = facultiesFiltered.Where(f =>
-                                            f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
-                                            f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(5);
-            var facultiesTeachersFiltered = facultiesFiltered.Where(f =>
-                                           f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(5);
 
-            ReturnModel.StudentsPlaces = new List<Faculty>(facultiesStudentsFiltered);
-            ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
+            if (flag.HasValue)
+            {
+                if (!String.IsNullOrEmpty(ViewBag.LinkToOther.ToString()) && ViewBag.LinkToOther.ToString().Equals("Student"))
+                {
+                    var facultiesTeachersFiltered = facultiesFiltered.Where(f =>
+                                                        f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                                            f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(4);
+                        ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
+                    return View(ReturnModel);
+                }
 
+            }
+            
+            var facultiesFilteredFinal = facultiesFiltered.Where(f =>
+                                               f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
+                                               f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(4);
+            ReturnModel.StudentsPlaces = new List<Faculty>(facultiesFilteredFinal);
+            
             return View(ReturnModel);
             
         }
@@ -59,25 +57,8 @@ namespace ExchangeApp.Controllers
                          select faculties.Program;
 
             ViewBag.Programs = programs.ToList().Distinct().Take(10);
-
-            int x = 0;
-            NomRegion initial = new NomRegion();
-            initial.ID = -1;
-            initial.Name = "Select region";
-            List<Models.NomRegion> list = new List<Models.NomRegion>();
-            list.Add(initial);
-            list.AddRange(db.Regions);
-
-            NomCountry initialC = new NomCountry();
-            initialC.ID = -1;
-            initialC.Name = "Select country";
-            List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
-            listCountries.Add(initialC);
-            listCountries.AddRange(db.Countries);
-
-            ViewBag.RegionId = new SelectList(list, "ID", "Name");
-
-            ViewBag.CountryId = new SelectList(listCountries, "ID", "Name");
+            
+            AddFields();
 
             if (SearchKeyword != null)
                 page = 1;
@@ -142,6 +123,27 @@ namespace ExchangeApp.Controllers
             int pageNumber = (page ?? 1);
             return View(facultiesFiltered.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
 
+        }
+        
+        public void AddFields()
+        {
+            NomRegion initial = new NomRegion();
+            initial.ID = -1;
+            initial.Name = "Select region";
+            List<Models.NomRegion> list = new List<Models.NomRegion>();
+            list.Add(initial);
+            list.AddRange(db.Regions);
+
+            NomCountry initialC = new NomCountry();
+            initialC.ID = -1;
+            initialC.Name = "Select country";
+            List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
+            listCountries.Add(initialC);
+            listCountries.AddRange(db.Countries);
+
+            ViewBag.RegionId = new SelectList(list, "ID", "Name");
+
+            ViewBag.CountryId = new SelectList(listCountries, "ID", "Name");
         }
 
         [HttpGet]

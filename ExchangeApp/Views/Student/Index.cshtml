@@ -89,7 +89,7 @@
                                 </li>
                                 <li class="clearfix">
                                     <label>Faculty Type of Exchange:</label>
-                                    <span>@Model.Faculty.FacultyTypeOfExchangeObj.Name</span>
+                                    <span>@(Model.Faculty.FacultyTypeOfExchangeObj!=null ? @Model.Faculty.FacultyTypeOfExchangeObj.Name : "")</span>
                                 </li>
                                 <li class="clearfix">
                                     <label>Faculty Places Available:</label>
