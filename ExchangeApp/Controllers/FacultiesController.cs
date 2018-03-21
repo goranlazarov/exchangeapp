@@ -54,7 +54,7 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId")] Faculty faculty, bool StudentSelected, bool FacultySelected)
+        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
             if (!StudentSelected && !FacultySelected)
             {
@@ -103,8 +103,22 @@ namespace ExchangeApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (File != null && IsValidImage(File))
+                {
+                    byte[] image = new byte[File.ContentLength];
+                    File.InputStream.Read(image, 0, image.Length);
+                    faculty.LogoImage = image;
+                }
+                else
+                {
+                    DisplayErrorMessage("Image format is not valid or image is bigger than 3MB!");
+                    return RedirectToAction("Index");
+                }
+
                 db.Faculties.Add(faculty);
                 db.SaveChanges();
+                DisplaySuccessMessage("Successfully added new faculty!");
+
                 return RedirectToAction("Index");
             }
 
@@ -117,7 +131,6 @@ namespace ExchangeApp.Controllers
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
 
-            DisplaySuccessMessage("Successfully added new faculty!");
             return View(faculty);
         }
 
@@ -147,7 +160,7 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty, bool StudentSelected, bool FacultySelected)
+        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
             if (!StudentSelected && !FacultySelected)
             {
@@ -196,8 +209,29 @@ namespace ExchangeApp.Controllers
 
             if (ModelState.IsValid)
             {
+                if (File != null)
+                {
+                    if (IsValidImage(File))
+                    {
+                        byte[] image = new byte[File.ContentLength];
+                        File.InputStream.Read(image, 0, image.Length);
+                        faculty.LogoImage = image;
+                    }
+                    else
+                    {
+                        DisplayErrorMessage("Image format is not valid or image is bigger than 3MB!");
+                        return RedirectToAction("Index");
+                    }
+
+                }
+                else
+                {
+                    faculty.LogoImage = null;
+                }
+
                 db.Entry(faculty).State = EntityState.Modified;
                 db.SaveChanges();
+                DisplaySuccessMessage("Successfully edited faculty!");
                 return RedirectToAction("Index");
             }
 
@@ -210,7 +244,6 @@ namespace ExchangeApp.Controllers
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
 
-            DisplaySuccessMessage("Successfully edited faculty!");
             return View(faculty);
         }
 
@@ -225,6 +258,25 @@ namespace ExchangeApp.Controllers
             return Json(true);
         }
 
+        public bool IsValidImage(HttpPostedFileBase postedFile)
+        {
+            var isValid = true;
+
+            if (postedFile.ContentType.ToLower() != "image/jpg" &&
+             postedFile.ContentType.ToLower() != "image/jpeg" &&
+             postedFile.ContentType.ToLower() != "image/png")
+            {
+                isValid = false;
+            }
+
+            if (postedFile.ContentLength > 3145728)
+            {
+                isValid = false;
+            }
+
+            return isValid;
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

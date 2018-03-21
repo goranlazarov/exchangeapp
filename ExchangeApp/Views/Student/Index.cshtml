@@ -33,6 +33,23 @@
                         </div>
                     </div>
                     <div class="description-text">
+                        @if (Model.Faculty.LogoImage != null)
+                        {
+                        <a href="@Model.Faculty.Website">
+                            <div class="img__wrap" >
+                                <img class="img__img" src="data:image;base64,@System.Convert.ToBase64String(Model.Faculty.LogoImage)"  />
+                                <div class="img__description_layer">
+                                    <p class="img__description">GO TO SITE ↗</p>
+                                </div>
+                            </div>
+                            @*<img id="logo-image" style="max-height: 211px" src="data:image;base64,@System.Convert.ToBase64String(Model.Faculty.LogoImage)" />*@
+                        </a>
+                        }
+                        else
+                        {
+                            <img style="max-height: 211px" src="~/Content/css/images/No_Image_Available.jpg" />
+
+                        }
                         <div class="generic-details-text">
                             <span class="h5">Description</span>
                             <p>@Model.Faculty.Description</p>
@@ -41,70 +58,76 @@
                     <div class="job-data-contain">
                         <div class="job-data-basics clearfix">
                             <ul>
-                                <li class="clearfix">
+                                <li>
                                     <label>Location:</label>
                                     <span>
                                         @Model.Faculty.CountryObj.Name, @Model.Faculty.CountryObj.RegionObj.Name
                                     </span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>University ID:</label>
                                     <span>39576895</span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>E-mail:</label>
                                     <span>@Model.Faculty.Email</span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>Website:</label>
                                     <span>@Model.Faculty.Website</span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>Date of Matriculation: </label>
                                     <span>@Model.Faculty.DateOfMatriculation</span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>Date of Accreditation: </label>
                                     <span>@Model.Faculty.DateOfAccreditation</span>
                                 </li>
-                                <li class="clearfix">
+                                <li>
                                     <label>Accreditation Number:</label>
                                     <span>@Model.Faculty.AccreditationNumber</span>
                                 </li>
-                                <li class="clearfix">
-                                    <label>Student Type of Exchange:</label>
-                                    <span>@Model.Faculty.StudentTypeOfExchangeObj.Name</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Student Places Available:</label>
-                                    <span>@Model.Faculty.StudentPlacesAvailable</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Student Application Date:</label>
-                                    <span>@Model.Faculty.StudentApplicationDate</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Student Enrollment Date:</label>
-                                    <span>@Model.Faculty.StudentEnrollmentDate</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Faculty Type of Exchange:</label>
-                                    <span>@(Model.Faculty.FacultyTypeOfExchangeObj!=null ? @Model.Faculty.FacultyTypeOfExchangeObj.Name : "")</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Faculty Places Available:</label>
-                                    <span>@Model.Faculty.FacultyPlacesAvailable</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Faculty Application Date:</label>
-                                    <span>@Model.Faculty.FacultyApplicationDate</span>
-                                </li>
-                                <li class="clearfix">
-                                    <label>Faculty Enrollment Date:</label>
-                                    <span>@Model.Faculty.FacultyEnrollmentDate</span>
-                                </li>
+                                @if (Model.Faculty.StudentTypeOfExchangeObj != null)
+                                {
+                                    <li>
+                                        <label>Student Type of Exchange:</label>
+                                        <span>@Model.Faculty.StudentTypeOfExchangeObj.Name</span>
+                                    </li>
+                                    <li>
+                                        <label>Student Places Available:</label>
+                                        <span>@Model.Faculty.StudentPlacesAvailable</span>
+                                    </li>
+                                    <li>
+                                        <label>Student Application Date:</label>
+                                        <span>@Model.Faculty.StudentApplicationDate</span>
+                                    </li>
+                                    <li>
+                                        <label>Student Enrollment Date:</label>
+                                        <span>@Model.Faculty.StudentEnrollmentDate</span>
+                                    </li>
+                                }
+
+                                @if (Model.Faculty.FacultyTypeOfExchangeObj != null)
+                                {
+                                    <li>
+                                        <label>Faculty Type of Exchange:</label>
+                                        <span>@Model.Faculty.FacultyTypeOfExchangeObj.Name</span>
+                                    </li>
+                                    <li>
+                                        <label>Faculty Places Available:</label>
+                                        <span>@Model.Faculty.FacultyPlacesAvailable</span>
+                                    </li>
+                                    <li>
+                                        <label>Faculty Application Date:</label>
+                                        <span>@Model.Faculty.FacultyApplicationDate</span>
+                                    </li>
+                                    <li>
+                                        <label>Faculty Enrollment Date:</label>
+                                        <span>@Model.Faculty.FacultyEnrollmentDate</span>
+                                    </li>
+                                }
                             </ul>
-                            <ul class="company-contact"></ul>
                         </div>
                     </div>
                 </section>
@@ -267,7 +290,7 @@
                                         <sup>*</sup>
                                     </label>
                                     <div>
-                                        @Html.TextBox("CV", "", new { type = "file" }) <br />
+                                        @Html.TextBox("LogoImage", "", new { type = "file" }) <br />
                                     </div>
                                     @* <input aria-label="School Region" type="file" name="CV">*@
                                 </fieldset>
@@ -299,16 +322,18 @@
         });
     </script>
     <script>
+    /**/
     var url = '@Url.Action("getCountries", "Home")';
+    /**/
     var countries = $('#CountryId');
-        function CallChangeFunc(val) {
+    function CallChangeFunc(val) {
         countries.empty();
-            var id = val;
-            $.getJSON(url, { regionId: id }, function (response) {
-                $.each(response, function (index, item) {
-                    $('#CountryId').append('<option value=' + item.ID + '>' + item.Name + '</option > ');
-                });
+        var id = val;
+        $.getJSON(url, { regionId: id }, function (response) {
+            $.each(response, function (index, item) {
+                $('#CountryId').append('<option value=' + item.ID + '>' + item.Name + '</option > ');
             });
+        });
 
     }
     </script>
