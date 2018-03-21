@@ -27,25 +27,25 @@
             </div>
 
             @foreach (var item in Model)
-        {
-            <div class="row">
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.Name)
+            {
+                <div class="row">
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.Program)
+                    </div>
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </div>
+                    <div class="cell-act">
+                        <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                        <a href="@Url.Action("Details", "Faculties", new { id = item.ID })" title="Details"><i class="icon ion-ios-list-outline"></i></a> |
+                        <a onclick="DeleteFaculty(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
+                    </div>
                 </div>
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.Program)
-                </div>
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.Email)
-                </div>
-                <div class="cell-act">
-                    <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
-                    <a href="@Url.Action("Details", "Faculties", new { id = item.ID })" title="Details"><i class="icon ion-ios-list-outline"></i></a> |
-                    <a onclick="DeleteFaculty(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
-                </div>
-            </div>
 
-    }
+            }
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-sm " role="document">
                     <div class="modal-content">

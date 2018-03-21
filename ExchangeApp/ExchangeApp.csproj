@@ -244,6 +244,10 @@
     <Compile Include="Migrations\201802241728440_DvePolinja.Designer.cs">
       <DependentUpon>201802241728440_DvePolinja.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191829114_test1.cs" />
+    <Compile Include="Migrations\201803191829114_test1.Designer.cs">
+      <DependentUpon>201803191829114_test1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseObject.cs" />
@@ -281,6 +285,8 @@
     <Content Include="Content\css\images\FeaturedServices_Resources.jpg" />
     <Content Include="Content\css\images\hero.jpg" />
     <Content Include="Content\css\images\logo-22669.png" />
+    <Content Include="Content\css\images\no_image.png" />
+    <Content Include="Content\css\images\No_Image_Available.jpg" />
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
     <Content Include="App_Data\MailBody.txt" />
@@ -437,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802241728440_DvePolinja.resx">
       <DependentUpon>201802241728440_DvePolinja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191829114_test1.resx">
+      <DependentUpon>201803191829114_test1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

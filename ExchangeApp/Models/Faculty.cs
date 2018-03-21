@@ -93,5 +93,7 @@ namespace ExchangeApp.Models
 
         public virtual ICollection<Subject> Subjects { get; set; }
 
+        public byte[] LogoImage { get; set; }
+
     }
 }

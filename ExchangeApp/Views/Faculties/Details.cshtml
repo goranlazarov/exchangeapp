@@ -16,6 +16,20 @@
                 <table class="table">
                     <tbody>
                         <tr>
+                            <td class="details" style="vertical-align: middle"><i class="fa fa-user"></i>Logo</td>
+                            <td>
+                                @if (Model.LogoImage != null)
+                                {
+                                    <img style="max-height: 100px" src="data:image;base64,@System.Convert.ToBase64String(Model.LogoImage)" />
+                                }
+                                else
+                                {
+                                    <img style="max-height: 100px" src="~/Content/css/images/No_Image_Available.jpg" />
+
+                                }
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="details"><i class="fa fa-user"></i>Country</td>
                             <td>@Html.DisplayFor(model => model.CountryObj.Name)</td>
                         </tr>

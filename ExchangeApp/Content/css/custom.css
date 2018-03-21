@@ -12,6 +12,100 @@ a {
     color:;
 }*/
 
+/*.img__description_layer img:hover {
+    -webkit-filter: brightness(70%);
+    filter: brightness(70%);
+}*/
+
+.img__wrap {
+    position: relative;
+    height: 222px;
+    width: 624px;
+}
+
+    .img__wrap img {
+        height: 222px;
+        width: 624px;
+    }
+
+.img__description_layer {
+    height: 222px;
+    width: 624px;
+}
+
+.img__description_layer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(36, 62, 41, 0.8);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+}
+
+.img__wrap:hover .img__description_layer {
+    visibility: visible;
+    opacity: 1;
+}
+
+.img__description {
+    transition: .2s;
+    transform: translateY(1em);
+    font-size: 40px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
+.img__wrap:hover .img__description {
+    transform: translateY(0);
+    color: white !important;
+}
+
+::-webkit-file-upload-button:hover {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+::-webkit-file-upload-button:active {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+::-webkit-file-upload-button {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc !important;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    /* border-radius: 4px; */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+textarea {
+    resize: vertical !important; /* user can resize vertically, but width is fixed */
+}
+
 .header-content #menu li ul {
     background-color: #eaf0f4;
 }
