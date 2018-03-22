@@ -31,21 +31,32 @@
                         {
                             foreach (var item in Model.StudentsPlaces)
                             {
-                                <li>
+                        <li>
+                            @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+    {
+                        <div class="job-summary-top clearfix">
 
-                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+                            <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                                <img src="~/Content/css/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
+                            </span>
 
-                                        <h3>@item.Name</h3>
+                        </div>
+}
 
-                                    </a>
-                                    <strong>@item.Program</strong>
-                                    <em>@item.StudentPlacesAvailable</em>
+                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+
+                                <h3>@item.Name</h3>
+
+                            </a>
+                            <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                            <span style=" padding-left: 5px; padding-right:5px;">
+                                <img src="~/Content/css/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                            </span>
 
 
-
-                                    <input type="hidden" value="39943096" class="ga_job_id">
-                                    <input type="hidden" value="1" class="ga_rank">
-                                </li>
+                            <input type="hidden" value="39943096" class="ga_job_id">
+                            <input type="hidden" value="1" class="ga_rank">
+                        </li>
 
 
                             }
@@ -54,20 +65,32 @@
                         {
                             foreach (var item in Model.TeacherPlaces)
                             {
-                                <li>
+                        <li>
+                            @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+    {
+                        <div class="job-summary-top clearfix">
 
-                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+                            <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                                <img src="~/Content/css/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
+                            </span>
 
-                                        <h3>@item.Name</h3>
+                        </div>
+}
 
-                                    </a>
-                                    <strong>@item.Program</strong>
-                                    <em>@item.FacultyPlacesAvailable</em>
+                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+
+                                <h3>@item.Name</h3>
+
+                            </a>
+                            <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                            <span style=" padding-left: 5px; padding-right:5px;">
+                                <img src="~/Content/css/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                            </span>
 
 
-                                    <input type="hidden" value="39577282" class="ga_job_id">
-                                    <input type="hidden" value="1" class="ga_rank">
-                                </li>
+                            <input type="hidden" value="39577282" class="ga_job_id">
+                            <input type="hidden" value="1" class="ga_rank">
+                        </li>
                             }
                         }
 
@@ -78,128 +101,13 @@
 
 
                 <div class="featured-job-promo">
-                    <div class="sideboard-adspace">
-                        <div class="job-alert-signup">
-                            <span class="h5">
-                                Résumé  Review
-
-                            </span>
-                            <div>
-
-                                <em>
-
-                                    Improve your résumé with a free review
-
-                                </em>
-                            </div>
-
-                            <a href="/c/resumes/edit/upload.cfm?site_id=22669" class="tertiary">Upload Résumé</a>
-
-                        </div>
-                    </div>
+                   
                 </div>
 
             </div>
 
-            @*<div class="default-form-box clearfix">
-                    id="featured-job-listing"
-                    <div class="login">
-                        <strong>Student places available</strong>
-                        <div id="featured-job-listing">
+           
 
-                            <ul>
-                                @foreach (var item in Model.StudentsPlaces)
-                        {
-                            <li>
-
-                                <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
-
-                                    <h3>@item.Name</h3>
-
-                                </a>
-                                <strong>@item.Program</strong>
-                                <em>@item.StudentPlacesAvailable</em>
-
-
-                                <input type="hidden" value="39577282" class="ga_job_id">
-                                <input type="hidden" value="1" class="ga_rank">
-                            </li>
-                }
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="new-account">
-                        <strong> Faculty places available</strong>
-                        <div id="featured-job-listing">
-                            <ul>
-                                @foreach (var item in Model.TeacherPlaces)
-                        {
-                            <li>
-
-                                <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
-
-                                    <h3>@item.Name</h3>
-
-                                </a>
-                                <strong>@item.Program</strong>
-                                <em>@item.FacultyPlacesAvailable</em>
-
-
-                                <input type="hidden" value="39577282" class="ga_job_id">
-                                <input type="hidden" value="1" class="ga_rank">
-                            </li>
-                }
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>*@
-
-        </section>
-        <section id="featured-services" class="site" aria-label="Featured Services">
-            <div class="category-header site">
-                <h2>
-                    Featured Services
-                </h2>
-            </div>
-            <div class="interior site">
-                <div class="queryTest"></div>
-                <ul id="featured-services-carousel">
-                    @*class="owl-carousel owl-theme owl-loaded owl-drag"*@
-                    @*<div class="owl-stage-outer">*@
-                    @* <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: 0s; width: 970px;">*@
-                    @*<div class="owl-item active" style="width: 313.333px; margin-right: 10px;">*@
-                    <li style="display:inline-block;">
-                        <span class="h5">
-                            Career Resources
-                        </span>
-                        <a aria-label="Career Resources" href="http://careerwebsite.com/jobseeker/resources/?site_id=22669" target="_blank"><img src="~/Content/css/images/FeaturedServices_Resources.jpg" alt=""></a>
-                    </li>
-                    <li style="display:inline-block;">
-                        <span class="h5">
-                            Become a Member
-                        </span>
-
-                        <a aria-label="Become a Member" href="http://www.acbsp.org/?page=join" target="_blank"><img src="~/Content/css/images/FeaturedServices_Memberhsip2.JPG" alt=""></a>
-                    </li>
-                    <li style="display:inline-block;">
-                        <span class="h5">
-                            Search Resumes
-                        </span>
-                        <a aria-label="Search Resumes" href="http://careerwebsite.com/employer/resumes/bank/?site_id=22669" target="_blank"><img src="~/Content/css/images/featured2.jpg" alt=""></a>
-                    </li>
-                    @*</div><div class="owl-item active" style="width: 313.333px; margin-right: 10px;">
-
-                        </div><div class="owl-item active" style="width: 313.333px; margin-right: 10px;">*@
-
-                    @*</div>*@
-                    @*</div>*@
-                    @*</div>*@
-                    @*<div class="owl-nav disabled"><div class="owl-prev disabled"><em class="fa fa-angle-left"></em></div><div class="owl-next disabled"><em class="fa fa-angle-right"></em></div></div>
-                        <div class="owl-dots disabled"><div class="owl-dot active"><span></span></div></div>*@
-                </ul>
-            </div>
         </section>
     </div>
 </div>

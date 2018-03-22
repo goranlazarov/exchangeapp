@@ -12,7 +12,7 @@
 
         <section id="inner-page-header" class="clearfix" aria-label="Page Header">
             <div class="site-name-tag">
-                <h1></h1>
+                <h1>ACBSP Mobility program</h1>
             </div>
 
             <div id="job-search-form" class="clearfix" role="search">
@@ -23,8 +23,8 @@
 
         <div class="breadcrumbs" role="navigation">
             <ol>
-                <li><a href="http://careers.acbsp.org">Career Center Home</a></li>
-                <li class="">Job Search</li>
+                <li><a href='@Url.Action("Index", "Home")'>ACBSP Mobility Home</a></li>
+                <li class="">Schools list</li>
             </ol>
         </div>
         <div class="clearfix results-content">
@@ -70,85 +70,43 @@
             </aside>
             <section id="job-listing" aria-label="Job Listings" role="main">
                 <div class="listing-options clearfix">
-                    @*<strong>Sort by: </strong>
-                        <ol>
-
-                            <li class="jt_search_results_heading jt_search_pos"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=position&amp;vnet=0&amp;long=1" id="Position_Asc"> Position</a> </li>
-
-                            <li class="jt_search_results_heading jt_search_comp"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=company&amp;vnet=0&amp;long=1" id="Company_Asc"> Company</a> </li>
-
-                            <li class="jt_search_results_heading jt_search_loc"> <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=location&amp;vnet=0&amp;long=1" id="Location_Asc"> Location</a> </li>
-
-                            <li class="jt_search_results_heading jt_search_posted">
-                                <a href="/jobseeker/search/results/?str=1&amp;max=25&amp;sort=start_&amp;vnet=0&amp;long=1" id="Posted_Desc"> Posted</a>
-                            </li>
-                        </ol>
-                        <em><a href="#" id="show-hide">Show All Details</a></em>*@
                 </div>
-                <!-- if this is true we display the vertical network header --->
                 <div class="listings">
                     <ul>
                         @foreach (var item in Model)
                         {
                             <li>
                                 <div class='job-summary'>
-                                    <div class="job-summary-top clearfix">
+                                    @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+    {
+                                <div class="job-summary-top clearfix">
 
-                                        <p class="preferred">Preferred</p>
-
-                                    </div>
-                                    <div class="job-summary-top-left clearfix">
-                                        <a class="ga_job" href='@Url.Action("Index", "Student", new { id = @item.ID })' aria-label="Job ID - 39431667">
-
-
-                                            <span class="h3">
-                                                @item.Name
-                                            </span>
-                                        </a>
-                                        <strong>@item.Program</strong> &ndash;
-                                        <em>
-                                            @item.CountryObj.Name
-                                        </em>
-                                    </div>
-
-                                    <div class="listing-logo" alt="">
-
-                                    </div>
-                                    <div class="clearfix">
-                                        <ol class="designations"></ol>
-                                        <em class="date">
-                                            @item.StudentPlacesAvailable
-
-                                        </em>
-                                        <ol class="save-open">
-
-
-                                            <li><a onclick="saveJob(39431667, event, this, '/jobseeker/login/?msg=1&goto=%2Fjobseeker%2Fsearch%2Fresults%2F%3F');" id="save-job-39431667"><b class="fa fa-bookmark"></b>Save</a></li>
-
-
-                                            <li class="detail-trigger"><a class="fa fa-chevron-down"></a></li>
-                                        </ol>
-                                    </div>
-
-                                    <div class="job-listing-detail clearfix">
-                                        <p class="clearfix">
-                                            @item.Description
-                                        </p>
-                                        <em><a href="/job/economics/39431667/" target="">See full Job description</a></em>
-                                        <ul class="affiliations-fairs">
-                                            <li>
-
-                                            </li>
-                                        </ul>
-
-                                    </div>
+                                    <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                                        <img src="~/Content/css/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
+                                    </span>
 
                                 </div>
-                                <input type="hidden" value="regular" class="ga_jsrc">
-                            </li>
-                            <li>
+}
+
+                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+
+                                        <h3 style="padding-top:20px;">@item.Name</h3>
+
+                                    </a>
+                                    <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                                    <div style=" padding-left: 15px; padding-right:5px;">
+                                        <img src="~/Content/css/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                                    </div>
+                                    <div>
+                                        <p></p>
+                                    </div>
+                                    <div>
+                                        <p style="font-style:italic;">Posted: @item.Registered.Value.ToShortDateString()</p>
+                                    </div>
+
                                 <input type="hidden" value=39431667 class="ga_job_id">
                                 <input type="hidden" value=1 class="ga_rank">
+                                    </div>
                             </li>
                         }
                     </ul>

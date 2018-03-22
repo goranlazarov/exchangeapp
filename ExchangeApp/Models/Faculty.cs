@@ -91,6 +91,9 @@ namespace ExchangeApp.Models
         [ForeignKey("FacultyTypeOfExchangeId")]
         public virtual NomTypeOfExchange FacultyTypeOfExchangeObj { get; set; }
 
+        [Display(Name = "Featured faculty")]
+        public bool? IsFeatured { get; set; }
+
         public virtual ICollection<Subject> Subjects { get; set; }
 
         public byte[] LogoImage { get; set; }
