@@ -45,15 +45,17 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
+
             ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
+            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
+            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
+            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
+            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
 
             AddSearchFields();
 
             StudentViewModel svm = new StudentViewModel(faculty);
-            svm.DateOfEnrollment = DateTime.Today;
-            svm.DateOfCompletion = DateTime.Today;
-
             return View(svm);
         }
 
@@ -61,38 +63,118 @@ namespace ExchangeApp.Controllers
         public ActionResult SendApplication(StudentViewModel model)
         {
             AddSearchFields();
+            Faculty faculty = db.Faculties.Find(model.Faculty.ID);
+
+            if (faculty.FacultyTypeOfExchangeObj != null && faculty.StudentTypeOfExchangeObj != null)
+            {
+                if (!model.StudentSelected && !model.FacultySelected)
+                {
+                    ModelState.AddModelError("", "Please select application type");
+                }
+            }
+
+            if (model.FirstName == null)
+            {
+                ModelState.AddModelError("FirstName", "First name is required ");
+            }
+
+            if (model.LastName == null)
+            {
+                ModelState.AddModelError("LastName", "Last name is required ");
+            }
+
+            if (model.Email == null)
+            {
+                ModelState.AddModelError("Email", "Email is required ");
+            }
+
+            if (model.CountryOfOrigin == null)
+            {
+                ModelState.AddModelError("CountryOfOrigin", "Please choose country ");
+            }
+
+            if (model.EnglishLevel == null)
+            {
+                ModelState.AddModelError("EnglishLevel", "Please choose english level ");
+            }
+
+            if (model.StudentSelected || (faculty.StudentTypeOfExchangeObj != null && faculty.FacultyTypeOfExchangeObj == null))
+            {
+                if (model.ProgramEnrolled == null)
+                {
+                    ModelState.AddModelError("ProgramEnrolled", "Program enrolled is required");
+                }
+
+                if (model.SemesterEnrolled == null)
+                {
+                    ModelState.AddModelError("SemesterEnrolled", "Semester enrolled is required");
+                }
+
+                if (model.YearOfEnrollment == null)
+                {
+                    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
+                }
+
+                if (model.YearOfCompletion == null)
+                {
+                    ModelState.AddModelError("YearOfCompletion", "Please choose year of completion ");
+                }
+            }
+
+            if (model.FacultySelected || (faculty.StudentTypeOfExchangeObj == null && faculty.FacultyTypeOfExchangeObj != null))
+            {
+                if (model.HighestDegree == null)
+                {
+                    ModelState.AddModelError("HighestDegree", "Please choose highest degree ");
+                }
+
+                if (model.FirstCourse == null && model.SecondCourse == null && model.ThirdCourse == null && model.FourthCourse == null)
+                {
+                    ModelState.AddModelError("FirstCourse", "Please choose at least one course");
+                }
+            }
+
+
+            if (model.AgreementNumber == null || model.AgreementNumber.ToLower() != faculty.AgreementNumber.ToLower())
+            {
+                ModelState.AddModelError("AgreementNumber", "Invalid agreement number");
+            }
 
             ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
+            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
+            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
+            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
+            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
 
-            Faculty faculty = db.Faculties.Find(model.Faculty.ID);
             StudentViewModel svm = new StudentViewModel(faculty);
 
-            var task = IsValidAsync(model.Email);
-            task.Wait();
-            bool isValidAsync = task.Result;
-
-            if (isValidAsync && IsValidEmail(model.Email) && model.CV != null && model.CV.ContentLength > 0)
+            if (ModelState.IsValid)
             {
+                var task = IsValidAsync(model.Email);
+                task.Wait();
+                bool isValidAsync = task.Result;
 
-                try
+                if (isValidAsync && IsValidEmail(model.Email) && model.CV != null && model.CV.ContentLength > 0)
                 {
-                    SendMails(model);
 
-                    DisplaySuccessMessage("Successfully sent mail for application!");
+                    try
+                    {
+                        SendMails(model);
 
-                    return View("Index", svm);
+                        DisplaySuccessMessage("Successfully sent mail for application!");
+
+                        return View("Index", svm);
+                    }
+                    catch (Exception e)
+                    {
+                        DisplayErrorMessage("An error occurred while sending mail for application!");
+
+                    }
                 }
-                catch(Exception e)
-                {
-                    DisplayErrorMessage("An error occurred while sending mail for application!");
-                    
-                    return View("Index", svm);
-                }
-                
+
+                DisplayErrorMessage("An error occurred while sending mail for application!");
             }
-
-            DisplayErrorMessage("An error occurred while sending mail for application!");
 
             return View("Index", svm);
 
@@ -104,28 +186,24 @@ namespace ExchangeApp.Controllers
             string password = "brooklyn78";//"1234qawsed";
             string ccMail = "goran_sr@hotmail.com";
 
-            MailMessage confirmationMail =  PrepareMail(model, from, null, true);
+            MailMessage confirmationMail = PrepareMail(model, from, null, true);
             MailMessage applicationMail = PrepareMail(model, from, ccMail, false);
 
             NetworkCredential networkCredential = new NetworkCredential(from, password);
 
             GetSmtp(networkCredential).Send(confirmationMail);
             GetSmtp(networkCredential).Send(applicationMail);
-            
-
-
-
         }
 
         private MailMessage PrepareMail(StudentViewModel model, string from, string ccMail, bool isConfirmation)
         {
-            
-            MailMessage mail = new MailMessage(from, ( !isConfirmation ? model.Faculty.Email : model.Email));
+
+            MailMessage mail = new MailMessage(from, (!isConfirmation ? model.Faculty.Email : model.Email));
             if (!isConfirmation)
             {
                 MailAddress ccMailAddress = new MailAddress(ccMail);
                 mail.CC.Add(ccMailAddress);
-               
+
                 mail.Subject = "ACBSP mobility application from";
 
                 var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/MailBodyApplication.txt"));
