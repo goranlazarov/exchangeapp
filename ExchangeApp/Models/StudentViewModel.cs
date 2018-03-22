@@ -24,25 +24,31 @@ namespace ExchangeApp.Models
 
         public HttpPostedFileBase CV { get; set; }
 
-        public DateTime? DateOfEnrollment { get; set; }
+        public string YearOfEnrollment { get; set; }
 
-        public DateTime? DateOfCompletion { get; set; }
+        public string YearOfCompletion { get; set; }
 
-        //public string ProgramEnrolled { get; set; }
+        public string AgreementNumber { get; set; }
 
-        //public string SemesterEnrolled { get; set; }
+        public string ProgramEnrolled { get; set; }
 
-        //public string EnglishLevel { get; set; }
+        public string SemesterEnrolled { get; set; }
 
-        //public string SchoolName { get; set; }
+        public string EnglishLevel { get; set; }
 
-        //public string Country { get; set; }
+        public string HighestDegree { get; set; }
 
-        //public string Region { get; set; }
+        public string FirstCourse { get; set; }
 
-        //public int AgreementNumber { get; set; }
+        public string SecondCourse { get; set; }
 
-        //public int AccreditationNumber { get; set; }
+        public string ThirdCourse { get; set; }
+
+        public string FourthCourse { get; set; }
+
+        public bool StudentSelected { get; set; }
+
+        public bool FacultySelected { get; set; }
 
 
         public StudentViewModel(Faculty faculty)

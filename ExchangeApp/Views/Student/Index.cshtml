@@ -35,15 +35,14 @@
                     <div class="description-text">
                         @if (Model.Faculty.LogoImage != null)
                         {
-                        <a href="@Model.Faculty.Website">
-                            <div class="img__wrap" >
-                                <img class="img__img" src="data:image;base64,@System.Convert.ToBase64String(Model.Faculty.LogoImage)"  />
-                                <div class="img__description_layer">
-                                    <p class="img__description">GO TO SITE ↗</p>
+                            <a href="@Model.Faculty.Website">
+                                <div class="img__wrap">
+                                    <img class="img__img" src="data:image;base64,@System.Convert.ToBase64String(Model.Faculty.LogoImage)" />
+                                    <div class="img__description_layer">
+                                        <p class="img__description">GO TO SITE ↗</p>
+                                    </div>
                                 </div>
-                            </div>
-                            @*<img id="logo-image" style="max-height: 211px" src="data:image;base64,@System.Convert.ToBase64String(Model.Faculty.LogoImage)" />*@
-                        </a>
+                            </a>
                         }
                         else
                         {
@@ -141,150 +140,218 @@
                         @using (Html.BeginForm("SendApplication", "Student", FormMethod.Post, new { enctype = "multipart/form-data", facultyMail = Model.Faculty.Email }))
                         {
                             <section class="js-information form-fields no-padding clearfix">
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">First Name</legend>
+                                <div class="col-lg-4 col-md-4 mt-10">
                                     <label>
                                         First Name
                                         <sup>*</sup>
                                     </label>
-                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter your first name" } })
-
-                                    @* <input aria-label="First Name" type="text" name="first_name" placeholder="Enter your first name">*@
-                                </fieldset>
-
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Last Name</legend>
+                                    <div>
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter first name" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Last Name
                                         <sup>*</sup>
                                     </label>
                                     @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Enter your last name" } })
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-
-                                <fieldset class="email">
-                                    <legend style="position: absolute;left: -999em;">Email Address</legend>
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-lg-4 col-md-4 mt-10">
                                     <label>
                                         Email Address
                                         <sup>*</sup>
-
                                     </label>
                                     @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your email address" } })
-                                    @*   <input aria-label="Email Address" type="email" name="email" placeholder="Enter your email address">*@
-                                </fieldset>
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
 
-                                <fieldset class="email">
-                                    <legend style="position: absolute;left: -999em;">Email Address</legend>
-                                    <label>
-                                        Email Address password
-                                        <sup>*</sup>
+                                </div>
 
-                                    </label>
-                                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { placeholder = "Enter your password", type = "password" } })
-                                    @*   <input aria-label="Email Address" type="email" name="email" placeholder="Enter your email address">*@
-                                </fieldset>
                                 @Html.HiddenFor(m => m.Faculty.Email)
                                 @Html.HiddenFor(m => m.Faculty.ID)
 
-                                <fieldset class="email">
-                                    <legend style="position: absolute;left: -999em;">Nationality</legend>
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Nationality
                                     </label>
                                     @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { placeholder = "Enter your nationality" } })
-                                    @*   <input aria-label="Email Address" type="email" name="email" placeholder="Enter your email address">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Country of Origin</legend>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Country of Origin
                                         <sup>*</sup>
                                     </label>
-                                    @Html.DropDownList("CountryOfOrigin", null, new { htmlAttributes = new { placeholder = "Country of Origin" } })
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Date of Enrollment</legend>
-                                    <label>
-                                        Date of Enrollment
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.TextBoxFor(model => model.DateOfEnrollment, new { @class = "datepicker", onkeydown = "return false", placeholder = "Choose date of enrollment" })
-                                    @*@Html.TextBox("DateOfEnrollment", null, new { htmlAttributes = new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of enrollment" } })*@
-                                    @*<input type="text" name="DateOfEnrollment" id="user-select-date" placeholder="Choose date of enrollment" data-select="datepicker">*@
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Date of Completion</legend>
-                                    <label>
-                                        Date of Completion
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.TextBoxFor(model => model.DateOfCompletion, new { @class = "datepicker", onkeydown = "return false", placeholder = "Choose date of completion" })
+                                    @Html.DropDownListFor(model => model.CountryOfOrigin, ViewBag.CountryOfOrigin as SelectList, "Select country")
+                                    @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
+                                </div>
 
-                                    @*<input type="text" name="DateOfCompletion" id="user-select-date" placeholder="Choose date of completion" data-select="datepicker">*@
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Program Enrolled</legend>
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
-                                        Program Enrolled
+                                        English Level Proficiency
                                         <sup>*</sup>
                                     </label>
-                                    @Html.EditorFor(model => model.Faculty.Program, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">English Level</legend>
-                                    <label>
-                                        English Level
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.DropDownList("EnglishLevel", null, new { htmlAttributes = new { placeholder = "Choose english level" } })
-                                    @*   <input aria-label="Last Name" type="text" name="last_name" placeholder="Enter your last name">*@
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">University Name</legend>
+                                    @Html.DropDownListFor(model => model.EnglishLevel, ViewBag.EnglishLevels as SelectList, "Select english level")
+                                    @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
+
+                                </div>
+                                <div class="chkChoices">
+                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                        <label>
+                                            Application For
+                                            <sup>*</sup>
+                                        </label>
+                                        <div class="form-group">
+                                            <div class="radio-inline">
+                                                @Html.CheckBoxFor(model => model.StudentSelected, new { id = "rStudent" }) Student
+                                            </div>
+                                            <div class="radio-inline">
+                                                @Html.CheckBoxFor(model => model.FacultySelected, new { id = "rFaculty" }) Faculty
+                                            </div>
+                                        </div>
+                                        @*<input type="radio" name="app" id="rStudent"> Student <br>
+                                            <input type="radio" name="app" id="rFaculty"> Faculty <br>*@
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                @if (Model.Faculty.StudentTypeOfExchangeObj != null)
+                                {
+                                    <div id="appStudent">
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Program Enrolled
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.EditorFor(model => model.ProgramEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
+                                            @Html.ValidationMessageFor(model => model.ProgramEnrolled, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Semester Enrolled
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.EditorFor(model => model.SemesterEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })
+                                            @Html.ValidationMessageFor(model => model.SemesterEnrolled, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Year of Enrollment
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.YearOfEnrollment, ViewBag.YearsOfEnrollment as SelectList, "Select year of enrollment")
+                                            @Html.ValidationMessageFor(model => model.YearOfEnrollment, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Estimate Year of Completion
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.YearOfCompletion, ViewBag.YearsOfCompletion as SelectList, "Select year of completion")
+                                            @Html.ValidationMessageFor(model => model.YearOfCompletion, "", new { @class = "text-danger" })
+                                        </div>
+
+                                    </div>
+                                }
+                                <div class="clearfix"></div>
+
+                                @if (Model.Faculty.FacultyTypeOfExchangeObj != null)
+                                {
+                                    <div id="appFaculty">
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Highest Degree
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.HighestDegree, ViewBag.HighestDegrees as SelectList, "Select highest degree")
+                                            @Html.ValidationMessageFor(model => model.HighestDegree, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                First Course
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList, "Select 1st course to teach")
+                                            @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Second Course
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList, "Select 2nd course to teach")
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Third Course
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList, "Select 3rd course to teach")
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 mt-10 ">
+                                            <label>
+                                                Fourth Course
+                                                <sup>*</sup>
+                                            </label>
+                                            @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList, "Select 4th course to teach")
+                                        </div>
+
+                                    </div>
+                                }
+                                <div class="clearfix"></div>
+                                <hr />
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         University Name
                                         <sup>*</sup>
                                     </label>
                                     <input aria-label="University" type="text" name="last_name" value="@Model.Faculty.Name" disabled>
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">University Country</legend>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         University Country
                                         <sup>*</sup>
                                     </label>
                                     <input aria-label="University Country" type="text" name="last_name" value="@Model.Faculty.CountryObj.Name" disabled>
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">University Region</legend>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         University Region
                                         <sup>*</sup>
                                     </label>
                                     <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.CountryObj.RegionObj.Name" disabled>
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Accreditation Number</legend>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Accreditation Number
                                         <sup>*</sup>
                                     </label>
                                     <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.AccreditationNumber" disabled>
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Agreement Number</legend>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Agreement Number
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.AgreementNumber" disabled>
-                                </fieldset>
-                                <fieldset class="name">
-                                    <legend style="position: absolute;left: -999em;">Agreement Number</legend>
+                                    @Html.EditorFor(model => model.AgreementNumber, new { htmlAttributes = new { placeholder = "Enter agreement number" } })
+                                    @Html.ValidationMessageFor(model => model.AgreementNumber, "", new { @class = "text-danger" })
+
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
                                         Uploaded CV
                                         <sup>*</sup>
@@ -292,18 +359,16 @@
                                     <div>
                                         @Html.TextBox("LogoImage", "", new { type = "file" }) <br />
                                     </div>
-                                    @* <input aria-label="School Region" type="file" name="CV">*@
-                                </fieldset>
+                                </div>
+
                                 <div class="clearfix"></div>
                                 <fieldset class="name" style="margin-left:38%">
                                     <button type="submit" class="primary" id="new-account-button">Send my application</button>
-
                                 </fieldset>
                             </section>
 
                             <input type="hidden" name="register" value="1">
                         }
-                        <em><sup>*</sup>Required field</em>
                     </div>
                 </div>
 
@@ -322,9 +387,11 @@
         });
     </script>
     <script>
+
     /**/
     var url = '@Url.Action("getCountries", "Home")';
     /**/
+
     var countries = $('#CountryId');
     function CallChangeFunc(val) {
         countries.empty();
@@ -338,9 +405,97 @@
     }
     </script>
     <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+        $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+        var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
 
-            $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+    var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
+
+
+    if ($("#rStudent").is(':checked')) {
+        $("#appStudent").show();
+    }
+    else {
+        $("#appStudent").hide();
+    }
+
+    if ($("#rFaculty").is(':checked')) {
+        $("#appFaculty").show();
+    }
+    else {
+        $("#appFaculty").hide();
+    }
+
+    if (studentPlaces == 1 && facultyPlaces == 0) {
+        $("#rStudent").click()
+        $("#appStudent").show();
+        $("#appFaculty").hide();
+
+        $("#rStudent").prop("disabled", "disabled");
+        $("#rFaculty").prop("disabled", "disabled");
+    }
+
+    if (studentPlaces == 0 && facultyPlaces == 1) {
+        $("#rFaculty").click()
+        $("#appFaculty").show();
+        $("#appStudent").hide();
+
+        $("#rStudent").prop("disabled", "disabled");
+        $("#rFaculty").prop("disabled", "disabled");
+    }
+
+
+});
+    </script>
+    <script>
+        $("#rStudent").click(function () {
+            
+            $("#rFaculty").prop("checked", false);
+
+            if ($(this).is(':checked')) {
+                $("#appStudent").show();
+                $("#appFaculty").hide();
+
+                $('#HighestDegree').prop('selectedIndex', 0);
+                $('#FirstCourse').prop('selectedIndex', 0);
+                $('#SecondCourse').prop('selectedIndex', 0);
+                $('#ThirdCourse').prop('selectedIndex', 0);
+                $('#FourthCourse').prop('selectedIndex', 0);
+            }
+            else {
+                $("#appStudent .field-validation-error").empty();
+                $("#appStudent").hide();
+
+                $('#YearOfEnrollment').prop('selectedIndex', 0);
+                $('#YearOfCompletion').prop('selectedIndex', 0);
+                $('#ProgramEnrolled').val(null);
+                $('#SemesterEnrolled').val(null);
+
+            }
+        });
+
+        $("#rFaculty").click(function () {
+            $("#rStudent").prop("checked", false);
+
+            if ($(this).is(':checked')) {
+                $("#appFaculty").show();
+                $("#appStudent").hide();
+
+                $('#YearOfEnrollment').prop('selectedIndex', 0);
+                $('#YearOfCompletion').prop('selectedIndex', 0);
+                $('#ProgramEnrolled').val(null);
+                $('#SemesterEnrolled').val(null);
+            }
+            else {
+                $("#appFaculty .field-validation-error").empty();
+                $("#appFaculty").hide();
+
+                $('#HighestDegree').prop('selectedIndex', 0);
+                $('#FirstCourse').prop('selectedIndex', 0);
+                $('#SecondCourse').prop('selectedIndex', 0);
+                $('#ThirdCourse').prop('selectedIndex', 0);
+                $('#FourthCourse').prop('selectedIndex', 0);
+            }
         });
     </script>
 }
