@@ -8,7 +8,7 @@
     <div class="interior site">
         <div class="ml-15">
             <a href="@Url.Action("Index", "Faculties")" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
-            <span class="fax-title">Create new faculty</span>
+            <span class="fax-title">Create new college/university</span>
         </div>
         @using (Html.BeginForm("Create", "Faculties", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -20,11 +20,11 @@
         <div class="mt-10">
             <div class="col-lg-4 col-md-10 mt-10">
                 <label>
-                    Faculty Name
+                    College/University Name
                     <sup>*</sup>
                 </label>
                 <div>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter faculty name" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter university name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>

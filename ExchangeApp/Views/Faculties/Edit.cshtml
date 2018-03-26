@@ -22,11 +22,11 @@
         <div class="mt-10">
             <div class="col-lg-4 col-md-10 mt-10">
                 <label>
-                    Faculty Name
+                    College/University Name
                     <sup>*</sup>
                 </label>
                 <div>
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter faculty name" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter college/university name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>

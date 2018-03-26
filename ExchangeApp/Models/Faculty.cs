@@ -9,8 +9,8 @@ namespace ExchangeApp.Models
 {
     public class Faculty : BaseObject
     {
-        [Required(ErrorMessage = "Please enter faculty name")]
-        [Display(Name = "Faculty name")]
+        [Required(ErrorMessage = "Please enter college/university name")]
+        [Display(Name = "College/university name")]
         [StringLength(50)]
         public string Name { get; set; }
 
