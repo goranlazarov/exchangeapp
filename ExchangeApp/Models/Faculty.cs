@@ -72,9 +72,13 @@ namespace ExchangeApp.Models
         public int? FacultyPlacesAvailable { get; set; }
 
         [Display(Name = "Faculty application date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime? FacultyApplicationDate { get; set; }
 
         [Display(Name = "Faculty enrollment date")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
         public DateTime? FacultyEnrollmentDate { get; set; }
 
         [Display(Name = "Student type of exchange")]

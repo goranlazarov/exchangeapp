@@ -160,7 +160,7 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
+        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, LogoImage")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
             if (!StudentSelected && !FacultySelected)
             {
@@ -224,10 +224,7 @@ namespace ExchangeApp.Controllers
                     }
 
                 }
-                else
-                {
-                    faculty.LogoImage = null;
-                }
+
 
                 db.Entry(faculty).State = EntityState.Modified;
                 db.SaveChanges();
@@ -284,6 +281,29 @@ namespace ExchangeApp.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult DeleteImage(int id)
+        {
+            Faculty faculty = db.Faculties.Find(id);
+            if (faculty == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    faculty.LogoImage = null;
+                    db.Entry(faculty).State = EntityState.Modified;
+                    db.SaveChanges();
+                    DisplaySuccessMessage("The faculty image was successfully deleted!");
+                    return Json(true);
+                }
+            }
+
+            return View(faculty);
+
         }
     }
 }

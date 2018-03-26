@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-lg-6 col-md-10 mt-10">
                     <label>
-                        Existing Logo
+                        Existing Image
                     </label>
                     <div>
                         @if (Model.LogoImage != null)
@@ -127,19 +127,19 @@
                         }
                         else
                         {
-                            <img style="max-height: 100px" src="~/Content/css/images/No_Image_Available.jpg" />
+                            <img style="max-height: 100px" src="~/Content/images/No_Image_Available.jpg" />
 
                         }
                     </div>
                     @if (Model.LogoImage != null)
                     {
-                        <a onclick="DeleteLogo()" class="btn btn-danger"> Delete logo</a>
+                        <a onclick="DeleteImage(@Model.ID)" class="btn btn-danger"> Delete Image</a>
                     }
                 </div>
 
                 <div class="col-lg-6 col-md-10 mt-20">
                     <label>
-                        Upload New Logo
+                        Upload New Image
                     </label>
                     <div>
                         @Html.TextBox("File", "", new { type = "file", id = "fileControl", accept = ".png,.jpg,.jpeg" }) <br />
@@ -251,7 +251,7 @@
                     </div>
 
                 </div>
-
+                @Html.HiddenFor(m => m.LogoImage)
 
                 @Html.HiddenFor(m => m.LastUpdated)
                 @Html.HiddenFor(m => m.Registered)
@@ -279,7 +279,7 @@
                                         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     </div>
                                     <div class="col-lg-6 col-md-10 mt-20">
-                                        <button class="btn btn-danger" type="submit" onclick="ConfirmDelete()">Delete</button>
+                                        <a class="btn btn-danger" onclick="ConfirmDelete()">Delete</a>
                                     </div>
                                 </div>
 
@@ -297,7 +297,7 @@
     <script>
     $(document).ready(function () {
 
-        $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+        $('.datepicker').datepicker({ dateFormat: 'MM-dd-yy' });
         var studentPlaces = @(Model.StudentPlacesAvailable.HasValue ? Model.StudentPlacesAvailable.Value : 0);
         var facultyPlaces = @(Model.FacultyPlacesAvailable.HasValue ? Model.FacultyPlacesAvailable.Value : 0);
 
@@ -348,14 +348,27 @@
         });
 
 });
-        var DeleteLogo = function (facultyId) {
+        var DeleteImage = function (facultyId) {
             $("#deleteModal").modal("show");
+            $("#hiddenId").val(facultyId)
         }
 
         var ConfirmDelete = function () {
-            $("#fileControl").val('');
-            $("#editFacultyForm").submit();
-            $("#deleteModal").modal("hide");
+            //$('#logoImage').val(null);
+            //$("#fileControl").val('');
+            //$("#editFacultyForm").submit();
+            //$("#deleteModal").modal("hide");
+            var facultyId = $("#hiddenId").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Faculties/DeleteImage",
+                data: { id: facultyId },
+                success: function (data) {
+                    $("#deleteModal").modal("hide");
+                    window.location.href = "/Faculties/Edit/" + facultyId;
+                }
+            });
 
         }
     </script>
