@@ -65,80 +65,7 @@ namespace ExchangeApp.Controllers
             AddSearchFields();
             Faculty faculty = db.Faculties.Find(model.Faculty.ID);
 
-            if (faculty.FacultyTypeOfExchangeObj != null && faculty.StudentTypeOfExchangeObj != null)
-            {
-                if (!model.StudentSelected && !model.FacultySelected)
-                {
-                    ModelState.AddModelError("", "Please select application type");
-                }
-            }
-
-            if (model.FirstName == null)
-            {
-                ModelState.AddModelError("FirstName", "First name is required ");
-            }
-
-            if (model.LastName == null)
-            {
-                ModelState.AddModelError("LastName", "Last name is required ");
-            }
-
-            if (model.Email == null)
-            {
-                ModelState.AddModelError("Email", "Email is required ");
-            }
-
-            if (model.CountryOfOrigin == null)
-            {
-                ModelState.AddModelError("CountryOfOrigin", "Please choose country ");
-            }
-
-            if (model.EnglishLevel == null)
-            {
-                ModelState.AddModelError("EnglishLevel", "Please choose english level ");
-            }
-
-            if (model.StudentSelected || (faculty.StudentTypeOfExchangeObj != null && faculty.FacultyTypeOfExchangeObj == null))
-            {
-                if (model.ProgramEnrolled == null)
-                {
-                    ModelState.AddModelError("ProgramEnrolled", "Program enrolled is required");
-                }
-
-                if (model.SemesterEnrolled == null)
-                {
-                    ModelState.AddModelError("SemesterEnrolled", "Semester enrolled is required");
-                }
-
-                if (model.YearOfEnrollment == null)
-                {
-                    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
-                }
-
-                if (model.YearOfCompletion == null)
-                {
-                    ModelState.AddModelError("YearOfCompletion", "Please choose year of completion ");
-                }
-            }
-
-            if (model.FacultySelected || (faculty.StudentTypeOfExchangeObj == null && faculty.FacultyTypeOfExchangeObj != null))
-            {
-                if (model.HighestDegree == null)
-                {
-                    ModelState.AddModelError("HighestDegree", "Please choose highest degree ");
-                }
-
-                if (model.FirstCourse == null && model.SecondCourse == null && model.ThirdCourse == null && model.FourthCourse == null)
-                {
-                    ModelState.AddModelError("FirstCourse", "Please choose at least one course");
-                }
-            }
-
-
-            if (model.AgreementNumber == null || model.AgreementNumber.ToLower() != faculty.AgreementNumber.ToLower())
-            {
-                ModelState.AddModelError("AgreementNumber", "Invalid agreement number");
-            }
+            ValidateApplication(faculty, model);
 
             ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
@@ -278,6 +205,85 @@ namespace ExchangeApp.Controllers
             catch
             {
                 return false;
+            }
+        }
+
+        private void ValidateApplication(Faculty faculty, StudentViewModel model)
+        {
+
+            if (faculty.FacultyTypeOfExchangeObj != null && faculty.StudentTypeOfExchangeObj != null)
+            {
+                if (!model.StudentSelected && !model.FacultySelected)
+                {
+                    ModelState.AddModelError("", "Please select application type");
+                }
+            }
+
+            if (model.FirstName == null)
+            {
+                ModelState.AddModelError("FirstName", "First name is required ");
+            }
+
+            if (model.LastName == null)
+            {
+                ModelState.AddModelError("LastName", "Last name is required ");
+            }
+
+            if (model.Email == null)
+            {
+                ModelState.AddModelError("Email", "Email is required ");
+            }
+
+            if (model.CountryOfOrigin == null)
+            {
+                ModelState.AddModelError("CountryOfOrigin", "Please choose country ");
+            }
+
+            if (model.EnglishLevel == null)
+            {
+                ModelState.AddModelError("EnglishLevel", "Please choose english level ");
+            }
+
+            if (model.StudentSelected || (faculty.StudentTypeOfExchangeObj != null && faculty.FacultyTypeOfExchangeObj == null))
+            {
+                if (model.ProgramEnrolled == null)
+                {
+                    ModelState.AddModelError("ProgramEnrolled", "Program enrolled is required");
+                }
+
+                if (model.SemesterEnrolled == null)
+                {
+                    ModelState.AddModelError("SemesterEnrolled", "Semester enrolled is required");
+                }
+
+                if (model.YearOfEnrollment == null)
+                {
+                    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
+                }
+
+                if (model.YearOfCompletion == null)
+                {
+                    ModelState.AddModelError("YearOfCompletion", "Please choose year of completion ");
+                }
+            }
+
+            if (model.FacultySelected || (faculty.StudentTypeOfExchangeObj == null && faculty.FacultyTypeOfExchangeObj != null))
+            {
+                if (model.HighestDegree == null)
+                {
+                    ModelState.AddModelError("HighestDegree", "Please choose highest degree ");
+                }
+
+                if (model.FirstCourse == null && model.SecondCourse == null && model.ThirdCourse == null && model.FourthCourse == null)
+                {
+                    ModelState.AddModelError("FirstCourse", "Please choose at least one course");
+                }
+            }
+
+
+            if (model.AgreementNumber == null || model.AgreementNumber.ToLower() != faculty.AgreementNumber.ToLower())
+            {
+                ModelState.AddModelError("AgreementNumber", "Invalid agreement number");
             }
         }
 

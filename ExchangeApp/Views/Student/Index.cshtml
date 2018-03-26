@@ -46,7 +46,7 @@
                         }
                         else
                         {
-                            <img style="max-height: 211px" src="~/Content/css/images/No_Image_Available.jpg" />
+                            <img style="max-height: 211px" src="~/Content/images/No_Image_Available.jpg" />
 
                         }
                         <div class="generic-details-text">
@@ -140,61 +140,65 @@
                         @using (Html.BeginForm("SendApplication", "Student", FormMethod.Post, new { enctype = "multipart/form-data", facultyMail = Model.Faculty.Email }))
                         {
                             <section class="js-information form-fields no-padding clearfix">
-                                <div class="col-lg-4 col-md-4 mt-10">
-                                    <label>
-                                        First Name
-                                        <sup>*</sup>
-                                    </label>
-                                    <div>
-                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter first name" } })
-                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-4 mt-10 ">
-                                    <label>
-                                        Last Name
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Enter your last name" } })
-                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                                </div>
-                                <div class="col-lg-4 col-md-4 mt-10">
-                                    <label>
-                                        Email Address
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your email address" } })
-                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                <div class="row">
 
+                                    <div class="col-lg-4 col-md-4 mt-10">
+                                        <label>
+                                            First Name
+                                            <sup>*</sup>
+                                        </label>
+                                        <div>
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter first name" } })
+                                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                        <label>
+                                            Last Name
+                                            <sup>*</sup>
+                                        </label>
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { placeholder = "Enter your last name" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 mt-10">
+                                        <label>
+                                            Email Address
+                                            <sup>*</sup>
+                                        </label>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter your email address" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                    </div>
                                 </div>
 
                                 @Html.HiddenFor(m => m.Faculty.Email)
                                 @Html.HiddenFor(m => m.Faculty.ID)
+                                <div class="row">
 
-                                <div class="col-lg-4 col-md-4 mt-10 ">
-                                    <label>
-                                        Nationality
-                                    </label>
-                                    @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { placeholder = "Enter your nationality" } })
-                                </div>
+                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                        <label>
+                                            Nationality
+                                        </label>
+                                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { placeholder = "Enter your nationality" } })
+                                    </div>
 
-                                <div class="col-lg-4 col-md-4 mt-10 ">
-                                    <label>
-                                        Country of Origin
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.DropDownListFor(model => model.CountryOfOrigin, ViewBag.CountryOfOrigin as SelectList, "Select country")
-                                    @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
-                                </div>
+                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                        <label>
+                                            Country of Origin
+                                            <sup>*</sup>
+                                        </label>
+                                        @Html.DropDownListFor(model => model.CountryOfOrigin, ViewBag.CountryOfOrigin as SelectList, "Select country")
+                                        @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
+                                    </div>
 
-                                <div class="col-lg-4 col-md-4 mt-10 ">
-                                    <label>
-                                        English Level Proficiency
-                                        <sup>*</sup>
-                                    </label>
-                                    @Html.DropDownListFor(model => model.EnglishLevel, ViewBag.EnglishLevels as SelectList, "Select english level")
-                                    @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
-
+                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                        <label>
+                                            English Level Proficiency
+                                            <sup>*</sup>
+                                        </label>
+                                        @Html.DropDownListFor(model => model.EnglishLevel, ViewBag.EnglishLevels as SelectList, "Select english level")
+                                        @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
+                                    </div>
                                 </div>
                                 <div class="chkChoices">
                                     <div class="col-lg-4 col-md-4 mt-10 ">
@@ -213,7 +217,6 @@
                                         @*<input type="radio" name="app" id="rStudent"> Student <br>
                                             <input type="radio" name="app" id="rFaculty"> Faculty <br>*@
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                                     </div>
                                 </div>
 
@@ -222,40 +225,44 @@
                                 @if (Model.Faculty.StudentTypeOfExchangeObj != null)
                                 {
                                     <div id="appStudent">
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Program Enrolled
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.EditorFor(model => model.ProgramEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
-                                            @Html.ValidationMessageFor(model => model.ProgramEnrolled, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Semester Enrolled
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.EditorFor(model => model.SemesterEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })
-                                            @Html.ValidationMessageFor(model => model.SemesterEnrolled, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Year of Enrollment
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.YearOfEnrollment, ViewBag.YearsOfEnrollment as SelectList, "Select year of enrollment")
-                                            @Html.ValidationMessageFor(model => model.YearOfEnrollment, "", new { @class = "text-danger" })
-                                        </div>
+                                        <div class="row">
 
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Estimate Year of Completion
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.YearOfCompletion, ViewBag.YearsOfCompletion as SelectList, "Select year of completion")
-                                            @Html.ValidationMessageFor(model => model.YearOfCompletion, "", new { @class = "text-danger" })
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Program Enrolled
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.EditorFor(model => model.ProgramEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled program" } })
+                                                @Html.ValidationMessageFor(model => model.ProgramEnrolled, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Semester Enrolled
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.EditorFor(model => model.SemesterEnrolled, new { htmlAttributes = new { placeholder = "Enter enrolled semester" } })
+                                                @Html.ValidationMessageFor(model => model.SemesterEnrolled, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Year of Enrollment
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.YearOfEnrollment, ViewBag.YearsOfEnrollment as SelectList, "Select year of enrollment")
+                                                @Html.ValidationMessageFor(model => model.YearOfEnrollment, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
+                                        <div class="row">
 
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Estimate Year of Completion
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.YearOfCompletion, ViewBag.YearsOfCompletion as SelectList, "Select year of completion")
+                                                @Html.ValidationMessageFor(model => model.YearOfCompletion, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
                                     </div>
                                 }
                                 <div class="clearfix"></div>
@@ -263,43 +270,54 @@
                                 @if (Model.Faculty.FacultyTypeOfExchangeObj != null)
                                 {
                                     <div id="appFaculty">
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Highest Degree
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.HighestDegree, ViewBag.HighestDegrees as SelectList, "Select highest degree")
-                                            @Html.ValidationMessageFor(model => model.HighestDegree, "", new { @class = "text-danger" })
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                First Course
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList, "Select 1st course to teach")
-                                            @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Highest Degree
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.HighestDegree, ViewBag.HighestDegrees as SelectList, "Select highest degree")
+                                                @Html.ValidationMessageFor(model => model.HighestDegree, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    First Course
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList, "Select 1st course to teach")
+                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
 
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Second Course
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList, "Select 2nd course to teach")
+                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+
+                                            </div>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Second Course
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList, "Select 2nd course to teach")
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Third Course
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList, "Select 3rd course to teach")
-                                        </div>
-                                        <div class="col-lg-4 col-md-4 mt-10 ">
-                                            <label>
-                                                Fourth Course
-                                                <sup>*</sup>
-                                            </label>
-                                            @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList, "Select 4th course to teach")
+                                        <div class="row">
+
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Third Course
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList, "Select 3rd course to teach")
+                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Fourth Course
+                                                    <sup>*</sup>
+                                                </label>
+                                                @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList, "Select 4th course to teach")
+                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+
+                                            </div>
                                         </div>
 
                                     </div>
@@ -388,9 +406,7 @@
     </script>
     <script>
 
-    /**/
     var url = '@Url.Action("getCountries", "Home")';
-    /**/
 
     var countries = $('#CountryId');
     function CallChangeFunc(val) {
@@ -449,7 +465,7 @@
     </script>
     <script>
         $("#rStudent").click(function () {
-            
+
             $("#rFaculty").prop("checked", false);
 
             if ($(this).is(':checked')) {

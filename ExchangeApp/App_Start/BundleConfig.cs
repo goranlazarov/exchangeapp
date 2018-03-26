@@ -37,7 +37,7 @@ namespace ExchangeApp
                         "~/Content/css/combined.css",
                         "~/Content/css/ionicons.css",
                         "~/Content/toastr.css",
-                        "~/Content/css/plugins/datepicker.min.css"));
+                        "~/Content/plugins/datepicker.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*"));

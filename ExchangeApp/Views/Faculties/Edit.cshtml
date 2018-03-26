@@ -235,6 +235,7 @@
                 </div>
                 <div class="col-lg-3 col-md-10 mt-10">
                     <label>
+<<<<<<< HEAD
                         Faculty Application Date
                         <sup>*</sup>
                     </label>
@@ -242,11 +243,34 @@
                         @Html.TextBoxFor(model => model.FacultyApplicationDate, new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty application date" })
                         @Html.ValidationMessageFor(model => model.FacultyApplicationDate, "", new { @class = "text-danger" })
                     </div>
+=======
+                        Existing Image
+                    </label>
+                    <div>
+                        @if (Model.LogoImage != null)
+                        {
+                            <img style="max-height: 100px" src="data:image;base64,@System.Convert.ToBase64String(Model.LogoImage)" />
+                        }
+                        else
+                        {
+                            <img style="max-height: 100px" src="~/Content/images/No_Image_Available.jpg" />
+
+                        }
+                    </div>
+                    @if (Model.LogoImage != null)
+                    {
+                        <a onclick="DeleteImage(@Model.ID)" class="btn btn-danger"> Delete Image</a>
+                    }
+            //>>>>>>> 55ad7866e09bf1849b27baca8e6a2966bfb7957d
                 </div>
                 <div class="col-lg-3 col-md-10 mt-10">
                     <label>
+@*<<<<<<< HEAD*@
                         Faculty Enrollment Date
                         <sup>*</sup>
+@*=======*@
+                        Upload New Image
+@*>>>>>>> 55ad7866e09bf1849b27baca8e6a2966bfb7957d*@
                     </label>
                     <div>
                         @Html.TextBoxFor(model => model.FacultyEnrollmentDate, new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty enrollment date" })
@@ -254,8 +278,13 @@
                     </div>
                 </div>
 
+@*<<<<<<< HEAD*@
             </div>
 
+            //=======
+                </div>
+                @Html.HiddenFor(m => m.LogoImage)
+            //>>>>>>> 55ad7866e09bf1849b27baca8e6a2966bfb7957d
 
             @Html.HiddenFor(m => m.LastUpdated)
             @Html.HiddenFor(m => m.Registered)
@@ -268,6 +297,7 @@
                 <input type="submit" value="Save" class="btn btn-success">
             </div>
 
+@*<<<<<<< HEAD*@
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-sm " role="document">
                     <div class="modal-content">
@@ -284,6 +314,25 @@
                                 </div>
                                 <div class="col-lg-6 col-md-10 mt-20">
                                     <button class="btn btn-danger" type="submit" onclick="ConfirmDelete()">Delete</button>
+@*=======*@
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog modal-sm " role="document">
+                        <div class="modal-content">
+                            <div class="modal-header pd-5">
+                                <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
+                            </div>
+                            <div class="modal-body pd-10">
+                                Are you sure you want to delete existing logo?
+                            </div>
+                            <div class="modal-footer pd-0">
+                                <div>
+                                    <div class="col-lg-6 col-md-10 mt-20">
+                                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                    <div class="col-lg-6 col-md-10 mt-20">
+                                        <a class="btn btn-danger" onclick="ConfirmDelete()">Delete</a>
+                                    </div>
+@*>>>>>>> 55ad7866e09bf1849b27baca8e6a2966bfb7957d*@
                                 </div>
                             </div>
 
@@ -301,7 +350,7 @@
     <script>
     $(document).ready(function () {
 
-        $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+        $('.datepicker').datepicker({ dateFormat: 'MM-dd-yy' });
         var studentPlaces = @(Model.StudentPlacesAvailable.HasValue ? Model.StudentPlacesAvailable.Value : 0);
         var facultyPlaces = @(Model.FacultyPlacesAvailable.HasValue ? Model.FacultyPlacesAvailable.Value : 0);
 
@@ -352,14 +401,27 @@
         });
 
 });
-        var DeleteLogo = function (facultyId) {
+        var DeleteImage = function (facultyId) {
             $("#deleteModal").modal("show");
+            $("#hiddenId").val(facultyId)
         }
 
         var ConfirmDelete = function () {
-            $("#fileControl").val('');
-            $("#editFacultyForm").submit();
-            $("#deleteModal").modal("hide");
+            //$('#logoImage').val(null);
+            //$("#fileControl").val('');
+            //$("#editFacultyForm").submit();
+            //$("#deleteModal").modal("hide");
+            var facultyId = $("#hiddenId").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/Faculties/DeleteImage",
+                data: { id: facultyId },
+                success: function (data) {
+                    $("#deleteModal").modal("hide");
+                    window.location.href = "/Faculties/Edit/" + facultyId;
+                }
+            });
 
         }
     </script>

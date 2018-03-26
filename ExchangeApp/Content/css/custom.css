@@ -239,7 +239,7 @@ a.tertiary, a.tertiary:visited, button.tertiary, button.tertiary:visited {
 }
 
 #hero {
-    background: url("images/hero.jpg") no-repeat 0 0 transparent;
+    background: url("../images/hero.jpg") no-repeat 0 0 transparent;
 }
 
     #hero .site-name-tag {
@@ -325,11 +325,11 @@ a.tertiary, a.tertiary:visited, button.tertiary, button.tertiary:visited {
 
 .row {
     display: table-row;
-    background: #f6f6f6;
+    /*background: #f6f6f6;*/
 }
 
     .row:nth-of-type(odd) {
-        background: #e9e9e9;
+        /*background: #e9e9e9;*/
     }
 
     .row.header {

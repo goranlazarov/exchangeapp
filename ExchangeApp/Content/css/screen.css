@@ -1377,7 +1377,7 @@ textarea {
 
 #hero {
     height: 325px;
-    background: url("images/hero.jpg") no-repeat 0 0 transparent;
+    background: url("../images/hero.jpg") no-repeat 0 0 transparent;
     position: relative;
     box-sizing: border-box
 }
