@@ -55,18 +55,6 @@ namespace ExchangeApp.Controllers
             AddSearchFields();
 
             StudentViewModel svm = new StudentViewModel(faculty);
-            if (faculty.StudentTypeOfExchangeObj != null && faculty.FacultyTypeOfExchangeObj == null)
-            {
-                svm.StudentSelected = true;
-                svm.FacultySelected = false;
-            }
-
-            if (faculty.StudentTypeOfExchangeObj == null && faculty.FacultyTypeOfExchangeObj != null)
-            {
-                svm.StudentSelected = false;
-                svm.FacultySelected = true;
-            }
-
             return View(svm);
         }
 
