@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ExchangeApp.Models;
+using PagedList;
 
 namespace ExchangeApp.Controllers
 {
@@ -14,10 +15,13 @@ namespace ExchangeApp.Controllers
     {
 
         // GET: Faculties
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var faculties = db.Faculties.Include(f => f.CountryObj).Include(f => f.FacultyTypeOfExchangeObj).Include(f => f.LastUpdatedByUser).Include(f => f.RegisteredByUser).Include(f => f.StudentTypeOfExchangeObj);
-            return View(faculties.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(faculties.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Faculties/Details/5

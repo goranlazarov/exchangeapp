@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ExchangeApp.Models;
+using PagedList;
 
 namespace ExchangeApp.Controllers
 {
@@ -15,10 +16,13 @@ namespace ExchangeApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Semesters
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var semesters = db.Semesters.Include(s => s.LastUpdatedByUser).Include(s => s.RegisteredByUser).Include(s => s.SchoolYearObj);
-            return View(semesters.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(semesters.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult AddEditSemester(int semesterId)

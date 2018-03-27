@@ -1,4 +1,6 @@
-﻿@model IEnumerable<ExchangeApp.Models.Faculty>
+﻿
+@model PagedList.IPagedList<ExchangeApp.Models.Faculty>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -13,13 +15,13 @@
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.Name)
+                    College/University name
                 </div>
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.Program)
+                    Program
                 </div>
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.CountryObj.Name)
+                    Country
                 </div>
                 <div class="cell">
                     Actions
@@ -46,6 +48,7 @@
                 </div>
 
             }
+
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-sm " role="document">
                     <div class="modal-content">
@@ -70,6 +73,12 @@
                 </div>
             </div>
         </div>
+        <div class="custom-pag" style="text-align:center;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+
         <input type="hidden" id="hiddenId" />
     </div>
     @section scripts {
