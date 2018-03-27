@@ -45,7 +45,6 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
-
             ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
@@ -56,6 +55,18 @@ namespace ExchangeApp.Controllers
             AddSearchFields();
 
             StudentViewModel svm = new StudentViewModel(faculty);
+            if (faculty.StudentTypeOfExchangeObj != null && faculty.FacultyTypeOfExchangeObj == null)
+            {
+                svm.StudentSelected = true;
+                svm.FacultySelected = false;
+            }
+
+            if (faculty.StudentTypeOfExchangeObj == null && faculty.FacultyTypeOfExchangeObj != null)
+            {
+                svm.StudentSelected = false;
+                svm.FacultySelected = true;
+            }
+
             return View(svm);
         }
 
@@ -87,7 +98,7 @@ namespace ExchangeApp.Controllers
 
                     try
                     {
-                       // SendMails(model);
+                        // SendMails(model);
 
                         DisplaySuccessMessage("Successfully sent mail for application!");
 

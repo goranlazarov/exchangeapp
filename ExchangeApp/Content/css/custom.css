@@ -179,8 +179,13 @@ textarea {
 }
 
 .lbl-chk {
-    vertical-align: -webkit-baseline-middle;
-    font-size:14px;
+    vertical-align: bottom;
+    font-size: 14px;
+}
+
+.vld {
+    margin-top: 4px;
+    font-size:13px;
 }
 
 .mb-10 {
