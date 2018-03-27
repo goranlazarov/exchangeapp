@@ -178,6 +178,15 @@ textarea {
     margin-top: 10px !important;
 }
 
+.lbl-chk {
+    vertical-align: -webkit-baseline-middle;
+    font-size:14px;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
 .pl-31 {
     padding-left: 31% !important;
 }
@@ -285,6 +294,13 @@ a.tertiary, a.tertiary:visited, button.tertiary, button.tertiary:visited {
 
 .footer-content .social-media a {
     color: #FA803B;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px
 }
 
 @media (max-width: 480px) {

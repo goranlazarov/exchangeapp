@@ -291,14 +291,6 @@
     <Content Include="App_Data\MailBodyConfirmation.txt" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
     <Content Include="Content\css\combined.css" />
-    <Content Include="Content\css\images\featured2.jpg" />
-    <Content Include="Content\css\images\FeaturedServices_Memberhsip2.JPG" />
-    <Content Include="Content\css\images\FeaturedServices_Resources.jpg" />
-    <Content Include="Content\css\images\hero.jpg" />
-    <Content Include="Content\css\images\logo-22669.png" />
-    <Content Include="Content\css\images\no_image.png" />
-    <Content Include="Content\css\images\No_Image_Available.jpg" />
-    <Content Include="Content\css\images\pin.png" />
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
     <Content Include="App_Data\MailBodyApplication.txt" />
@@ -314,10 +306,12 @@
     <Content Include="Content\images\logo_small.png" />
     <Content Include="Content\images\Nationalities.png" />
     <Content Include="Content\images\No_Image_Available.jpg" />
+    <Content Include="Content\images\pin.png" />
     <Content Include="Content\images\Regions.png" />
     <Content Include="Content\images\School-Year.png" />
     <Content Include="Content\images\School.png" />
     <Content Include="Content\images\Semester.png" />
+    <Content Include="Content\images\star.png" />
     <Content Include="Content\images\Subjects.png" />
     <Content Include="Content\images\Types-Of-exchange.png" />
     <Content Include="Content\PagedList.css" />
@@ -376,7 +370,6 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
-    <Content Include="Content\css\images\star.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
