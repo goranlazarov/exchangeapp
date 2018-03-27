@@ -9,8 +9,8 @@ namespace ExchangeApp.Models
 {
     public class Faculty : BaseObject
     {
-        [Required(ErrorMessage = "Please enter faculty name")]
-        [Display(Name = "Faculty name")]
+        [Required(ErrorMessage = "Please enter college/university name")]
+        [Display(Name = "College/university name")]
         [StringLength(50)]
         public string Name { get; set; }
 
@@ -94,6 +94,9 @@ namespace ExchangeApp.Models
         [Display(Name = "Faculty type of exchange")]
         [ForeignKey("FacultyTypeOfExchangeId")]
         public virtual NomTypeOfExchange FacultyTypeOfExchangeObj { get; set; }
+
+        [Display(Name = "Featured faculty")]
+        public bool? IsFeatured { get; set; }
 
         public virtual ICollection<Subject> Subjects { get; set; }
 

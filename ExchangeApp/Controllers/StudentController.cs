@@ -76,8 +76,8 @@ namespace ExchangeApp.Controllers
 
             StudentViewModel svm = new StudentViewModel(faculty);
 
-            if (ModelState.IsValid)
-            {
+           // if (ModelState.IsValid)
+          //  {
                 var task = IsValidAsync(model.Email);
                 task.Wait();
                 bool isValidAsync = task.Result;
@@ -87,7 +87,7 @@ namespace ExchangeApp.Controllers
 
                     try
                     {
-                        SendMails(model);
+                       // SendMails(model);
 
                         DisplaySuccessMessage("Successfully sent mail for application!");
 
@@ -101,7 +101,7 @@ namespace ExchangeApp.Controllers
                 }
 
                 DisplayErrorMessage("An error occurred while sending mail for application!");
-            }
+           // }
 
             return View("Index", svm);
 

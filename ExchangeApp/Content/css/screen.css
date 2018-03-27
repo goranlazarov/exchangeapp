@@ -2606,7 +2606,8 @@ form#qCreate {
     width: 57%;
     float: left;
     margin-right: 5px;
-    box-sizing: border-box
+    box-sizing: border-box;
+    padding-bottom:20px;
 }
 
     #featured-job-listing ul {
@@ -2974,7 +2975,8 @@ form#qCreate {
     width: 42%;
     padding: 10px;
     float: right;
-    box-sizing: border-box
+    box-sizing: border-box;
+    height:120%;
 }
 
 @media (max-width: 768px) {

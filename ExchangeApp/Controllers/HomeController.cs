@@ -27,18 +27,37 @@ namespace ExchangeApp.Controllers
             {
                 if (!String.IsNullOrEmpty(ViewBag.LinkToOther.ToString()) && ViewBag.LinkToOther.ToString().Equals("Student"))
                 {
-                    var facultiesTeachersFiltered = facultiesFiltered.Where(f =>
+                    var facultiesTeachersFiltered = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                         f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                            f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(4);
-                        ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
+                                                            f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
+                    if(facultiesTeachersFiltered.ToList().Count < 10)
+                    {
+                        var facultiesTeachersFilteredNotFeatured = facultiesFiltered.Where(f =>
+                                                (!f.IsFeatured.HasValue || (f.IsFeatured.HasValue && !f.IsFeatured.Value)) &&
+                                                f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10 - facultiesTeachersFiltered.ToList().Count);
+
+
+                        facultiesTeachersFiltered = facultiesTeachersFiltered.Concat(facultiesTeachersFilteredNotFeatured);
+                    }
+                    ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
                     return View(ReturnModel);
                 }
 
             }
             
-            var facultiesFilteredFinal = facultiesFiltered.Where(f =>
+            var facultiesFilteredFinal = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
-                                               f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(4);
+                                               f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
+            if (facultiesFilteredFinal.ToList().Count < 10)
+            {
+                var facultiesStudentsFilteredNotFeatured = facultiesFiltered.Where(f =>
+                                        (!f.IsFeatured.HasValue || (f.IsFeatured.HasValue && !f.IsFeatured.Value)) &&
+                                        f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
+                                        f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10 - facultiesFilteredFinal.ToList().Count);
+
+                facultiesFilteredFinal = facultiesFilteredFinal.Concat(facultiesStudentsFilteredNotFeatured);
+            }
             ReturnModel.StudentsPlaces = new List<Faculty>(facultiesFilteredFinal);
             
             return View(ReturnModel);
@@ -121,7 +140,7 @@ namespace ExchangeApp.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(facultiesFiltered.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
+            return View(facultiesFiltered.OrderByDescending(l => l.IsFeatured).ThenByDescending(l=>l.Registered).ToPagedList(pageNumber, pageSize));
 
         }
         
