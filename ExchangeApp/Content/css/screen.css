@@ -86,8 +86,8 @@ svg:not(:root) {
 }
 
 .pagination {
-    text-align: center;
-    padding-top: 20px;
+    text-align: center !important;
+    /*padding-top: 20px;*/
     color: #676767
 }
 

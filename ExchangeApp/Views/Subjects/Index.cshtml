@@ -1,5 +1,5 @@
-﻿@model IEnumerable<ExchangeApp.Models.Subject>
-
+﻿@model PagedList.IPagedList<ExchangeApp.Models.Subject>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -13,13 +13,13 @@
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.Name)
+                    Subject name
                 </div>
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.DegreeLevelObj.Name)
+                    Degree Level
                 </div>
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.FacultyObj.Name)
+                    College/university
                 </div>
                 <div class="cell">
                     Actions
@@ -28,21 +28,21 @@
 
             @foreach (var item in Model)
             {
-            <div class="row">
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.Name)
+                <div class="row">
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </div>
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.DegreeLevelObj.Name)
+                    </div>
+                    <div class="cell">
+                        @Html.DisplayFor(modelItem => item.FacultyObj.Name)
+                    </div>
+                    <div class="cell-act">
+                        <a onclick="AddEditSubject(@item.ID)" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                        <a onclick="DeleteSubject(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
+                    </div>
                 </div>
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.DegreeLevelObj.Name)
-                </div>
-                <div class="cell">
-                    @Html.DisplayFor(modelItem => item.FacultyObj.Name)
-                </div>
-                <div class="cell-act">
-                    <a onclick="AddEditSubject(@item.ID)" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
-                    <a onclick="DeleteSubject(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
-                </div>
-            </div>
 
             }
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -83,7 +83,11 @@
             </div>
             <input type="hidden" id="hiddenId" />
         </div>
+        <div class="custom-pag" style="text-align:center;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
     </div>
     @section scripts {
         <script>

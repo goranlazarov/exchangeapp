@@ -1,5 +1,5 @@
-﻿@model IEnumerable<ExchangeApp.Models.NomEnglishLevel>
-
+﻿@model PagedList.IPagedList<ExchangeApp.Models.NomEnglishLevel>
+@using PagedList.Mvc;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -13,7 +13,7 @@
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    @Html.DisplayNameFor(model => model.Name)
+                    English Level
                 </div>
                 <div class="cell">
                     Actions
@@ -71,7 +71,11 @@
             </div>
             <input type="hidden" id="hiddenId" />
         </div>
+        <div class="custom-pag" style="text-align:center;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
     </div>
     @section scripts {
         <script>

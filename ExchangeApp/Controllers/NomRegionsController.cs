@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ExchangeApp.Models;
+using PagedList;
 
 namespace ExchangeApp.Controllers
 {
@@ -15,10 +16,13 @@ namespace ExchangeApp.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: NomRegions
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var nomRegions = db.Regions.Include(n => n.LastUpdatedByUser).Include(n => n.RegisteredByUser);
-            return View(nomRegions.ToList());
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(nomRegions.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult AddEditRegion(int regionId)

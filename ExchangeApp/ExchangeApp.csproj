@@ -302,7 +302,6 @@
     <Content Include="Content\images\logo_small.png" />
     <Content Include="Content\images\Nationalities.png" />
     <Content Include="Content\images\No_Image_Available.jpg" />
-    <Content Include="Content\images\No_Image_Available1.jpg" />
     <Content Include="Content\images\Regions.png" />
     <Content Include="Content\images\School-Year.png" />
     <Content Include="Content\images\School.png" />
@@ -399,10 +398,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\NomCountries\Create.cshtml" />
-    <Content Include="Views\NomCountries\Delete.cshtml" />
-    <Content Include="Views\NomCountries\Details.cshtml" />
-    <Content Include="Views\NomCountries\Edit.cshtml" />
     <Content Include="Views\NomCountries\Index.cshtml" />
     <Content Include="Views\Faculties\Create.cshtml" />
     <Content Include="Views\Faculties\Details.cshtml" />
