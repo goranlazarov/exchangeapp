@@ -24,6 +24,7 @@ namespace ExchangeApp.Models
 
         public HttpPostedFileBase CV { get; set; }
 
+        [Required]
         public string YearOfEnrollment { get; set; }
 
         public string YearOfCompletion { get; set; }

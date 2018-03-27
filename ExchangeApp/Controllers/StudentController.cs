@@ -256,10 +256,10 @@ namespace ExchangeApp.Controllers
                     ModelState.AddModelError("SemesterEnrolled", "Semester enrolled is required");
                 }
 
-                if (model.YearOfEnrollment == null)
-                {
-                    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
-                }
+                //if (model.YearOfEnrollment == null)
+                //{
+                //    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
+                //}
 
                 if (model.YearOfCompletion == null)
                 {
