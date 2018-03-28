@@ -104,6 +104,7 @@ a {
 
 textarea {
     resize: vertical !important; /* user can resize vertically, but width is fixed */
+    width: 100% !important;
 }
 
 .header-content #menu li ul {
@@ -185,7 +186,7 @@ textarea {
 
 .vld {
     margin-top: 4px;
-    font-size:13px;
+    font-size: 13px;
 }
 
 .mb-10 {
