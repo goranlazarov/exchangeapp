@@ -77,9 +77,8 @@ namespace ExchangeApp.Controllers
 
             StudentViewModel svm = new StudentViewModel(faculty);
 
-            MailSender.Model = svm;
-           // if (ModelState.IsValid)
-          //  {
+            if (ModelState.IsValid)
+            {
                 var task = MailSender.IsValidAsync();
                 task.Wait();
                 bool isValidAsync = task.Result;
@@ -103,7 +102,7 @@ namespace ExchangeApp.Controllers
                 }
 
                 DisplayErrorMessage("An error occurred while sending mail for application!");
-           // }
+            }
 
             return View("Index", svm);
 
@@ -157,10 +156,10 @@ namespace ExchangeApp.Controllers
                     ModelState.AddModelError("SemesterEnrolled", "Semester enrolled is required");
                 }
 
-                //if (model.YearOfEnrollment == null)
-                //{
-                //    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
-                //}
+                if (model.YearOfEnrollment == null)
+                {
+                    ModelState.AddModelError("YearOfEnrollment", "Please choose year of enrollment ");
+                }
 
                 if (model.YearOfCompletion == null)
                 {

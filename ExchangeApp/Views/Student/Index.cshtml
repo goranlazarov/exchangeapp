@@ -200,26 +200,56 @@
                                         @Html.ValidationMessageFor(model => model.EnglishLevel, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="chkChoices">
-                                    <div class="col-lg-4 col-md-4 mt-10 ">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 mt-10">
+                                        <label>
+                                            University From
+                                            <sup>*</sup>
+                                        </label>
+                                        <div>
+                                            @Html.EditorFor(model => model.UniversityFrom, new { htmlAttributes = new { placeholder = "Enter university name" } })
+                                            @Html.ValidationMessageFor(model => model.UniversityFrom, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 mt-10 mb-10">
+                                        <label>
+                                            Gender
+                                            <sup>*</sup>
+                                        </label>
+                                        <div class="col-lg-6 col-md-10 mt-10" style="width:20% !important;">
+                                            <div class="radio-inline">
+                                                @Html.RadioButton("Gender", "Male", true)
+                                                <span class="lbl-chk">Mr.</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-10 mt-10">
+                                            <div class="radio-inline">
+                                                @Html.RadioButton("Gender", "Female")
+                                                <span class="lbl-chk">Ms.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 mt-10" id="appType">
                                         <label>
                                             Application For
                                             <sup>*</sup>
                                         </label>
-                                        <div class="form-group">
+                                        <div class="mt-10">
+
                                             <div class="radio-inline">
-                                                @Html.CheckBoxFor(model => model.StudentSelected, new { id = "rStudent" }) Student
+                                                @Html.CheckBox("StudentSelected", new { id = "rStudent" })
+                                                <span class="lbl-chk">Student</span>
                                             </div>
+
                                             <div class="radio-inline">
-                                                @Html.CheckBoxFor(model => model.FacultySelected, new { id = "rFaculty" }) Faculty
+                                                @Html.CheckBox("FacultySelected", new { id = "rFaculty" })
+                                                <span class="lbl-chk">Faculty</span>
                                             </div>
                                         </div>
-                                        @*<input type="radio" name="app" id="rStudent"> Student <br>
-                                            <input type="radio" name="app" id="rFaculty"> Faculty <br>*@
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger vld" })
                                     </div>
                                 </div>
-
                                 <div class="clearfix"></div>
 
                                 @if (Model.Faculty.StudentTypeOfExchangeObj != null)
@@ -425,8 +455,7 @@
         $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
         var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
 
-    var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
-
+         var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
 
     if ($("#rStudent").is(':checked')) {
         $("#appStudent").show();
@@ -442,31 +471,32 @@
         $("#appFaculty").hide();
     }
 
-    if (studentPlaces == 1 && facultyPlaces == 0) {
-        $("#rStudent").click()
-        $("#appStudent").show();
-        $("#appFaculty").hide();
+        if (studentPlaces == 1 && facultyPlaces == 0) {
+            $("#rStudent").prop("checked", true);
+            $("#appStudent").show();
+            $("#appFaculty").hide();
 
-        $("#rStudent").prop("disabled", "disabled");
-        $("#rFaculty").prop("disabled", "disabled");
-    }
+            $("#rStudent").prop("disabled", true);
+            $("#rFaculty").prop("disabled", true);
+        }
 
-    if (studentPlaces == 0 && facultyPlaces == 1) {
-        $("#rFaculty").click()
-        $("#appFaculty").show();
-        $("#appStudent").hide();
+        if (studentPlaces == 0 && facultyPlaces == 1) {
+            $("#rFaculty").prop("checked", true);
+            $("#appFaculty").show();
+            $("#appStudent").hide();
 
-        $("#rStudent").prop("disabled", "disabled");
-        $("#rFaculty").prop("disabled", "disabled");
-    }
+            $("#rStudent").prop("disabled", true);
+            $("#rFaculty").prop("disabled", true);
+        }
 
 
 });
     </script>
     <script>
         $("#rStudent").click(function () {
-
+            $("#appFaculty .field-validation-error").empty();
             $("#rFaculty").prop("checked", false);
+            $("#appType .validation-summary-errors").empty();
 
             if ($(this).is(':checked')) {
                 $("#appStudent").show();
@@ -491,7 +521,9 @@
         });
 
         $("#rFaculty").click(function () {
+            $("#appStudent .field-validation-error").empty();
             $("#rStudent").prop("checked", false);
+            $("#appType .validation-summary-errors").empty();
 
             if ($(this).is(':checked')) {
                 $("#appFaculty").show();
