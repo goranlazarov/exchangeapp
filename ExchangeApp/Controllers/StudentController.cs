@@ -60,7 +60,7 @@ namespace ExchangeApp.Controllers
             initialSubject.Name = "Select course";
             List<Subject> subjects = new List<Subject>();
             subjects.Add(initialSubject);
-            subjects.AddRange(db.Subjects);
+            subjects.AddRange(faculty.Subjects);
             ViewBag.FacultyCourses = new SelectList(subjects, "ID", "Name");
 
             AddSearchFields();
@@ -90,7 +90,7 @@ namespace ExchangeApp.Controllers
             initialSubject.Name = "Select course";
             List<Subject> subjects = new List<Subject>();
             subjects.Add(initialSubject);
-            subjects.AddRange(db.Subjects);
+            subjects.AddRange(faculty.Subjects);
             ViewBag.FacultyCourses = new SelectList(subjects, "ID", "Name");
 
             StudentViewModel svm = new StudentViewModel(facultyViewModel);
