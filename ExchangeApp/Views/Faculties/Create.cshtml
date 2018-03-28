@@ -19,133 +19,142 @@
                     @Html.CheckBox("IsFeatured")
                     <label class="lbl-chk">Mark as featured</label>
                 </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        College/University Name
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter university name" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Program
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.Program, new { htmlAttributes = new { placeholder = "Enter program" } })
-                        @Html.ValidationMessageFor(model => model.Program, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        E-mail
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter e-mail address" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Website
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.Website, new { htmlAttributes = new { placeholder = "Enter website url" } })
-
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Country
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.DropDownListFor(model => model.CountryId, ViewBag.CountriesList as SelectList, "Select country")
-                        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Date of Matriculation
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.DateOfMatriculation, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of matriculation" })
-                        @Html.ValidationMessageFor(model => model.DateOfMatriculation, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Accreditation Number
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.AccreditationNumber, new { htmlAttributes = new { placeholder = "Enter accreditation number" } })
-                        @Html.ValidationMessageFor(model => model.AccreditationNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Date of Accreditation
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.DateOfAccreditation, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of accreditation" })
-                        @Html.ValidationMessageFor(model => model.DateOfAccreditation, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-10 mt-10">
-                    <label>
-                        Agreement Number
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.AgreementNumber, new { htmlAttributes = new { placeholder = "Enter agreement number" } })
-                        @Html.ValidationMessageFor(model => model.AgreementNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-12 col-md-10 mt-10">
-                    <label>
-                        Description
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextAreaFor(model => model.Description, 6, 151, null)
-                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-md-10 mt-10 mb-10">
-                    <div class="col-lg-6 col-md-10 mt-10">
+                <div class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            College/University Name
+                            <sup>*</sup>
+                        </label>
                         <div>
-                            @Html.CheckBox("StudentSelected", new { id = "chkStudent" })
-                            <label class="lbl-chk">Places for student</label>
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter university name" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-10 mt-10">
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Program
+                            <sup>*</sup>
+                        </label>
                         <div>
-                            @Html.CheckBox("FacultySelected", new { id = "chkFaculty" })
-                            <label class="lbl-chk">Places for faculty</label>
+                            @Html.EditorFor(model => model.Program, new { htmlAttributes = new { placeholder = "Enter program" } })
+                            @Html.ValidationMessageFor(model => model.Program, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            E-mail
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Enter e-mail address" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-6 col-md-10 mt-10">
-                    <label>
-                        Upload Image
-                    </label>
-                    <div>
-                        @Html.TextBox("File", "", new { type = "file", accept = ".png,.jpg,.jpeg" }) <br />
+                <div class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Website
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.Website, new { htmlAttributes = new { placeholder = "Enter website url" } })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Country
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.CountryId, ViewBag.CountriesList as SelectList, "Select country")
+                            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Date of Matriculation
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.DateOfMatriculation, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of matriculation" })
+                            @Html.ValidationMessageFor(model => model.DateOfMatriculation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Accreditation Number
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.AccreditationNumber, new { htmlAttributes = new { placeholder = "Enter accreditation number" } })
+                            @Html.ValidationMessageFor(model => model.AccreditationNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Date of Accreditation
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.DateOfAccreditation, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select date of accreditation" })
+                            @Html.ValidationMessageFor(model => model.DateOfAccreditation, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-10 mt-10">
+                        <label>
+                            Agreement Number
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.AgreementNumber, new { htmlAttributes = new { placeholder = "Enter agreement number", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.AgreementNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-12 col-md-10 mt-10">
+                        <label>
+                            Description
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextAreaFor(model => model.Description, 6, 151, null)
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-6 col-md-10 mt-10 mb-10">
+                        <div class="col-lg-6 col-md-10 mt-10">
+                            <div>
+                                @Html.CheckBox("StudentSelected", new { id = "chkStudent" })
+                                <label class="lbl-chk">Places for student</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-10 mt-10">
+                            <div>
+                                @Html.CheckBox("FacultySelected", new { id = "chkFaculty" })
+                                <label class="lbl-chk">Places for faculty</label>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-lg-6 col-md-10 mt-10">
+                        <label>
+                            Upload Image
+                        </label>
+                        <div>
+                            @Html.TextBox("File", "", new { type = "file", accept = ".png,.jpg,.jpeg" }) <br />
+                        </div>
                     </div>
                 </div>
                 <div class="clearfix"></div>
                 @*STUDENT*@
-                <div id="studentPlaces">
+                <div id="studentPlaces" class="row col-lg-12 col-md-10 mt-10">
                     <div class="col-lg-3 col-md-10 mt-10">
                         <label>
                             Student Type of Exchange
@@ -187,7 +196,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="facultyPlaces">
+                <div id="facultyPlaces" class="row col-lg-12 col-md-10 mt-10">
                     <div class="clearfix"></div>
                     @*FACULTY*@
                     <div class="col-lg-3 col-md-10 mt-10">
@@ -243,6 +252,25 @@
     <script>
         $(document).ready(function () {
             $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+
+            var generateAgreementNumber = function () {
+                var pom = ("" + Math.random()).substring(2, 7);
+                $.ajax({
+                    type: "POST",
+                    url: "/Faculties/CheckAgreementNumber",
+                    data: { number: pom },
+                    success: function (data) {
+                        if (data) {
+                            $("#AgreementNumber").val(pom);
+                        }
+                        else {
+                            generateAgreementNumber();
+                        }
+                    }
+                });
+            }
+
+            generateAgreementNumber();
 
             if ($("#chkStudent").is(':checked')) {
                 $("#studentPlaces").show();

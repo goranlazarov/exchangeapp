@@ -50,6 +50,7 @@ namespace ExchangeApp.Controllers
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
+
             return View();
         }
 
@@ -60,6 +61,11 @@ namespace ExchangeApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId, IsFeatured")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
+            if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower()))
+            {
+                ModelState.AddModelError("Name", "College/university with that name already exists");
+            }
+
             if (!StudentSelected && !FacultySelected)
             {
                 ModelState.AddModelError("", "Please select type of exchange that you offer");
@@ -166,6 +172,11 @@ namespace ExchangeApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, IsFeatured, LogoImage")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
+            if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower() && x.ID != faculty.ID))
+            {
+                ModelState.AddModelError("Name", "College/university with that name already exists");
+            }
+
             if (!StudentSelected && !FacultySelected)
             {
                 ModelState.AddModelError("", "Please select type of exchange that you offer");
@@ -308,6 +319,18 @@ namespace ExchangeApp.Controllers
 
             return View(faculty);
 
+        }
+
+        public JsonResult CheckAgreementNumber(string number)
+        {
+            if (db.Faculties.Any(x => x.AgreementNumber.Equals(number)))
+            {
+                return Json(false);
+            }
+            else
+            {
+                return Json(true);
+            }
         }
     }
 }

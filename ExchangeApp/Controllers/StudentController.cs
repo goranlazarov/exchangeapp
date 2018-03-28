@@ -52,7 +52,14 @@ namespace ExchangeApp.Controllers
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
             ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
             ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
-            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
+
+            Subject initialSubject = new Subject();
+            initialSubject.ID = -1;
+            initialSubject.Name = "Select course";
+            List<Subject> subjects = new List<Subject>();
+            subjects.Add(initialSubject);
+            subjects.AddRange(db.Subjects);
+            ViewBag.FacultyCourses = new SelectList(subjects, "ID", "Name");
 
             AddSearchFields();
 
@@ -73,7 +80,14 @@ namespace ExchangeApp.Controllers
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
             ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
             ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
-            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
+
+            Subject initialSubject = new Subject();
+            initialSubject.ID = -1;
+            initialSubject.Name = "Select course";
+            List<Subject> subjects = new List<Subject>();
+            subjects.Add(initialSubject);
+            subjects.AddRange(db.Subjects);
+            ViewBag.FacultyCourses = new SelectList(subjects, "ID", "Name");
 
             StudentViewModel svm = new StudentViewModel(faculty);
 

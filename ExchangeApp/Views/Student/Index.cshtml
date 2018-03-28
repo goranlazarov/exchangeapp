@@ -314,7 +314,7 @@
                                                     First Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList, "Select 1st course to teach")
+                                                @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
 
                                             </div>
@@ -323,7 +323,7 @@
                                                     Second Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList, "Select 2nd course to teach")
+                                                @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
 
                                             </div>
@@ -335,7 +335,7 @@
                                                     Third Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList, "Select 3rd course to teach")
+                                                @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
 
                                             </div>
@@ -344,7 +344,7 @@
                                                     Fourth Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList, "Select 4th course to teach")
+                                                @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
 
                                             </div>
@@ -419,7 +419,10 @@
                         }
                     </div>
                 </div>
-
+                <select id="hiddenFirst" style="display:none;"></select>
+                <select id="hiddenSecond" style="display:none;"></select>
+                <select id="hiddenThird" style="display:none;"></select>
+                <select id="hiddenFourth" style="display:none;"></select>
             </div>
         </div>
 
@@ -436,7 +439,9 @@
     </script>
     <script>
 
+    /**/
     var url = '@Url.Action("getCountries", "Home")';
+    /**/
 
     var countries = $('#CountryId');
     function CallChangeFunc(val) {
@@ -452,10 +457,16 @@
     </script>
     <script>
     $(document).ready(function () {
-        $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
-        var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
 
-         var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
+    $("#hiddenFirst").append($("#FirstCourse > option").clone());
+    $("#hiddenSecond").append($("#SecondCourse > option").clone());
+    $("#hiddenThird").append($("#ThirdCourse > option").clone());
+    $("#hiddenFourth").append($("#FourthCourse > option").clone());
+
+    $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+
+    var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
+    var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
 
     if ($("#rStudent").is(':checked')) {
         $("#appStudent").show();
@@ -471,32 +482,34 @@
         $("#appFaculty").hide();
     }
 
-        if (studentPlaces == 1 && facultyPlaces == 0) {
-            $("#rStudent").prop("checked", true);
-            $("#appStudent").show();
-            $("#appFaculty").hide();
+    if (studentPlaces == 1 && facultyPlaces == 0) {
+        $("#rStudent").prop("checked", true);
+        $("#appStudent").show();
+        $("#appFaculty").hide();
 
-            $("#rStudent").prop("disabled", true);
-            $("#rFaculty").prop("disabled", true);
-        }
+        $("#rStudent").prop("disabled", true);
+        $("#rFaculty").prop("disabled", true);
+    }
 
-        if (studentPlaces == 0 && facultyPlaces == 1) {
-            $("#rFaculty").prop("checked", true);
-            $("#appFaculty").show();
-            $("#appStudent").hide();
+    if (studentPlaces == 0 && facultyPlaces == 1) {
+        $("#rFaculty").prop("checked", true);
+        $("#appFaculty").show();
+        $("#appStudent").hide();
 
-            $("#rStudent").prop("disabled", true);
-            $("#rFaculty").prop("disabled", true);
-        }
+        $("#rStudent").prop("disabled", true);
+        $("#rFaculty").prop("disabled", true);
+    }
 
 
 });
     </script>
     <script>
+
         $("#rStudent").click(function () {
             $("#appFaculty .field-validation-error").empty();
             $("#rFaculty").prop("checked", false);
             $("#appType .validation-summary-errors").empty();
+            resetOptions();
 
             if ($(this).is(':checked')) {
                 $("#appStudent").show();
@@ -535,6 +548,7 @@
                 $('#SemesterEnrolled').val(null);
             }
             else {
+                resetOptions();
                 $("#appFaculty .field-validation-error").empty();
                 $("#appFaculty").hide();
 
@@ -544,6 +558,179 @@
                 $('#ThirdCourse').prop('selectedIndex', 0);
                 $('#FourthCourse').prop('selectedIndex', 0);
             }
+        });
+
+        function resetOptions() {
+            $('#FirstCourse').empty();
+            $("#FirstCourse").append($("#hiddenFirst > option").clone());
+
+            $('#SecondCourse').empty();
+            $("#SecondCourse").append($("#hiddenSecond > option").clone());
+
+            $('#ThirdCourse').empty();
+            $("#ThirdCourse").append($("#hiddenThird > option").clone());
+
+            $('#FourthCourse').empty();
+            $("#FourthCourse").append($("#hiddenFourth > option").clone());
+        }
+    </script>
+
+    <script>
+        var previousValue;
+        var previousText;
+
+        $.fn.sortSelect = function () {
+            var op = this.children("option");
+
+            op.sort(function (a, b) {
+                return a.value > b.value ? 1 : -1;
+            })
+
+            var index = $(this).prop('selectedIndex');
+            var sorted = this.empty().append(op);
+            sorted.prop("selectedIndex", index);
+
+            return sorted;
+        }
+        //first course
+        $("#FirstCourse").on('focus', function () {
+            previousValue = $(this).val();
+            previousText = $("#FirstCourse option:selected").text();
+
+        }).change(function () {
+            var value = $(this).val();
+            if (value != "-1" && value != previousValue) {
+                $("#SecondCourse option[value='" + value + "']").remove();
+                $("#ThirdCourse option[value='" + value + "']").remove();
+                $("#FourthCourse option[value='" + value + "']").remove();
+            }
+
+            if (previousValue != "-1") {
+                $('#SecondCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+                $('#ThirdCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+
+                $('#FourthCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+            }
+
+            $("#SecondCourse").sortSelect();
+            $("#ThirdCourse").sortSelect();
+            $("#FourthCourse").sortSelect();
+
+        });
+
+        //second course
+        $("#SecondCourse").on('focus', function () {
+            previousValue = $(this).val();
+            previousText = $("#SecondCourse option:selected").text();
+
+        }).change(function () {
+            var value = $(this).val();
+
+            if (value != "-1" && value != previousValue) {
+                $("#FirstCourse option[value='" + value + "']").remove();
+                $("#ThirdCourse option[value='" + value + "']").remove();
+                $("#FourthCourse option[value='" + value + "']").remove();
+            }
+
+            if (previousValue != "-1") {
+                $('#FirstCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+                $('#ThirdCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+
+                $('#FourthCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+            }
+
+            $("#FirstCourse").sortSelect();
+            $("#ThirdCourse").sortSelect();
+            $("#FourthCourse").sortSelect();
+        });
+
+        //third course
+        $("#ThirdCourse").on('focus', function () {
+            previousValue = $(this).val();
+            previousText = $("#ThirdCourse option:selected").text();
+
+        }).change(function () {
+            var value = $(this).val();
+
+            if (value != "-1" && value != previousValue) {
+                $("#FirstCourse option[value='" + value + "']").remove();
+                $("#SecondCourse option[value='" + value + "']").remove();
+                $("#FourthCourse option[value='" + value + "']").remove();
+            }
+
+            if (previousValue != "-1") {
+                $('#FirstCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+                $('#SecondCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+
+                $('#FourthCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+            }
+
+            $("#FirstCourse").sortSelect();
+            $("#SecondCourse").sortSelect();
+            $("#FourthCourse").sortSelect();
+        });
+
+        //fourth course
+        $("#FourthCourse").on('focus', function () {
+            previousValue = $(this).val();
+            previousText = $("#FourthCourse option:selected").text();
+
+        }).change(function () {
+            var value = $(this).val();
+
+            if (value != "-1" && value != previousValue) {
+                $("#FirstCourse option[value='" + value + "']").remove();
+                $("#ThirdCourse option[value='" + value + "']").remove();
+                $("#SecondCourse option[value='" + value + "']").remove();
+            }
+
+            if (previousValue != "-1") {
+                $('#FirstCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+                $('#ThirdCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+
+                $('#SecondCourse').append($('<option>', {
+                    value: previousValue,
+                    text: previousText
+                }));
+            }
+
+            $("#FirstCourse").sortSelect();
+            $("#ThirdCourse").sortSelect();
+            $("#SecondCourse").sortSelect();
+
         });
     </script>
 }
