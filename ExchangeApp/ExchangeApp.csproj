@@ -229,6 +229,7 @@
     <Compile Include="Helpers\DbSetExtended.cs" />
     <Compile Include="Helpers\helpers.cs" />
     <Compile Include="Helpers\Log.cs" />
+    <Compile Include="Helpers\MailSender.cs" />
     <Compile Include="Helpers\not_found.cs" />
     <Compile Include="Migrations\201802101510002_20180210_added_level.cs" />
     <Compile Include="Migrations\201802101510002_20180210_added_level.Designer.cs">
@@ -288,7 +289,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- <Content Include="Content\bootstrap.css" /> -->
-    <Content Include="App_Data\MailBodyConfirmation.txt" />
+    <Content Include="App_Data\MailBodyApplicationFaculty.txt" />
+    <Content Include="App_Data\MailBodyConfirmationFaculty.txt" />
+    <Content Include="App_Data\MailBodyConfirmationStudent.txt" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
     <Content Include="Content\css\combined.css" />
     <Content Include="Content\css\images\featured2.jpg" />
@@ -301,7 +304,7 @@
     <Content Include="Content\css\images\pin.png" />
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
-    <Content Include="App_Data\MailBodyApplication.txt" />
+    <Content Include="App_Data\MailBodyApplicationStudent.txt" />
     <Content Include="Content\images\acbsp_logo.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\Countries.png" />
@@ -377,7 +380,9 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Content\css\images\star.png" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

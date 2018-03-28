@@ -7,6 +7,8 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using System.Configuration;
+using ExchangeApp.Helpers;
 
 namespace ExchangeApp.Controllers
 {
@@ -45,7 +47,6 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
-
             ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
@@ -76,18 +77,19 @@ namespace ExchangeApp.Controllers
 
             StudentViewModel svm = new StudentViewModel(faculty);
 
+            MailSender.Model = svm;
            // if (ModelState.IsValid)
           //  {
-                var task = IsValidAsync(model.Email);
+                var task = MailSender.IsValidAsync();
                 task.Wait();
                 bool isValidAsync = task.Result;
 
-                if (isValidAsync && IsValidEmail(model.Email) && model.CV != null && model.CV.ContentLength > 0)
+                if (isValidAsync && MailSender.IsValidEmail() && model.CV != null && model.CV.ContentLength > 0)
                 {
 
                     try
                     {
-                       // SendMails(model);
+                        MailSender.SendMails();
 
                         DisplaySuccessMessage("Successfully sent mail for application!");
 
@@ -105,107 +107,6 @@ namespace ExchangeApp.Controllers
 
             return View("Index", svm);
 
-        }
-
-        private void SendMails(StudentViewModel model)
-        {
-            string from = "glazarov9@gmail.com"; //"mobilityacbsp@gmail.com"; //model.Email;
-            string password = "brooklyn78";//"1234qawsed";
-            string ccMail = "goran_sr@hotmail.com";
-
-            MailMessage confirmationMail = PrepareMail(model, from, null, true);
-            MailMessage applicationMail = PrepareMail(model, from, ccMail, false);
-
-            NetworkCredential networkCredential = new NetworkCredential(from, password);
-
-            GetSmtp(networkCredential).Send(confirmationMail);
-            GetSmtp(networkCredential).Send(applicationMail);
-        }
-
-        private MailMessage PrepareMail(StudentViewModel model, string from, string ccMail, bool isConfirmation)
-        {
-
-            MailMessage mail = new MailMessage(from, (!isConfirmation ? model.Faculty.Email : model.Email));
-            if (!isConfirmation)
-            {
-                MailAddress ccMailAddress = new MailAddress(ccMail);
-                mail.CC.Add(ccMailAddress);
-
-                mail.Subject = "ACBSP mobility application from";
-
-                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/MailBodyApplication.txt"));
-                mail.Body = fileContents.Replace("FirstName", model.FirstName).Replace("LastName", model.LastName);
-                mail.IsBodyHtml = false;
-
-                Attachment messageAttachment = new Attachment(model.CV.InputStream, model.CV.FileName);
-                mail.Attachments.Add(messageAttachment);
-            }
-            else
-            {
-                mail.Subject = "ACBSP mobility confirmation for successfull application";
-
-                var fileContents = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/MailBodyConfirmation.txt"));
-                mail.IsBodyHtml = false;
-            }
-
-            return mail;
-        }
-
-        private SmtpClient GetSmtp(NetworkCredential networkCredential)
-        {
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.EnableSsl = true;
-            smtp.UseDefaultCredentials = true;
-            smtp.Credentials = networkCredential;
-            smtp.Port = 587;
-            return smtp;
-        }
-
-        Task<bool> IsValidAsync(string email)
-        {
-            try
-            {
-                var mailAddress = new MailAddress(email);
-                var host = mailAddress.Host;
-                return CheckDnsEntriesAsync(host);
-            }
-            catch (FormatException)
-            {
-                return Task.FromResult(false);
-            }
-        }
-
-        async Task<bool> CheckDnsEntriesAsync(string domain)
-        {
-            try
-            {
-                var lookup = new LookupClient();
-                lookup.Timeout = TimeSpan.FromSeconds(5);
-                var result = await lookup.QueryAsync(domain, QueryType.ANY).ConfigureAwait(false);
-
-                var records = result.Answers.Where(record => record.RecordType == DnsClient.Protocol.ResourceRecordType.A ||
-                                                             record.RecordType == DnsClient.Protocol.ResourceRecordType.AAAA ||
-                                                             record.RecordType == DnsClient.Protocol.ResourceRecordType.MX);
-                return records.Any();
-            }
-            catch (DnsResponseException)
-            {
-                return false;
-            }
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         private void ValidateApplication(Faculty faculty, StudentViewModel model)

@@ -1,0 +1,12 @@
+﻿Dear (Gender) (FirstName) (LastName), 
+
+Your application for faculty mobility to the (UniversityCountry) in the business program (ProgramEnrolled) 
+for the (SemesterOfEnrollment) semester has been dispatched. 
+Your application is sent to the mobility coordinator of the (UniversityCountry). 
+Please allow at least 21 days for your application to be processed by the university committee. 
+The final decision for your acceptance will depend on your curriculum vitae and personal interview. 
+
+Thank you for participating in the ACBSP Faculty Mobility Program
+Respectfully,
+Prof. Dr. Emil Gjorgov
+Director of European Operations

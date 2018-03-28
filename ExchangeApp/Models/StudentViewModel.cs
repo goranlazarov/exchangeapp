@@ -51,6 +51,10 @@ namespace ExchangeApp.Models
 
         public bool FacultySelected { get; set; }
 
+        public string Gender { get; set; }
+
+        public string UniversityFrom { get; set; }
+
 
         public StudentViewModel(Faculty faculty)
         {
