@@ -42,21 +42,22 @@ namespace ExchangeApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Faculty faculty = db.Faculties.Find(id);
+            FacultyViewModel facultyViewModel = new FacultyViewModel(faculty);
             if (faculty == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
-            ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
-            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
-            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
-            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
-            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
+            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "Name", "Name");
+            ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "Name", "Name");
+            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "Name", "Name");
+            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "Name", "Name");
+            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "Name", "Name");
+            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "Name", "Name");
 
             AddSearchFields();
 
-            StudentViewModel svm = new StudentViewModel(faculty);
+            StudentViewModel svm = new StudentViewModel(facultyViewModel);
             return View(svm);
         }
 
@@ -65,20 +66,22 @@ namespace ExchangeApp.Controllers
         {
             AddSearchFields();
             Faculty faculty = db.Faculties.Find(model.Faculty.ID);
-
+            FacultyViewModel facultyViewModel = new FacultyViewModel(faculty);
             ValidateApplication(faculty, model);
 
-            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "ID", "Name");
-            ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "ID", "Name");
-            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "ID", "Name");
-            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "ID", "Name");
-            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "ID", "Name");
-            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "ID", "Name");
+            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "Name", "Name");
+            ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "Name", "Name");
+            ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "Name", "Name");
+            ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "Name", "Name");
+            ViewBag.HighestDegrees = new SelectList(db.ApplicantHighestDegrees, "Name", "Name");
+            ViewBag.FacultyCourses = new SelectList(faculty.Subjects, "Name", "Name");
 
-            StudentViewModel svm = new StudentViewModel(faculty);
+            StudentViewModel svm = new StudentViewModel(facultyViewModel);
 
             if (ModelState.IsValid)
             {
+                model.Faculty = facultyViewModel;
+                MailSender.Model = model;
                 var task = MailSender.IsValidAsync();
                 task.Wait();
                 bool isValidAsync = task.Result;

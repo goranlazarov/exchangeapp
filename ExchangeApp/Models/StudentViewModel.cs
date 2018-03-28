@@ -8,7 +8,7 @@ namespace ExchangeApp.Models
 {
     public class StudentViewModel
     {
-        public Faculty Faculty { get; set; }
+        public FacultyViewModel Faculty { get; set; }
 
         public string FirstName { get; set; }
 
@@ -55,7 +55,7 @@ namespace ExchangeApp.Models
         public string UniversityFrom { get; set; }
 
 
-        public StudentViewModel(Faculty faculty)
+        public StudentViewModel(FacultyViewModel faculty)
         {
             this.Faculty = faculty;
         }

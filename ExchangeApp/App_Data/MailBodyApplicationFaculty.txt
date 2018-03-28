@@ -5,9 +5,9 @@ and wish to apply for faculty mobility to teach in your (FacultyDegreeLevel) bus
 My nationality is (Nationality) and the level of my English proficiency is (EnglishLevel), 
 which is sufficient to deliver courses at your university for the specified semesters. 
 I currently teach at the (UniversityFrom) the following (DegreeLevel) courses: (FirstCourse),
-(SecondCourse), (ThirdCourse) and (FourthCourse).
+(SecondCourse), (ThirdCourse), (FourthCourse).
 I hold a (HighestDegree) in business and successfully teach (FirstCourse), (SecondCourse), 
-(ThirdCourse) and (FourthCourse) during the proposed academic year.
+(ThirdCourse), (FourthCourse) during the proposed academic year.
 
 Look forward to hear from you soon,
 (Gender) (FirstName) (LastName)

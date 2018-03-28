@@ -20,20 +20,20 @@ namespace ExchangeApp.Helpers
         private static string Host = ConfigurationManager.AppSettings["Host"];
         private static bool EnableSSL = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSSL"]);
         private static int Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
+        private static string ApplicationMailSubject = ConfigurationManager.AppSettings["ApplicationMailSubject"];
+        private static string ConfirmationMailSubject = ConfigurationManager.AppSettings["ConfirmationMailSubject"];
         public static StudentViewModel Model { get; set; }
 
 
 
         public static void SendMails()
         {
-            string from = ConfigurationManager.AppSettings["EmailAddress"]; //"mobilityacbsp@gmail.com"; //model.Email;
-            string password = ConfigurationManager.AppSettings["Password"]; //"brooklyn78";//"1234qawsed";
-            string ccMail = ConfigurationManager.AppSettings["CCEmailAddress"];
-
+            //"mobilityacbsp@gmail.com"
+            //"1234qawsed";
             MailMessage confirmationMail = PrepareMail(true);
             MailMessage applicationMail = PrepareMail(false);
 
-            NetworkCredential networkCredential = new NetworkCredential(from, password);
+            NetworkCredential networkCredential = new NetworkCredential(From, Password);
 
             GetSmtp(networkCredential).Send(confirmationMail);
             GetSmtp(networkCredential).Send(applicationMail);
@@ -41,50 +41,101 @@ namespace ExchangeApp.Helpers
 
         private static MailMessage PrepareMail(bool isConfirmation)
         {
-
             MailMessage mail = new MailMessage(From, (!isConfirmation ? Model.Faculty.Email : Model.Email));
             if (!isConfirmation)
             {
                 MailAddress ccMailAddress = new MailAddress(CCMail);
                 mail.CC.Add(ccMailAddress);
 
-                mail.Subject = ConfigurationManager.AppSettings["ApplicationMailSubject"];// "ACBSP mobility application from";
+                mail.Subject = ApplicationMailSubject;
                 string pathFile = Model.FacultySelected ? @"~/App_Data/MailBodyApplicationFaculty.txt" : @"~/App_Data/MailBodyApplicationStudent.txt";
                 var fileContents = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(pathFile));
                 mail.IsBodyHtml = false;
-                mail.Body = SetUpBody(fileContents);
+                mail.Body = Model.FacultySelected ? SetUpBodyApplicationFaculty(fileContents) : SetUpBodyApplicationStudent(fileContents);
                 Attachment messageAttachment = new Attachment(Model.CV.InputStream, Model.CV.FileName);
                 mail.Attachments.Add(messageAttachment);
             }
             else
             {
-                mail.Subject = ConfigurationManager.AppSettings["ConfirmationMailSubject"];// "ACBSP mobility confirmation for successfull application";
+                mail.Subject = ConfirmationMailSubject;
                 string pathFile = Model.FacultySelected ? @"~/App_Data/MailBodyConfirmationFaculty.txt" : @"~/App_Data/MailBodyConfirmationStudent.txt";
                 var fileContents = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(pathFile));
+                mail.Body = Model.FacultySelected ? SetUpBodyConfirmationFaculty(fileContents) : SetUpBodyConfirmationStudent(fileContents);
                 mail.IsBodyHtml = false;
             }
 
             return mail;
         }
 
-        private static string SetUpBody(string content)
+        private static string SetUpBodyApplicationFaculty(string content)
         {
-            content = content.Replace("(Gender)", Model.Gender).Replace("(FirstName)", Model.FirstName)
-                             .Replace("FirstName", Model.FirstName).Replace("LastName", Model.LastName)
-                             .Replace("FirstName", Model.FirstName).Replace("LastName", Model.LastName)
-                             .Replace("FirstName", Model.FirstName).Replace("LastName", Model.LastName);
+            content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms.")).Replace("(FirstName)", Model.FirstName)
+                             .Replace("(LastName)", Model.LastName).Replace("(CountryOfOrigin)", Model.CountryOfOrigin)
+                             .Replace("(Nationality)", Model.Nationality).Replace("(EnglishLevel)", Model.EnglishLevel)
+                             .Replace("(UniversityFrom)", Model.UniversityFrom).Replace("(EmailAddress)", Model.Email)
+                             .Replace("(HighestDegree)", Model.HighestDegree)
+                             .Replace("(FirstCourse)", Model.FirstCourse).Replace("(SecondCourse)", Model.SecondCourse)
+                             .Replace("(ThirdCourse)", Model.ThirdCourse).Replace("(FourthCourse)", Model.FourthCourse);
+
+            //FacultyDegreeLevel i DegreeLevel nema
             return content;
 
         }
 
+        private static string SetUpBodyApplicationStudent(string content)
+        {
+            content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms."))
+                             .Replace("(FirstName)", Model.FirstName)
+                             .Replace("(LastName)", Model.LastName)
+                             .Replace("(CountryOfOrigin)", Model.CountryOfOrigin)
+                             .Replace("(Nationality)", Model.Nationality)
+                             .Replace("(EnglishLevel)", Model.EnglishLevel)
+                             .Replace("(ProgramEnrolled)", Model.ProgramEnrolled)
+                             .Replace("(ProgramEnrolled)", Model.ProgramEnrolled)
+                             .Replace("(YearOfCompletion)", Model.YearOfCompletion)
+                             .Replace("(YearOfEnrollment)", Model.YearOfCompletion)
+                             .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
+                             .Replace("(UniversityFrom)", Model.UniversityFrom)
+                             .Replace("(EmailAddress)", Model.Email);
+
+            // (UniversityCountry)
+
+            return content;
+
+        }
+
+        private static string SetUpBodyConfirmationFaculty(string content)
+        {
+            content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms."))
+                             .Replace("(FirstName)", Model.FirstName)
+                             .Replace("(LastName)", Model.LastName)
+                             .Replace("(ProgramEnrolled)", Model.Faculty.Program)
+                             .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
+                             .Replace("(UniversityCountry)", Model.Faculty.CountryObj.Name);
+
+            return content;
+
+        }
+
+        private static string SetUpBodyConfirmationStudent(string content)
+        {
+            content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms."))
+                             .Replace("(FirstName)", Model.FirstName)
+                             .Replace("(LastName)", Model.LastName)
+                             .Replace("(ProgramEnrolled)", Model.Faculty.Program)
+                             .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
+                             .Replace("(UniversityCountry)", Model.Faculty.CountryObj.Name);
+            return content;
+
+        }
         private static SmtpClient GetSmtp(NetworkCredential networkCredential)
         {
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = ConfigurationManager.AppSettings["Host"];
-            smtp.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSSL"]);
+            smtp.Host = Host;
+            smtp.EnableSsl = EnableSSL;
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = networkCredential;
-            smtp.Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
+            smtp.Port = Port;
             return smtp;
         }
 
@@ -107,7 +158,7 @@ namespace ExchangeApp.Helpers
             try
             {
                 var lookup = new LookupClient();
-                lookup.Timeout = TimeSpan.FromSeconds(5);
+                lookup.Timeout = TimeSpan.FromSeconds(25);
                 var result = await lookup.QueryAsync(domain, QueryType.ANY).ConfigureAwait(false);
 
                 var records = result.Answers.Where(record => record.RecordType == DnsClient.Protocol.ResourceRecordType.A ||
