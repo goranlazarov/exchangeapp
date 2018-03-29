@@ -31,61 +31,60 @@
                         {
                             foreach (var item in Model.StudentsPlaces)
                             {
-                        <li>
-                            @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
-    {
-                        <div class="job-summary-top clearfix">
+                                <li>
+                                    @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+                                    {
+                                        <div class="job-summary-top clearfix" style="float:right;">
 
-                            <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
-                                <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
-                            </span>
+                                            <span class="featured" style="font-size:12px;">
+                                                <img src="~/Content/images/star.png" class="feat-home"/> <b>Featured</b>
+                                            </span>
 
-                        </div>
-}
+                                        </div>
 
-                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+                                    }
 
-                                <h3>@item.Name</h3>
+                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
 
-                            </a>
-                            <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
-                            <span style=" padding-left: 5px; padding-right:5px;">
-                                <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
-                            </span>
+                                        <h3>@item.Name</h3>
 
-                        </li>
+                                    </a>
+                                    <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                                    <span style=" padding-left: 5px; padding-right:5px;">
+                                        <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                                    </span>
 
-
+                                </li>
                             }
                         }
                         else
                         {
                             foreach (var item in Model.TeacherPlaces)
                             {
-                        <li>
-                            @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
-    {
-                        <div class="job-summary-top clearfix">
+                                <li>
+                                    @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+                                    {
+                                        <div class="job-summary-top clearfix">
 
-                            <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
-                                <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
-                            </span>
+                                            <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
+                                                <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
+                                            </span>
 
-                        </div>
-}
+                                        </div>
+                                    }
 
-                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
 
-                                <h3>@item.Name</h3>
+                                        <h3>@item.Name</h3>
 
-                            </a>
-                            <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
-                            <span style=" padding-left: 5px; padding-right:5px;">
-                                <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
-                            </span>
+                                    </a>
+                                    <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                                    <span style=" padding-left: 5px; padding-right:5px;">
+                                        <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                                    </span>
 
 
-                        </li>
+                                </li>
                             }
                         }
 
@@ -96,17 +95,17 @@
 
 
                 <div class="featured-job-promo">
-                   
+
                 </div>
 
             </div>
 
-           
+
         </section>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script>
     var url = '@Url.Action("getCountries", "Home")';
     var countries = $('#CountryId');
         function CallChangeFunc(val) {
@@ -119,5 +118,5 @@
             });
 
     }
-    </script>
-}
+            </script>
+        }

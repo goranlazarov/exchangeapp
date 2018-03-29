@@ -236,12 +236,12 @@
                                         </label>
                                         <div class="mt-10">
 
-                                            <div class="radio-inline">
+                                            <div class="radio-inline" id="radioStudent">
                                                 @Html.CheckBox("StudentSelected", new { id = "rStudent" })
                                                 <span class="lbl-chk">Student</span>
                                             </div>
 
-                                            <div class="radio-inline">
+                                            <div class="radio-inline" id="radioFaculty">
                                                 @Html.CheckBox("FacultySelected", new { id = "rFaculty" })
                                                 <span class="lbl-chk">Faculty</span>
                                             </div>
@@ -408,7 +408,14 @@
                                         @Html.TextBox("CV", "", new { type = "file" }) <br />
                                     </div>
                                 </div>
-
+                                <div class="col-lg-4 col-md-4 mt-10 ">
+                                    <label>
+                                        Transcript
+                                    </label>
+                                    <div>
+                                        @Html.TextBox("Transcript", "", new { type = "file" }) <br />
+                                    </div>
+                                </div>
                                 <div class="clearfix"></div>
                                 <fieldset class="name" style="margin-left:38%">
                                     <button type="submit" class="primary" id="new-account-button">Send my application</button>
@@ -487,15 +494,17 @@
         $("#appStudent").show();
         $("#appFaculty").hide();
 
+        $("#radioFaculty").hide();
             $("#rStudent").prop("readonly", true);
             $("#rFaculty").prop("readonly", true);
         }
 
-    if (studentPlaces == 0 && facultyPlaces == 1) {
+        if (studentPlaces == 0 && facultyPlaces == 1) {
         $("#rFaculty").prop("checked", true);
         $("#appFaculty").show();
         $("#appStudent").hide();
 
+        $("#radioStudent").hide();
             $("#rStudent").prop("readonly", true);
             $("#rFaculty").prop("readonly", true);
         }
@@ -511,7 +520,12 @@
             $("#appType .validation-summary-errors").empty();
             resetOptions();
 
+            if ($("#radioFaculty").css('display') == 'none') {
+                return false;
+            };
+
             if ($(this).is(':checked')) {
+             
                 $("#appStudent").show();
                 $("#appFaculty").hide();
 
@@ -537,6 +551,10 @@
             $("#appStudent .field-validation-error").empty();
             $("#rStudent").prop("checked", false);
             $("#appType .validation-summary-errors").empty();
+
+            if ($("#radioStudent").css('display') == 'none') {
+                return false;
+            };
 
             if ($(this).is(':checked')) {
                 $("#appFaculty").show();

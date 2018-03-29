@@ -294,11 +294,13 @@
     <Content Include="App_Data\MailBodyConfirmationStudent.txt" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
     <Content Include="Content\css\combined.css" />
+    <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
     <Content Include="App_Data\MailBodyApplicationStudent.txt" />
     <Content Include="Content\images\acbsp_logo.png" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\bkgrd-preferred.png" />
     <Content Include="Content\images\Countries.png" />
     <Content Include="Content\images\Degree.png" />
     <Content Include="Content\images\EnglishLevel.png" />

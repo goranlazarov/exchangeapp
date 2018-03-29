@@ -103,7 +103,7 @@ namespace ExchangeApp.Controllers
                 task.Wait();
                 bool isValidAsync = task.Result;
 
-                if (isValidAsync && MailSender.IsValidEmail() && model.CV != null && model.CV.ContentLength > 0)
+                if (isValidAsync && MailSender.IsValidEmail() && model.CV != null && model.CV.ContentLength > 0 )
                 {
 
                     try
