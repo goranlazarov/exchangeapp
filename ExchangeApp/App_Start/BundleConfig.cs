@@ -33,6 +33,7 @@ namespace ExchangeApp
                        "~/Content/css/bootstrap.min.css",
                        "~/Content/css/bootstrap-datepicker.css",
                         "~/Content/css/screen.css",
+                        "~/Content/css/font-awesome.css",
                         "~/Content/css/custom.css",
                         "~/Content/css/combined.css",
                         "~/Content/css/ionicons.css",

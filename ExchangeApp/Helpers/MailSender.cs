@@ -52,8 +52,15 @@ namespace ExchangeApp.Helpers
                 var fileContents = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(pathFile));
                 mail.IsBodyHtml = false;
                 mail.Body = Model.FacultySelected ? SetUpBodyApplicationFaculty(fileContents) : SetUpBodyApplicationStudent(fileContents);
+
                 Attachment messageAttachment = new Attachment(Model.CV.InputStream, Model.CV.FileName);
                 mail.Attachments.Add(messageAttachment);
+
+                if (Model.Transcript != null)
+                {
+                    Attachment transcript = new Attachment(Model.Transcript.InputStream, Model.Transcript.FileName);
+                    mail.Attachments.Add(transcript);
+                }
             }
             else
             {

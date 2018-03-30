@@ -33,37 +33,37 @@
                     <p class="clearfix"> Additional search options: </p>
                     <fieldset>
                         @using (Html.BeginForm("ListFaculties", "Home", new { SearchKeyword = ViewBag.CurrentFilter, CountryId = ViewBag.CurrentCountry }, FormMethod.Post))
-    {
-                    @Html.AntiForgeryToken()
-                    <span class="h5">Find places for</span>
+                        {
+                            @Html.AntiForgeryToken()
+                            <span class="h5">Find places for</span>
 
-                    <div style="display:flex; flex-wrap: wrap;">
-                        <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
-                            @Html.CheckBox("StudentSelected", ((bool?)ViewBag.CurrentStudent).HasValue ? ((bool?)ViewBag.CurrentStudent).Value : false)
-                            @Html.Label("STUDENT")
-                        </span>
-                        &nbsp;&nbsp;&nbsp;
-                        <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
-                            @Html.CheckBox("FacultySelected", ((bool?)ViewBag.CurrentFaculty).HasValue ? ((bool?)ViewBag.CurrentFaculty).Value : false)
-                            @Html.Label("FACULTY")
-                        </span>
-                    </div>
-                    <hr />
-                    <legend style="position: absolute;left: -999em;">Study program</legend>
-                    <span class="h5">Study program</span>
-                    <p class="clearfix"> Suggestions: </p>
-                    <span>
-                        @foreach (var item in ViewBag.Programs)
-    {
-                    <strong style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;"> @item </strong>
-}
-                    </span>
-                    <p class="clearfix"></p>
+                            <div style="display:flex; flex-wrap: wrap;">
+                                <span class="boxes">
+                                    @Html.CheckBox("StudentSelected", ((bool?)ViewBag.CurrentStudent).HasValue ? ((bool?)ViewBag.CurrentStudent).Value : false)
+                                    @Html.Label("STUDENT", new { @class = "lbl-box" })
+                                </span>
+                                &nbsp;&nbsp;&nbsp;
+                                <span class="boxes">
+                                    @Html.CheckBox("FacultySelected", ((bool?)ViewBag.CurrentFaculty).HasValue ? ((bool?)ViewBag.CurrentFaculty).Value : false)
+                                    @Html.Label("FACULTY", new { @class = "lbl-box" })
+                                </span>
+                            </div>
+                            <hr />
+                            <legend style="position: absolute;left: -999em;">Study program</legend>
+                            <span class="h5">Study program</span>
+                            <p class="clearfix"> Suggestions: </p>
+                            <span>
+                                @foreach (var item in ViewBag.Programs)
+                                {
+                                    <span class="sugg"> @item </span>
+                                }
+                            </span>
+                            <p class="clearfix"></p>
 
-                    @Html.TextBox("SearchProgram", (string)ViewBag.CurrentProgram, new { placeholder = "Enter program keyword", type = "search", maxlength = "500" })
-                    <p class="clearfix"></p>
-                    <button class="primary primary-applied" type="submit">Search</button>
-}
+                            @Html.TextBox("SearchProgram", (string)ViewBag.CurrentProgram, new { placeholder = "Enter program keyword", type = "search", maxlength = "500" })
+                            <p class="clearfix"></p>
+                            <button class="primary primary-applied" type="submit">Search</button>
+                        }
 
                     </fieldset>
                 </div>
@@ -78,15 +78,15 @@
                             <li>
                                 <div class='job-summary'>
                                     @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
-    {
-                                <div class="job-summary-top clearfix">
+                                    {
+                                        <div class="job-summary-top clearfix" style="float:right">
 
-                                    <span style=" padding-left: 5px; padding-right:5px; border-color:orange; border-style:solid; border-width:thin; border-radius:3px;">
-                                        <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
-                                    </span>
+                                            <span class="featured" >
+                                                <img src="~/Content/images/star.png" class="star-list" /> <b>Featured</b>
+                                            </span>
 
-                                </div>
-}
+                                        </div>
+                                    }
 
                                     <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
 
@@ -104,9 +104,9 @@
                                         <p style="font-style:italic;">Posted: @item.Registered.Value.ToShortDateString()</p>
                                     </div>
 
-                                <input type="hidden" value=39431667 class="ga_job_id">
-                                <input type="hidden" value=1 class="ga_rank">
-                                    </div>
+                                    <input type="hidden" value=39431667 class="ga_job_id">
+                                    <input type="hidden" value=1 class="ga_rank">
+                                </div>
                             </li>
                         }
                     </ul>
@@ -114,7 +114,7 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                 @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
-             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry,currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty}))
+                                 new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
             </section>
 
         </div>
