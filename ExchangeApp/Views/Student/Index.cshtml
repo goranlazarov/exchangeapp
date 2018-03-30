@@ -314,9 +314,9 @@
                                                     First Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList)
-                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
-
+                                                @Html.DropDownListFor(model => model.FirstCourse1, ViewBag.FacultyCourses as SelectList)
+                                                @Html.ValidationMessageFor(model => model.FirstCourse1, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.FirstCourse)
                                             </div>
                                             <div class="col-lg-4 col-md-4 mt-10 ">
                                                 <label>
@@ -593,9 +593,9 @@
             return sorted;
         }
         //first course
-        $("#FirstCourse").on('focus', function () {
+        $("#FirstCourse1").on('focus', function () {
             previousValue = $(this).val();
-            previousText = $("#FirstCourse option:selected").text();
+            previousText = $("#FirstCourse1 option:selected").text();
 
         }).change(function () {
             var value = $(this).val();
@@ -620,6 +620,9 @@
                     text: previousText
                 }));
             }
+
+            $("#FirstCourseName").val($("#FirstCourse option:selected").text());
+
 
             $("#SecondCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
@@ -656,6 +659,7 @@
                     text: previousText
                 }));
             }
+            $("#SecondCourseName").val($("#SecondCourse option:selected").text());
 
             $("#FirstCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
@@ -692,6 +696,8 @@
                 }));
             }
 
+            $("#ThirdCourseName").val($("#ThirdCourse option:selected").text());
+
             $("#FirstCourse").sortSelect();
             $("#SecondCourse").sortSelect();
             $("#FourthCourse").sortSelect();
@@ -727,7 +733,9 @@
                 }));
             }
 
-            $("#FirstCourse").sortSelect();
+            $("#FourthCourseName").val($("#FourthCourse option:selected").text());
+
+            $("#FirstCourse1").sortSelect();
             $("#ThirdCourse").sortSelect();
             $("#SecondCourse").sortSelect();
 

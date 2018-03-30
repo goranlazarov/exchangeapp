@@ -40,11 +40,19 @@ namespace ExchangeApp.Models
 
         public string FirstCourse { get; set; }
 
+        public string FirstCourseName { get; set; }
+
         public string SecondCourse { get; set; }
+
+        public string SecondCourseName { get; set; }
 
         public string ThirdCourse { get; set; }
 
+        public string ThirdCourseName { get; set; }
+
         public string FourthCourse { get; set; }
+
+        public string FourthCourseName { get; set; }
 
         public bool StudentSelected { get; set; }
 
