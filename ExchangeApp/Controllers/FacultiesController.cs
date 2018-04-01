@@ -113,18 +113,21 @@ namespace ExchangeApp.Controllers
 
             if (ModelState.IsValid)
             {
-                if (File != null && IsValidImage(File))
+                if (File != null)
                 {
-                    byte[] image = new byte[File.ContentLength];
-                    File.InputStream.Read(image, 0, image.Length);
-                    faculty.LogoImage = image;
+                    if (IsValidImage(File))
+                    {
+                        byte[] image = new byte[File.ContentLength];
+                        File.InputStream.Read(image, 0, image.Length);
+                        faculty.LogoImage = image;
+                    }
+                    else
+                    {
+                        DisplayErrorMessage("Image format is not valid or image is bigger than 3MB!");
+                        return RedirectToAction("Index");
+                    }
                 }
-                else
-                {
-                    DisplayErrorMessage("Image format is not valid or image is bigger than 3MB!");
-                    return RedirectToAction("Index");
-                }
-
+             
                 db.Faculties.Add(faculty);
                 db.SaveChanges();
                 DisplaySuccessMessage("Successfully added new faculty!");
