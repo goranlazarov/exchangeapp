@@ -30,7 +30,7 @@ namespace ExchangeApp.Controllers
             List<NomDegreeLevel> degreeLevels = db.DegreeLevels.ToList();
             ViewBag.DegreeLevelsList = new SelectList(degreeLevels, "ID", "Name");
 
-            List<Faculty> facultiesList = db.Faculties.ToList();
+            List<Faculty> facultiesList = db.Faculties.Where(x=>x.FacultyTypeOfExchangeObj != null).ToList();
             ViewBag.FacultiesList = new SelectList(facultiesList, "ID", "Name");
 
             Subject model = new Subject();
