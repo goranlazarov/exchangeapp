@@ -82,9 +82,9 @@ namespace ExchangeApp.Helpers
                              .Replace("(UniversityFrom)", Model.UniversityFrom).Replace("(EmailAddress)", Model.Email)
                              .Replace("(HighestDegree)", Model.HighestDegree)
                              .Replace("(FirstCourse)", Model.FirstCourseName).Replace("(SecondCourse)", Model.SecondCourseName)
-                             .Replace("(ThirdCourse)", Model.ThirdCourseName).Replace("(FourthCourse)", Model.FourthCourseName);
+                             .Replace("(ThirdCourse)", Model.ThirdCourseName).Replace("(FourthCourse)", Model.FourthCourseName)
+                             .Replace("(Program)", Model.Faculty.Program);
 
-            //FacultyDegreeLevel i DegreeLevel nema
             return content;
 
         }
@@ -104,8 +104,6 @@ namespace ExchangeApp.Helpers
                              .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
                              .Replace("(UniversityFrom)", Model.UniversityFrom)
                              .Replace("(EmailAddress)", Model.Email);
-
-            // (UniversityCountry)
 
             return content;
 

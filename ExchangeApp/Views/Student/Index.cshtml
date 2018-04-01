@@ -314,9 +314,9 @@
                                                     First Course
                                                     <sup>*</sup>
                                                 </label>
-                                                @Html.DropDownListFor(model => model.FirstCourse1, ViewBag.FacultyCourses as SelectList)
-                                                @Html.ValidationMessageFor(model => model.FirstCourse1, "", new { @class = "text-danger" })
-                                                @Html.HiddenFor(x => x.FirstCourse)
+                                                @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList)
+                                                @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.FirstCourseName)
                                             </div>
                                             <div class="col-lg-4 col-md-4 mt-10 ">
                                                 <label>
@@ -325,6 +325,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.SecondCourseName)
 
                                             </div>
                                         </div>
@@ -337,6 +338,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.ThirdCourseName)
 
                                             </div>
                                             <div class="col-lg-4 col-md-4 mt-10 ">
@@ -346,6 +348,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.FourthCourseName)
 
                                             </div>
                                         </div>
@@ -611,9 +614,9 @@
             return sorted;
         }
         //first course
-        $("#FirstCourse1").on('focus', function () {
+        $("#FirstCourse").on('focus', function () {
             previousValue = $(this).val();
-            previousText = $("#FirstCourse1 option:selected").text();
+            previousText = $("#FirstCourse option:selected").text();
 
         }).change(function () {
             var value = $(this).val();
@@ -753,7 +756,7 @@
 
             $("#FourthCourseName").val($("#FourthCourse option:selected").text());
 
-            $("#FirstCourse1").sortSelect();
+            $("#FirstCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
             $("#SecondCourse").sortSelect();
 

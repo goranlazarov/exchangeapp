@@ -1,12 +1,11 @@
 ﻿Dear Mobility Coordinator,
 
 My name is (Gender) (FirstName) (LastName) I am from (CountryOfOrigin) 
-and wish to apply for faculty mobility to teach in your (FacultyDegreeLevel) business program. 
+and wish to apply for faculty mobility to teach in your (Program) business program. 
 My nationality is (Nationality) and the level of my English proficiency is (EnglishLevel), 
 which is sufficient to deliver courses at your university for the specified semesters. 
-I currently teach at the (UniversityFrom) the following (DegreeLevel) courses: (FirstCourse),
-(SecondCourse), (ThirdCourse), (FourthCourse).
-I hold a (HighestDegree) in business and successfully teach (FirstCourse), (SecondCourse), 
+I currently teach at the (UniversityFrom).
+I hold a (HighestDegree) in business and I'm applying to teach the following courses (FirstCourse), (SecondCourse), 
 (ThirdCourse), (FourthCourse) during the proposed academic year.
 
 Look forward to hear from you soon,
