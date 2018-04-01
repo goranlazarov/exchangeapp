@@ -13,9 +13,9 @@ namespace ExchangeApp.Controllers
         public ActionResult Index(int? flag)
         {
             if (flag.HasValue)
-               ViewBag.LinkToOther = (flag.Value == 1 ? "Student" : "Faculty");
+                ViewBag.LinkToOther = (flag.Value == 1 ? "Student" : "Faculty");
             else
-               ViewBag.LinkToOther = "Faculty";
+                ViewBag.LinkToOther = "Faculty";
 
 
             AddFields();
@@ -30,7 +30,7 @@ namespace ExchangeApp.Controllers
                     var facultiesTeachersFiltered = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                         f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
                                                             f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
-                    if(facultiesTeachersFiltered.ToList().Count < 10)
+                    if (facultiesTeachersFiltered.ToList().Count < 10)
                     {
                         var facultiesTeachersFilteredNotFeatured = facultiesFiltered.Where(f =>
                                                 (!f.IsFeatured.HasValue || (f.IsFeatured.HasValue && !f.IsFeatured.Value)) &&
@@ -45,7 +45,7 @@ namespace ExchangeApp.Controllers
                 }
 
             }
-            
+
             var facultiesFilteredFinal = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
                                                f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
@@ -59,9 +59,9 @@ namespace ExchangeApp.Controllers
                 facultiesFilteredFinal = facultiesFilteredFinal.Concat(facultiesStudentsFilteredNotFeatured);
             }
             ReturnModel.StudentsPlaces = new List<Faculty>(facultiesFilteredFinal);
-            
+
             return View(ReturnModel);
-            
+
         }
 
         public ActionResult ListFaculties(bool? StudentSelected, bool? FacultySelected, bool? currStud, bool? currFac, string SearchProgram, string currentProgram, string SearchKeyword, string currentFilter, int? CountryId, int? currentCountry, int? page)
@@ -73,10 +73,10 @@ namespace ExchangeApp.Controllers
             ViewBag.CurrentFaculty = FacultySelected.HasValue ? FacultySelected : currFac;
 
             var programs = from faculties in db.Faculties
-                         select faculties.Program;
+                           select faculties.Program;
 
             ViewBag.Programs = programs.ToList().Distinct().Take(10);
-            
+
             AddFields();
 
             if (SearchKeyword != null)
@@ -84,7 +84,7 @@ namespace ExchangeApp.Controllers
             else
                 SearchKeyword = currentFilter;
 
-            if(!CountryId.HasValue)
+            if (!CountryId.HasValue)
             {
                 CountryId = currentCountry;
             }
@@ -105,11 +105,11 @@ namespace ExchangeApp.Controllers
             }
 
             var facultiesFiltered = db.Faculties.ToList();
-            if(!string.IsNullOrEmpty(SearchKeyword))
+            if (!string.IsNullOrEmpty(SearchKeyword))
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.Name.Contains(SearchKeyword)).ToList();
             }
-            if(CountryId.HasValue && CountryId != -1)
+            if (CountryId.HasValue && CountryId != -1)
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.CountryId.HasValue && f.CountryId == CountryId).ToList();
             }
@@ -119,7 +119,7 @@ namespace ExchangeApp.Controllers
             }
 
             //TO DO - logika so datumi za sporedba so momentalen datum
-            if((StudentSelected.HasValue && StudentSelected.Value) || (FacultySelected.HasValue && FacultySelected.Value))
+            if ((StudentSelected.HasValue && StudentSelected.Value) || (FacultySelected.HasValue && FacultySelected.Value))
             {
                 facultiesFiltered = facultiesFiltered.Where(f =>
                                             (f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
@@ -140,10 +140,10 @@ namespace ExchangeApp.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(facultiesFiltered.OrderByDescending(l => l.IsFeatured).ThenByDescending(l=>l.Registered).ToPagedList(pageNumber, pageSize));
+            return View(facultiesFiltered.OrderByDescending(l => l.IsFeatured).ThenByDescending(l => l.Registered).ToPagedList(pageNumber, pageSize));
 
         }
-        
+
         public void AddFields()
         {
             NomRegion initial = new NomRegion();
@@ -168,7 +168,7 @@ namespace ExchangeApp.Controllers
         [HttpGet]
         public JsonResult getCountries(int regionId)
         {
-            var countries = db.Countries.Where(c => (c.RegionId.Value == regionId && regionId!=-1) || regionId==-1).Select(c => new
+            var countries = db.Countries.Where(c => (c.RegionId.Value == regionId && regionId != -1) || regionId == -1).Select(c => new
             {
                 ID = c.ID,
                 Name = c.Name
@@ -191,6 +191,11 @@ namespace ExchangeApp.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View("~/Views/Base/ErrorPage.cshtml");
         }
     }
 }

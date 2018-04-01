@@ -298,6 +298,7 @@
     <Content Include="Content\css\ionicons.css" />
     <Content Include="Content\css\screen.css" />
     <Content Include="App_Data\MailBodyApplicationStudent.txt" />
+    <Content Include="Content\images\404.jpg" />
     <Content Include="Content\images\acbsp_logo.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\bkgrd-preferred.png" />
@@ -440,9 +441,9 @@
     <Content Include="Views\NomDegreeLevels\AddEditDegreeLevel.cshtml" />
     <Content Include="Views\NomCountries\AddEditCountry.cshtml" />
     <Content Include="Views\NomApplicantHighestDegrees\AddEditHighestDegree.cshtml" />
+    <Content Include="Views\Base\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Base\" />
     <Folder Include="Views\ViewModel\" />
   </ItemGroup>
   <ItemGroup>

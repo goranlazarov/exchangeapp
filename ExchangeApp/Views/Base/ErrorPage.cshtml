@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "ErrorPage";
+    Layout = null;
+}
+<head>
+    <style>
+        .txt-big {
+            margin-left: 42% !important;
+            position: fixed !important;
+            margin-top: 10%;
+            width: 35%;
+            font-size: 26px;
+            border-bottom: 1px dotted #888;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #535353;
+            font-family: Helvetica Neue, Roboto, sans-serif;
+        }
+
+        .btn-error {
+            margin-left: 65% !important;
+            position: fixed !important;
+            margin-top: 27%;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: #535353;
+            font-family: Helvetica Neue, Roboto, sans-serif;
+        }
+
+        .primary {
+            background-color: #FA803B;
+            color: #FFF;
+            font-weight: 500;
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            padding: 10px 25px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .image-err {
+            margin-top: 10%;
+            margin-left: 23%;
+            position: fixed;
+        }
+    </style>
+</head>
+<body style="background-image:#f5f5f5">
+    <div>
+        <div class="txt-big">
+            Something bad happened, please contact system administrator and explain the action.
+        </div>
+        <div class="btn-error">
+            <a href="@Url.Action("Index", "Home")" id="applyBtn" class="primary ga_apply">Visit Homepage</a>
+        </div>
+        <a id="logo" href="http://www.acbsp.org" class="image-err">
+            <img alt="Accreditation Council for Business Schools and Programs" src="/Content/images/logo-22669.png">
+        </a>
+
+    </div>
+
+    <script>
+
+    </script>
+
+</body>

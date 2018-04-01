@@ -8,6 +8,20 @@ body {
     margin: 0
 }
 
+.err-test{
+    margin-left: 42% !important;
+    position: fixed !important;
+    margin-top: 10%;
+    width: 35%;
+    font-size: 26px;
+    border-bottom: 1px dotted #888;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: #535353;
+    font-family: Helvetica Neue, Roboto, sans-serif;
+}
+
+
 a {
     background: transparent
 }
