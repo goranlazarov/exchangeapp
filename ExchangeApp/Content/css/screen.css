@@ -1377,7 +1377,7 @@ textarea {
 
 #hero {
     height: 325px;
-    background: url("../images/hero.jpg") no-repeat 0 0 transparent;
+    background: url("../images/start.jpg") no-repeat 0 0 transparent;
     position: relative;
     box-sizing: border-box
 }
@@ -6568,6 +6568,10 @@ p + .job-categories {
 
 #main-content > .interior {
     position: relative
+}
+
+#home-page{
+    padding-top: 20px;
 }
 
 #home-page p {

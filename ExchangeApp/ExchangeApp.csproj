@@ -305,13 +305,13 @@
     <Content Include="Content\images\Degree.png" />
     <Content Include="Content\images\EnglishLevel.png" />
     <Content Include="Content\images\foot-logo.png" />
-    <Content Include="Content\images\hero.jpg" />
     <Content Include="Content\images\Highest-Degree.png" />
     <Content Include="Content\images\logo-22669.png" />
     <Content Include="Content\images\logo_small.png" />
     <Content Include="Content\images\Nationalities.png" />
     <Content Include="Content\images\No_Image_Available.jpg" />
     <Content Include="Content\images\pin.png" />
+    <Content Include="Content\images\start.jpg" />
     <Content Include="Content\images\Regions.png" />
     <Content Include="Content\images\School-Year.png" />
     <Content Include="Content\images\School.png" />

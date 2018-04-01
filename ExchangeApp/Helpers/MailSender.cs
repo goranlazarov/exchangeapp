@@ -28,8 +28,6 @@ namespace ExchangeApp.Helpers
 
         public static void SendMails()
         {
-            //"mobilityacbsp@gmail.com"
-            //"1234qawsed";
             MailMessage confirmationMail = PrepareMail(true);
             MailMessage applicationMail = PrepareMail(false);
 

@@ -305,7 +305,7 @@ a.tertiary, a.tertiary:visited, button.tertiary, button.tertiary:visited {
 }
 
 #hero {
-    background: url("../images/hero.jpg") no-repeat 0 0 transparent;
+    background: url("../images/start.jpg") no-repeat 0 0 transparent;
 }
 
     #hero .site-name-tag {
