@@ -316,7 +316,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.FirstCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
-
+                                                @Html.HiddenFor(x => x.FirstCourseName)
                                             </div>
                                             <div class="col-lg-4 col-md-4 mt-10 ">
                                                 <label>
@@ -325,6 +325,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.SecondCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.SecondCourseName)
 
                                             </div>
                                         </div>
@@ -337,6 +338,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.ThirdCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.ThirdCourseName)
 
                                             </div>
                                             <div class="col-lg-4 col-md-4 mt-10 ">
@@ -346,6 +348,7 @@
                                                 </label>
                                                 @Html.DropDownListFor(model => model.FourthCourse, ViewBag.FacultyCourses as SelectList)
                                                 @Html.ValidationMessageFor(model => model.FirstCourse, "", new { @class = "text-danger" })
+                                                @Html.HiddenFor(x => x.FourthCourseName)
 
                                             </div>
                                         </div>
@@ -639,6 +642,9 @@
                 }));
             }
 
+            $("#FirstCourseName").val($("#FirstCourse option:selected").text());
+
+
             $("#SecondCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
             $("#FourthCourse").sortSelect();
@@ -674,6 +680,7 @@
                     text: previousText
                 }));
             }
+            $("#SecondCourseName").val($("#SecondCourse option:selected").text());
 
             $("#FirstCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
@@ -710,6 +717,8 @@
                 }));
             }
 
+            $("#ThirdCourseName").val($("#ThirdCourse option:selected").text());
+
             $("#FirstCourse").sortSelect();
             $("#SecondCourse").sortSelect();
             $("#FourthCourse").sortSelect();
@@ -744,6 +753,8 @@
                     text: previousText
                 }));
             }
+
+            $("#FourthCourseName").val($("#FourthCourse option:selected").text());
 
             $("#FirstCourse").sortSelect();
             $("#ThirdCourse").sortSelect();
