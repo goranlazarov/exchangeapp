@@ -99,11 +99,11 @@ namespace ExchangeApp.Controllers
             {
                 model.Faculty = facultyViewModel;
                 MailSender.Model = model;
-                var task = MailSender.IsValidAsync();
-                task.Wait();
-                bool isValidAsync = task.Result;
+                //var task = MailSender.IsValidAsync();
+                //task.Wait();
+                //bool isValidAsync = task.Result;
 
-                if (isValidAsync && MailSender.IsValidEmail() && model.CV != null && model.CV.ContentLength > 0 )
+                if (MailSender.IsValidEmail() && model.CV != null && model.CV.ContentLength > 0 )
                 {
 
                     try
