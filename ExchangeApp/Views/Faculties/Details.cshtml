@@ -16,7 +16,7 @@
                 <table class="table">
                     <tbody>
                         <tr>
-                            <td class="details" style="vertical-align: middle"><i class="fa fa-user"></i>Logo</td>
+                            <td class="details" style="vertical-align: middle">Logo</td>
                             <td>
                                 @if (Model.LogoImage != null)
                                 {
@@ -30,63 +30,67 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-user"></i>Country</td>
+                            <td class="details">Country/State</td>
                             <td>@Html.DisplayFor(model => model.CountryObj.Name)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-user"></i>Program</td>
+                            <td class="details">Program</td>
                             <td>@Html.DisplayFor(model => model.Program)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.Email)</td>
+                            <td class="details">@Html.DisplayNameFor(model => model.AgreementNumber)</td>
+                            <td>@Html.DisplayFor(model => model.AgreementNumber)</td>
+                        </tr>
+                        <tr>
+                            <td class="details">@Html.DisplayNameFor(model => model.Email)</td>
                             <td>@Html.DisplayFor(model => model.Email)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-calendar"></i>  @Html.DisplayNameFor(model => model.Website)</td>
+                            <td class="details"> @Html.DisplayNameFor(model => model.Website)</td>
                             <td>@Html.DisplayFor(model => model.Website)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.DateOfMatriculation)</td>
+                            <td class="details">@Html.DisplayNameFor(model => model.DateOfMatriculation)</td>
                             <td>@Html.DisplayFor(model => model.DateOfMatriculation)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.AccreditationNumber)</td>
+                            <td class="details">@Html.DisplayNameFor(model => model.AccreditationNumber)</td>
                             <td>@Html.DisplayFor(model => model.AccreditationNumber)</td>
                         </tr>
                         <tr>
-                            <td class="details"><i class="fa fa-group"></i>@Html.DisplayNameFor(model => model.DateOfAccreditation)</td>
+                            <td class="details">@Html.DisplayNameFor(model => model.DateOfAccreditation)</td>
                             <td>@Html.DisplayFor(model => model.DateOfAccreditation)</td>
                         </tr>
                         <tr>
-                            <td rowspan="5" class="details" style="vertical-align: middle"><i class="fa fa-group"></i>Student</td>
+                            <td rowspan="5" class="details" style="vertical-align: middle">Student</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Type of exchange: @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)</td>
+                            <td>Type of exchange: @Html.DisplayFor(model => model.StudentTypeOfExchangeObj.Name)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Places Available: @Html.DisplayFor(model => model.StudentPlacesAvailable)</td>
+                            <td>Places Available: @Html.DisplayFor(model => model.StudentPlacesAvailable)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Application Date: @Html.DisplayFor(model => model.StudentApplicationDate)</td>
+                            <td>Application Date: @Html.DisplayFor(model => model.StudentApplicationDate)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Enrollment Date: @Html.DisplayFor(model => model.StudentEnrollmentDate)</td>
+                            <td></i>Enrollment Date: @Html.DisplayFor(model => model.StudentEnrollmentDate)</td>
                         </tr>
 
                         <tr>
-                            <td rowspan="5" class="details" style="vertical-align: middle"><i class="fa fa-group"></i>Faculty</td>
+                            <td rowspan="5" class="details" style="vertical-align: middle">Faculty</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Type of exchange: @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)</td>
+                            <td>Type of exchange: @Html.DisplayFor(model => model.FacultyTypeOfExchangeObj.Name)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Places Available: @Html.DisplayFor(model => model.FacultyPlacesAvailable)</td>
+                            <td>Places Available: @Html.DisplayFor(model => model.FacultyPlacesAvailable)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Application Date: @Html.DisplayFor(model => model.FacultyApplicationDate)</td>
+                            <td>Application Date: @Html.DisplayFor(model => model.FacultyApplicationDate)</td>
                         </tr>
                         <tr>
-                            <td><i class="fa fa-group"></i>Enrollment Date: @Html.DisplayFor(model => model.FacultyEnrollmentDate)</td>
+                            <td>Enrollment Date: @Html.DisplayFor(model => model.FacultyEnrollmentDate)</td>
                         </tr>
                     </tbody>
                 </table>

@@ -22,11 +22,11 @@
                 <div class="row col-lg-12 col-md-10 mt-10">
                     <div class="col-lg-4 col-md-10 mt-10">
                         <label>
-                            Faculty Name
+                            College/University Name
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter faculty name" } })
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter college/university name" } })
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -64,11 +64,11 @@
                     </div>
                     <div class="col-lg-4 col-md-10 mt-10">
                         <label>
-                            Country
+                            Country/State
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.DropDownListFor(model => model.CountryId, ViewBag.CountriesList as SelectList, "Select country")
+                            @Html.DropDownListFor(model => model.CountryId, ViewBag.CountriesList as SelectList, "Select country/state")
                             @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.TextAreaFor(model => model.Description, 6, 151, null)
+                            @Html.TextAreaFor(model => model.Description, 6, 151, new { maxlength = 2000 })
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -257,11 +257,11 @@
                     </div>
                     <div class="col-lg-3 col-md-10 mt-10">
                         <label>
-                            Faculty Enrollment Date
+                            Faculty Engagement Date
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.TextBoxFor(model => model.FacultyEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty enrollment date" })
+                            @Html.TextBoxFor(model => model.FacultyEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty engagement date" })
                             @Html.ValidationMessageFor(model => model.FacultyEnrollmentDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
