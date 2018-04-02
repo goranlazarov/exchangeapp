@@ -16,7 +16,9 @@ namespace ExchangeApp.Helpers
     {
         private static string From = ConfigurationManager.AppSettings["EmailAddress"];
         private static string Password = ConfigurationManager.AppSettings["Password"];
-        private static string CCMail = ConfigurationManager.AppSettings["CCEmailAddress"];
+        private static string CCMailStudent = ConfigurationManager.AppSettings["CCEmailAddressStudent"];
+        private static string CCMailFaculty = ConfigurationManager.AppSettings["CCEmailAddressFaculty"];
+
         private static string Host = ConfigurationManager.AppSettings["Host"];
         private static bool EnableSSL = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSSL"]);
         private static int Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
@@ -42,7 +44,7 @@ namespace ExchangeApp.Helpers
             MailMessage mail = new MailMessage(From, (!isConfirmation ? Model.Faculty.Email : Model.Email));
             if (!isConfirmation)
             {
-                MailAddress ccMailAddress = new MailAddress(CCMail);
+                MailAddress ccMailAddress = new MailAddress(Model.FacultySelected ? CCMailFaculty : CCMailStudent);
                 mail.CC.Add(ccMailAddress);
 
                 mail.Subject = ApplicationMailSubject;
