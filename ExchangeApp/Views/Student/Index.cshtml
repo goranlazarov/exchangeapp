@@ -64,10 +64,6 @@
                                     </span>
                                 </li>
                                 <li>
-                                    <label>University ID:</label>
-                                    <span>39576895</span>
-                                </li>
-                                <li>
                                     <label>E-mail:</label>
                                     <span>@Model.Faculty.Email</span>
                                 </li>
@@ -184,10 +180,10 @@
 
                                     <div class="col-lg-4 col-md-4 mt-10 ">
                                         <label>
-                                            Country of Origin
+                                            Country/State of Origin
                                             <sup>*</sup>
                                         </label>
-                                        @Html.DropDownListFor(model => model.CountryOfOrigin, ViewBag.CountryOfOrigin as SelectList, "Select country")
+                                        @Html.DropDownListFor(model => model.CountryOfOrigin, ViewBag.CountryOfOrigin as SelectList, "Select country/state")
                                         @Html.ValidationMessageFor(model => model.CountryOfOrigin, "", new { @class = "text-danger" })
                                     </div>
 
@@ -292,6 +288,14 @@
                                                 @Html.DropDownListFor(model => model.YearOfCompletion, ViewBag.YearsOfCompletion as SelectList, "Select year of completion")
                                                 @Html.ValidationMessageFor(model => model.YearOfCompletion, "", new { @class = "text-danger" })
                                             </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Transcript
+                                                </label>
+                                                <div style="margin-top:-1px">
+                                                    @Html.TextBox("Transcript", "", new { type = "file" }) <br />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 }
@@ -351,6 +355,14 @@
                                                 @Html.HiddenFor(x => x.FourthCourseName)
 
                                             </div>
+                                            <div class="col-lg-4 col-md-4 mt-10 ">
+                                                <label>
+                                                    Recommendation
+                                                </label>
+                                                <div style="margin-top:-1px">
+                                                    @Html.TextBox("Transcript", "", new { type = "file" }) <br />
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -368,10 +380,10 @@
 
                                 <div class="col-lg-4 col-md-4 mt-10 ">
                                     <label>
-                                        University Country
+                                        University Country/State
                                         <sup>*</sup>
                                     </label>
-                                    <input aria-label="University Country" type="text" name="last_name" value="@Model.Faculty.CountryObj.Name" disabled>
+                                    <input aria-label="University Country/State" type="text" name="last_name" value="@Model.Faculty.CountryObj.Name" disabled>
                                 </div>
 
                                 <div class="col-lg-4 col-md-4 mt-10 ">
@@ -380,6 +392,13 @@
                                         <sup>*</sup>
                                     </label>
                                     <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.CountryObj.RegionObj.Name" disabled>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mt-10 ">
+                                    <label>
+                                        Program
+                                        <sup>*</sup>
+                                    </label>
+                                    <input aria-label="School Region" type="text" name="last_name" value="@Model.Faculty.Program" disabled>
                                 </div>
 
                                 <div class="col-lg-4 col-md-4 mt-10 ">
@@ -411,14 +430,8 @@
                                         @Html.TextBox("CV", "", new { type = "file" }) <br />
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 mt-10 ">
-                                    <label>
-                                        Transcript
-                                    </label>
-                                    <div>
-                                        @Html.TextBox("Transcript", "", new { type = "file" }) <br />
-                                    </div>
-                                </div>
+
+
                                 <div class="clearfix"></div>
                                 <fieldset class="name" style="margin-left:38%">
                                     <button type="submit" class="primary" id="new-account-button">Send my application</button>
@@ -450,7 +463,9 @@
     <script>
 
     /**/
+    /**/
     var url = '@Url.Action("getCountries", "Home")';
+    /**/
     /**/
 
     var countries = $('#CountryId');
@@ -468,15 +483,19 @@
     <script>
     $(document).ready(function () {
 
-    $("#hiddenFirst").append($("#FirstCourse > option").clone());
-    $("#hiddenSecond").append($("#SecondCourse > option").clone());
-    $("#hiddenThird").append($("#ThirdCourse > option").clone());
-    $("#hiddenFourth").append($("#FourthCourse > option").clone());
+        $("#hiddenFirst").append($("#FirstCourse > option").clone());
+        $("#hiddenSecond").append($("#SecondCourse > option").clone());
+        $("#hiddenThird").append($("#ThirdCourse > option").clone());
+        $("#hiddenFourth").append($("#FourthCourse > option").clone());
 
-    $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+        $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
 
-    var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
+        /**/
+        var studentPlaces = @(Model.Faculty.StudentTypeOfExchangeObj != null ? 1 : 0);
+    /**/
+    /**/
     var facultyPlaces = @(Model.Faculty.FacultyTypeOfExchangeObj != null ? 1 : 0);
+    /**/
 
     if ($("#rStudent").is(':checked')) {
         $("#appStudent").show();
@@ -498,19 +517,19 @@
         $("#appFaculty").hide();
 
         $("#radioFaculty").hide();
-            $("#rStudent").prop("readonly", true);
-            $("#rFaculty").prop("readonly", true);
-        }
+        $("#rStudent").prop("readonly", true);
+        $("#rFaculty").prop("readonly", true);
+    }
 
-        if (studentPlaces == 0 && facultyPlaces == 1) {
+    if (studentPlaces == 0 && facultyPlaces == 1) {
         $("#rFaculty").prop("checked", true);
         $("#appFaculty").show();
         $("#appStudent").hide();
 
         $("#radioStudent").hide();
-            $("#rStudent").prop("readonly", true);
-            $("#rFaculty").prop("readonly", true);
-        }
+        $("#rStudent").prop("readonly", true);
+        $("#rFaculty").prop("readonly", true);
+    }
 
 
 });
@@ -528,7 +547,7 @@
             };
 
             if ($(this).is(':checked')) {
-             
+
                 $("#appStudent").show();
                 $("#appFaculty").hide();
 

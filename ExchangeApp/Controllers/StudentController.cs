@@ -26,7 +26,7 @@ namespace ExchangeApp.Controllers
 
             NomCountry initialC = new NomCountry();
             initialC.ID = -1;
-            initialC.Name = "Select country";
+            initialC.Name = "Select country/state";
             List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
             listCountries.Add(initialC);
             listCountries.AddRange(db.Countries);

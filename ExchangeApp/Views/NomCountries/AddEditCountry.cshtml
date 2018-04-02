@@ -7,11 +7,11 @@
                 @Html.HiddenFor(model => model.ID)
                 <div class="col-lg-6 col-md-10 mt-10">
                     <label class="fl">
-                        Country Name
+                        Country/State Name
                         <sup>*</sup>
                     </label>
                     <div>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter country name" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Enter country/state name" } })
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-10 mt-10">

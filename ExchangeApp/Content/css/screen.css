@@ -8,7 +8,7 @@ body {
     margin: 0
 }
 
-.err-test{
+.err-test {
     margin-left: 42% !important;
     position: fixed !important;
     margin-top: 10%;
@@ -577,7 +577,7 @@ button::-moz-focus-inner, input::-moz-focus-inner {
     padding: 0
 }
 
-input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], input[type="number"],select {
+input[type="text"], input[type="search"], input[type="email"], input[type="password"], input[type="tel"], input[type="url"], input[type="number"], select {
     height: 41px;
     border: thin solid #ccc;
     width: 100%;
@@ -620,8 +620,9 @@ select:-moz-focusring {
 }
 
 .primary-applied {
-    height:41px;
+    height: 41px;
 }
+
 textarea {
     overflow: auto;
     vertical-align: top
@@ -1421,7 +1422,8 @@ textarea {
 
     #hero #job-search-form form {
         box-sizing: border-box;
-        width: 100%
+        width: 100%;
+        margin-left: 29px;
     }
 
         #hero #job-search-form form fieldset .primary {
@@ -2621,7 +2623,7 @@ form#qCreate {
     float: left;
     margin-right: 5px;
     box-sizing: border-box;
-    padding-bottom:20px;
+    padding-bottom: 20px;
 }
 
     #featured-job-listing ul {
@@ -2990,7 +2992,7 @@ form#qCreate {
     padding: 10px;
     float: right;
     box-sizing: border-box;
-    height:120%;
+    height: 120%;
 }
 
 @media (max-width: 768px) {
@@ -3777,7 +3779,7 @@ form#qCreate {
 }
 
 .filters label {
-    font-weight:800;
+    font-weight: 800;
     color: #535353;
     padding: 0 10px
 }
@@ -6584,27 +6586,27 @@ p + .job-categories {
     position: relative
 }
 
-#home-page{
+#home-page {
     padding-top: 20px;
 }
 
-#home-page p {
-    font-size: 1.1em
-}
-
-#home-page section {
-    padding-top: 25px
-}
-
-    #home-page section .dotted-rule {
-        float: right;
-        margin-top: 17px;
-        display: none
+    #home-page p {
+        font-size: 1.1em
     }
 
-#home-page .featured-job-promo .sideboard-adspace {
-    text-align: center
-}
+    #home-page section {
+        padding-top: 25px
+    }
+
+        #home-page section .dotted-rule {
+            float: right;
+            margin-top: 17px;
+            display: none
+        }
+
+    #home-page .featured-job-promo .sideboard-adspace {
+        text-align: center
+    }
 
 @media (max-width: 480px) {
     #home-page #featured-job-listing {
