@@ -72,6 +72,9 @@ namespace ExchangeApp.Controllers
         [HttpPost]
         public ActionResult SendApplication(StudentViewModel model)
         {
+
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+
             AddSearchFields();
             Faculty faculty = db.Faculties.Find(model.Faculty.ID);
             FacultyViewModel facultyViewModel = new FacultyViewModel(faculty);
@@ -111,12 +114,13 @@ namespace ExchangeApp.Controllers
                         MailSender.SendMails();
 
                         DisplaySuccessMessage("Successfully sent mail for application!");
-
+                        logger.Info("Successfully sent mail for application!");
                         return View("Index", svm);
                     }
                     catch (Exception e)
                     {
                         DisplayErrorMessage("An error occurred while sending mail for application!");
+                        logger.Info("Error while sending -> " + e.Message + " ,other info -> " + e.InnerException);
 
                     }
                 }

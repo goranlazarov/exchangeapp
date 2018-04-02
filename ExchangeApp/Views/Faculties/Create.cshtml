@@ -161,7 +161,7 @@
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.DropDownListFor(model => model.StudentTypeOfExchangeId, ViewBag.TypesOfExchange as SelectList, "Select type of exchange")
+                            @Html.DropDownListFor(model => model.StudentTypeOfExchangeId, ViewBag.TypesOfExchangeStudent as SelectList, "Select type of exchange")
                             @Html.ValidationMessageFor(model => model.StudentTypeOfExchangeId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -205,7 +205,7 @@
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.DropDownListFor(model => model.FacultyTypeOfExchangeId, ViewBag.TypesOfExchange as SelectList, "Select type of exchange")
+                            @Html.DropDownListFor(model => model.FacultyTypeOfExchangeId, ViewBag.TypesOfExchangeFaculty as SelectList, "Select type of exchange")
                             @Html.ValidationMessageFor(model => model.FacultyTypeOfExchangeId, "", new { @class = "text-danger" })
                         </div>
                     </div>

@@ -45,8 +45,12 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
-            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t=>t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
+
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
