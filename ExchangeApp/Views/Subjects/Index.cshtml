@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<ExchangeApp.Models.Subject>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Subjects";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
@@ -16,10 +16,7 @@
                     Subject name
                 </div>
                 <div class="cell">
-                    Degree Level
-                </div>
-                <div class="cell">
-                    College/university
+                    College/University
                 </div>
                 <div class="cell">
                     Actions
@@ -31,9 +28,6 @@
                 <div class="row">
                     <div class="cell">
                         @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="cell">
-                        @Html.DisplayFor(modelItem => item.DegreeLevelObj.Name)
                     </div>
                     <div class="cell">
                         @Html.DisplayFor(modelItem => item.FacultyObj.Name)

@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Home Admin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div id="hp-main" style="margin-top: 30px;">
     <div class="interior site">
         <div class="container">
-            <div class="pageLinks">
+            <div class="pageLinks" style="margin-left:75px">
                 <a href="@Url.Action("Index", "Faculties")">
                     <div class="pageLink one">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pageLinks-inner">
@@ -23,7 +23,7 @@
                         </table>
                     </div>
                 </a>
-                <a href="@Url.Action("Index", "Semesters")">
+                @*<a href="@Url.Action("Index", "Semesters")">
                     <div class="pageLink two">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pageLinks-inner">
                             <tbody>
@@ -38,7 +38,7 @@
                             </tbody>
                         </table>
                     </div>
-                </a>
+                </a>*@
                 <a href="@Url.Action("Index", "NomSchoolYears")">
                     <div class="pageLink three">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pageLinks-inner">
@@ -108,7 +108,7 @@
         <div class="container" style="margin-top:5px">
             <div class="pageLinks">
                 <a href="@Url.Action("Index", "NomNationalities")">
-                    <div class="pageLink one">
+                    <div class="pageLink one" style="margin-left:75px">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="pageLinks-inner">
                             <tbody>
                                 <tr>

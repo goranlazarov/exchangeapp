@@ -13,7 +13,5 @@ namespace ExchangeApp.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Semester> Semesters { get; set; }
-
     }
 }

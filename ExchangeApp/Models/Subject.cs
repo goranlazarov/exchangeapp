@@ -18,19 +18,9 @@ namespace ExchangeApp.Models
         [Display(Name = "Faculty")]
         public int? FacultyId { get; set; }
 
-        [Required(ErrorMessage = "Please choose degree level")]
-        [Display(Name = "Degree level")]
-        public int? DegreeLevelId { get; set; }
-
         [Display(Name = "Faculty")]
         [ForeignKey("FacultyId")]
         public virtual Faculty FacultyObj { get; set; }
-
-        [Display(Name = "Degree level")]
-        [ForeignKey("DegreeLevelId")]
-        public virtual NomDegreeLevel DegreeLevelObj { get; set; }
-
-
 
     }
 }

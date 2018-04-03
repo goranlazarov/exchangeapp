@@ -59,7 +59,7 @@
                         </label>
                         <div>
                             @Html.EditorFor(model => model.Website, new { htmlAttributes = new { placeholder = "Enter website url" } })
-
+                            @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-10 mt-10">

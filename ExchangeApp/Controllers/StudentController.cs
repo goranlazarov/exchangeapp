@@ -158,6 +158,11 @@ namespace ExchangeApp.Controllers
                 ModelState.AddModelError("Email", "Email is required ");
             }
 
+            if (model.UniversityFrom == null)
+            {
+                ModelState.AddModelError("UniversityFrom", "University from is required ");
+            }
+
             if (model.CountryOfOrigin == null)
             {
                 ModelState.AddModelError("CountryOfOrigin", "Please choose country ");
@@ -198,7 +203,7 @@ namespace ExchangeApp.Controllers
                     ModelState.AddModelError("HighestDegree", "Please choose highest degree ");
                 }
 
-                if (model.FirstCourse == null && model.SecondCourse == null && model.ThirdCourse == null && model.FourthCourse == null)
+                if (model.FirstCourse == "-1" && model.SecondCourse == "-1" && model.ThirdCourse == "-1" && model.FourthCourse == "-1")
                 {
                     ModelState.AddModelError("FirstCourse", "Please choose at least one course");
                 }

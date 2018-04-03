@@ -99,12 +99,19 @@ namespace ExchangeApp.Controllers
         [HttpPost]
         public ActionResult DeleteRegion(int id)
         {
-            NomRegion regionDb = db.Regions.Find(id);
-            db.Regions.Remove(regionDb);
-            db.SaveChanges();
+            try
+            {
+                NomRegion regionDb = db.Regions.Find(id);
+                db.Regions.Remove(regionDb);
+                db.SaveChanges();
 
-            DisplaySuccessMessage("Successfully deleted region!");
-            return Json(true);
+                DisplaySuccessMessage("Successfully deleted region!");
+                return Json(true);
+            }
+            catch (Exception ex){
+                DisplayErrorMessage("Region can't be deleted because there are countries/states in it!");
+                return Json(false);
+            }
         }
 
         protected override void Dispose(bool disposing)
