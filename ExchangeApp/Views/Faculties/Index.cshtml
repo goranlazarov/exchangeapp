@@ -89,12 +89,12 @@
             }
 
             var ConfirmDelete = function () {
-                var subjectId = $("#hiddenId").val();
-
+                var facultyId = $("#hiddenId").val();
+                debugger;
                 $.ajax({
                     type: "POST",
                     url: "/Faculties/DeleteFaculty",
-                    data: { id: subjectId },
+                    data: { id: facultyId },
                     success: function (data) {
                         $("#deleteModal").modal("hide");
                         window.location.href = "/Faculties/Index"

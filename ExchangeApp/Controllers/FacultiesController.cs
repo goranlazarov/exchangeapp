@@ -45,7 +45,7 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t=>t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
 
             List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
@@ -131,7 +131,7 @@ namespace ExchangeApp.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-             
+
                 db.Faculties.Add(faculty);
                 db.SaveChanges();
                 DisplaySuccessMessage("Successfully added new faculty!");
@@ -142,8 +142,11 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
-            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
@@ -163,11 +166,18 @@ namespace ExchangeApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            ViewBag.FacultyTypeOfExchangeId = new SelectList(typesOfExchangesFaculty, "ID", "Name", faculty.FacultyTypeOfExchangeId);
+            ViewBag.StudentTypeOfExchangeId = new SelectList(typesOfExchangesStudent, "ID", "Name", faculty.StudentTypeOfExchangeId);
+
             ViewBag.CountryId = new SelectList(db.Countries, "ID", "Name", faculty.CountryId);
-            ViewBag.FacultyTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.FacultyTypeOfExchangeId);
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
-            ViewBag.StudentTypeOfExchangeId = new SelectList(db.TypesOfExchange, "ID", "Name", faculty.StudentTypeOfExchangeId);
+
+
+
 
             return View(faculty);
         }
@@ -225,7 +235,7 @@ namespace ExchangeApp.Controllers
                 }
                 if (faculty.FacultyEnrollmentDate == null)
                 {
-                    ModelState.AddModelError("FacultyEnrollmentDate", "Please choose enrollment date");
+                    ModelState.AddModelError("FacultyEnrollmentDate", "Please choose engagement date");
                 }
             }
 
@@ -257,8 +267,11 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchanges = db.TypesOfExchange.ToList();
-            ViewBag.TypesOfExchange = new SelectList(typesOfExchanges, "ID", "Name");
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
+
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
