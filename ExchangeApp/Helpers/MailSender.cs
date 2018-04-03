@@ -18,7 +18,6 @@ namespace ExchangeApp.Helpers
         private static string Password = ConfigurationManager.AppSettings["Password"];
         private static string CCMailStudent = ConfigurationManager.AppSettings["CCEmailAddressStudent"];
         private static string CCMailFaculty = ConfigurationManager.AppSettings["CCEmailAddressFaculty"];
-
         private static string Host = ConfigurationManager.AppSettings["Host"];
         private static bool EnableSSL = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSSL"]);
         private static int Port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
