@@ -142,7 +142,7 @@ namespace ExchangeApp.Models
                 .HasMany(e => e.Subjects)
                 .WithRequired(e => e.FacultyObj)
                 .HasForeignKey(e => e.FacultyId)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<NomApplicantHighestDegree>()
                 .Property(e => e.RowVersion)
