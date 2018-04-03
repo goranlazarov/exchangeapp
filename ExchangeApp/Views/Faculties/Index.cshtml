@@ -3,7 +3,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Colleges/Universities";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
@@ -56,7 +56,7 @@
                             <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
                         </div>
                         <div class="modal-body pd-10">
-                            Are you sure you want to delete this college/university?
+                            Are you sure you want to delete the college/university along with all of his subjects?
                         </div>
                         <div class="modal-footer pd-0">
                             <div>
@@ -90,7 +90,6 @@
 
             var ConfirmDelete = function () {
                 var facultyId = $("#hiddenId").val();
-                debugger;
                 $.ajax({
                     type: "POST",
                     url: "/Faculties/DeleteFaculty",

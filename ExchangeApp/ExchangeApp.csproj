@@ -265,6 +265,22 @@
     <Compile Include="Migrations\201803211921290_FeaturedField.Designer.cs">
       <DependentUpon>201803211921290_FeaturedField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804032021504_add-migration cascadeDelete.cs" />
+    <Compile Include="Migrations\201804032021504_add-migration cascadeDelete.Designer.cs">
+      <DependentUpon>201804032021504_add-migration cascadeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804032136393_SubjectCleaned.cs" />
+    <Compile Include="Migrations\201804032136393_SubjectCleaned.Designer.cs">
+      <DependentUpon>201804032136393_SubjectCleaned.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804032151278_test2.cs" />
+    <Compile Include="Migrations\201804032151278_test2.Designer.cs">
+      <DependentUpon>201804032151278_test2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804032201374_SemesterCleaned.cs" />
+    <Compile Include="Migrations\201804032201374_SemesterCleaned.Designer.cs">
+      <DependentUpon>201804032201374_SemesterCleaned.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseObject.cs" />
@@ -490,6 +506,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803211921290_FeaturedField.resx">
       <DependentUpon>201803211921290_FeaturedField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804032021504_add-migration cascadeDelete.resx">
+      <DependentUpon>201804032021504_add-migration cascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804032136393_SubjectCleaned.resx">
+      <DependentUpon>201804032136393_SubjectCleaned.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804032151278_test2.resx">
+      <DependentUpon>201804032151278_test2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804032201374_SemesterCleaned.resx">
+      <DependentUpon>201804032201374_SemesterCleaned.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

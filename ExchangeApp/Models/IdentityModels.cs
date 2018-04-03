@@ -162,12 +162,6 @@ namespace ExchangeApp.Models
                 .Property(e => e.RowVersion)
                 .IsFixedLength();
 
-            modelBuilder.Entity<NomDegreeLevel>()
-                .HasMany(e => e.Subjects)
-                .WithRequired(e => e.DegreeLevelObj)
-                .HasForeignKey(e => e.DegreeLevelId)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<NomEnglishLevel>()
                 .Property(e => e.RowVersion)
                 .IsFixedLength();
@@ -189,12 +183,6 @@ namespace ExchangeApp.Models
             modelBuilder.Entity<NomSchoolYear>()
                 .Property(e => e.RowVersion)
                 .IsFixedLength();
-
-            modelBuilder.Entity<NomSchoolYear>()
-                .HasMany(e => e.Semesters)
-                .WithRequired(e => e.SchoolYearObj)
-                .HasForeignKey(e => e.SchoolYearId)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NomTypeOfExchange>()
                 .Property(e => e.RowVersion)
