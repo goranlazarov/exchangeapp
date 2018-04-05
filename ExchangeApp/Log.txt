@@ -4,3 +4,10 @@
 2018-04-04 23:59:23.8948|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
 2018-04-05 00:34:06.6150|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
 2018-04-05 00:36:11.9576|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-05 23:40:28.1082|INFO|ExchangeApp.Controllers.StudentController|Error while sending -> Value cannot be null.
+Parameter name: address ,other info -> 
+2018-04-05 23:41:32.6511|INFO|ExchangeApp.Controllers.StudentController|Error while sending -> Value cannot be null.
+Parameter name: address ,other info -> 
+2018-04-05 23:46:09.3171|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-05 23:49:57.3397|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-05 23:53:40.1964|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!

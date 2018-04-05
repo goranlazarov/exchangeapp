@@ -158,7 +158,7 @@ namespace ExchangeApp.Controllers
             initialC.Name = "Select country/state";
             List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
             listCountries.Add(initialC);
-            listCountries.AddRange(db.Countries);
+            listCountries.AddRange(db.Countries.OrderBy(x => x.Name));
 
             ViewBag.RegionId = new SelectList(list, "ID", "Name");
 

@@ -42,7 +42,7 @@ namespace ExchangeApp.Controllers
         // GET: Faculties/Create
         public ActionResult Create()
         {
-            List<NomCountry> countriesList = db.Countries.ToList();
+            List<NomCountry> countriesList = db.Countries.OrderBy(x => x.Name).ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
             List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
@@ -139,7 +139,7 @@ namespace ExchangeApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            List<NomCountry> countriesList = db.Countries.ToList();
+            List<NomCountry> countriesList = db.Countries.OrderBy(x => x.Name).ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
             List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
@@ -172,7 +172,7 @@ namespace ExchangeApp.Controllers
             ViewBag.FacultyTypeOfExchangeId = new SelectList(typesOfExchangesFaculty, "ID", "Name", faculty.FacultyTypeOfExchangeId);
             ViewBag.StudentTypeOfExchangeId = new SelectList(typesOfExchangesStudent, "ID", "Name", faculty.StudentTypeOfExchangeId);
 
-            ViewBag.CountryId = new SelectList(db.Countries, "ID", "Name", faculty.CountryId);
+            ViewBag.CountryId = new SelectList(db.Countries.OrderBy(x => x.Name), "ID", "Name", faculty.CountryId);
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
 

@@ -126,7 +126,7 @@ namespace ExchangeApp.Helpers
             content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms."))
                              .Replace("(FirstName)", Model.FirstName)
                              .Replace("(LastName)", Model.LastName)
-                             .Replace("(Program)", Model.Faculty.Program)
+                             .Replace("(FacultyProgram)", Model.Faculty.Program)
                              .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
                              .Replace("(University)", Model.Faculty.Name);
             return content;

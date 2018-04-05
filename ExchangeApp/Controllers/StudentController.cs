@@ -29,7 +29,7 @@ namespace ExchangeApp.Controllers
             initialC.Name = "Select country/state";
             List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
             listCountries.Add(initialC);
-            listCountries.AddRange(db.Countries);
+            listCountries.AddRange(db.Countries.OrderBy(x => x.Name));
             ViewBag.RegionId = new SelectList(list, "ID", "Name");
             ViewBag.CountryId = new SelectList(listCountries, "ID", "Name");
         }
@@ -48,7 +48,7 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "Name", "Name");
+            ViewBag.CountryOfOrigin = new SelectList(db.Countries.OrderBy(x => x.Name), "Name", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "Name", "Name");
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "Name", "Name");
             ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "Name", "Name");
@@ -80,7 +80,8 @@ namespace ExchangeApp.Controllers
             FacultyViewModel facultyViewModel = new FacultyViewModel(faculty);
             ValidateApplication(faculty, model);
 
-            ViewBag.CountryOfOrigin = new SelectList(db.Countries, "Name", "Name");
+
+            ViewBag.CountryOfOrigin = new SelectList(db.Countries.OrderBy(x => x.Name), "Name", "Name");
             ViewBag.EnglishLevel = new SelectList(db.EnglishLevels, "Name", "Name");
             ViewBag.YearOfEnrollment = new SelectList(db.SchoolYears, "Name", "Name");
             ViewBag.YearOfCompletion = new SelectList(db.SchoolYears, "Name", "Name");

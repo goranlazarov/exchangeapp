@@ -11,11 +11,12 @@
 
 
             <div class="site-name-tag">
-                <div style="padding:5px; background-color:#E7EEFA"><h2>ACBSP Mobility program</h2>
-                    </div>  
+                <div style="padding:5px; background-color:#E7EEFA">
+                    <h2>ACBSP Mobility program</h2>
+                </div>
             </div>
 
-            <div id="job-search-form" class="clearfix" role="search" >
+            <div id="job-search-form" class="clearfix" role="search">
                 @Html.Partial("../Shared/_SearchPartial", new ExchangeApp.Models.SearchViewModel())
             </div>
         </section>
@@ -34,48 +35,18 @@
                         {
                             foreach (var item in Model.StudentsPlaces)
                             {
-                        <li>
-                            @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
-    {
-                        <div class="job-summary-top clearfix" style="float:right;">
-
-                            <span class="featured" style="font-size:12px;">
-                                <img src="~/Content/images/star.png" class="feat-home" /> <b>Featured</b>
-                            </span>
-
-                        </div>
-
-}
-
-                            <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
-
-                                <h3>@item.Name</h3>
-
-                            </a>
-                            <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
-                            <span style=" padding-left: 5px; padding-right:5px;">
-                                <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
-                            </span>
-                            <span style="font-style:italic; color:forestgreen;"><span style="font-size:medium; font-weight:700;">@item.StudentPlacesAvailable.ToString()</span> student exchange positions are available</span>
-
-                        </li>
-                            }
-                        }
-                        else
-                        {
-                            foreach (var item in Model.TeacherPlaces)
-                            {
                                 <li>
                                     @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
-    {
-                                <div class="job-summary-top clearfix" style="float:right">
+                                    {
+                                        <div class="job-summary-top clearfix" style="float:right;">
 
-                                    <span class="featured">
-                                        <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
-                                    </span>
+                                            <span class="featured" style="font-size:12px;">
+                                                <img src="~/Content/images/star.png" class="feat-home" /> <b>Featured</b>
+                                            </span>
 
-                                </div>
-}
+                                        </div>
+
+                                    }
 
                                     <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
 
@@ -86,8 +57,39 @@
                                     <span style=" padding-left: 5px; padding-right:5px;">
                                         <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
                                     </span>
-                                    <span style="font-style:italic; color:forestgreen;"><span style=" font-size:medium; font-weight:700;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available</span>
+                                    <span style="font-style:italic; color:forestgreen;"><span style="font-size:medium; font-weight:700;">@item.StudentPlacesAvailable.ToString()</span> student exchange positions are available</span>
+                                    <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.StudentTypeOfExchangeObj.Name.ToString()</span></span>
 
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in Model.TeacherPlaces)
+                            {
+                                <li>
+                                    @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
+                                    {
+                                        <div class="job-summary-top clearfix" style="float:right">
+
+                                            <span class="featured">
+                                                <img src="~/Content/images/star.png" style="width:12px; height:12px;" /> <b>Featured</b>
+                                            </span>
+
+                                        </div>
+                                    }
+
+                                    <a href='@Url.Action("Index", "Student", new { id = item.ID })'>
+
+                                        <h3>@item.Name</h3>
+
+                                    </a>
+                                    <span>School program: <strong style="font-size:1em;">@item.Program</strong></span>
+                                    <span style=" padding-left: 5px; padding-right:5px;">
+                                        <img src="~/Content/images/pin.png" style="padding-top:8px; width:25px; height:25px;" /> <b style="font-size:1em;">@item.CountryObj.Name, @item.CountryObj.RegionObj.Name</b>
+                                    </span>
+                                    <span style="font-style:italic; color:forestgreen;"><span style=" font-size:medium; font-weight:700;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available </span>
+                                    <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.FacultyTypeOfExchangeObj.Name.ToString()</span></span>
                                 </li>
                             }
                         }
@@ -106,12 +108,12 @@
 
 
         </section>
-        </div>
     </div>
+</div>
 
-        @section Scripts {
-            @Scripts.Render("~/bundles/jqueryval")
-            <script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
     var url = '@Url.Action("getCountries", "Home")';
     var countries = $('#CountryId');
         function CallChangeFunc(val) {
@@ -124,5 +126,5 @@
             });
 
     }
-            </script>
-        }
+    </script>
+}
