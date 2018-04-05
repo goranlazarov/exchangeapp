@@ -1,1 +1,6 @@
 ﻿2018-04-02 00:39:15.4552|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-04 00:50:04.6234|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-04 23:56:56.8026|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-04 23:59:23.8948|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-05 00:34:06.6150|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-05 00:36:11.9576|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!

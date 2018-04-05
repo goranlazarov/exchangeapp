@@ -47,8 +47,8 @@ namespace ExchangeApp.Models
         [ForeignKey("CountryId")]
         public virtual NomCountry CountryObj { get; set; }
 
-        [Required(ErrorMessage = "Please choose date of matriculation")]
-        [Display(Name = "Date of Matriculation")]
+        [Required(ErrorMessage = "Please choose date of membership")]
+        [Display(Name = "Date of Membership")]
         public DateTime? DateOfMatriculation { get; set; }
 
         [Required(ErrorMessage = "Please enter accreditation number")]

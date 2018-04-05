@@ -21,7 +21,7 @@ namespace ExchangeApp.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(faculties.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
+            return View(faculties.OrderBy(l => l.Name).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Faculties/Details/5
@@ -45,10 +45,10 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
 
@@ -142,10 +142,10 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
@@ -167,8 +167,8 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.FacultyTypeOfExchangeId = new SelectList(typesOfExchangesFaculty, "ID", "Name", faculty.FacultyTypeOfExchangeId);
             ViewBag.StudentTypeOfExchangeId = new SelectList(typesOfExchangesStudent, "ID", "Name", faculty.StudentTypeOfExchangeId);
 
@@ -267,10 +267,10 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Partial exchange" || t.Name == "Full tuition waiver").ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Name == "Direct exchange" || t.Name == "Payment exchange").ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);

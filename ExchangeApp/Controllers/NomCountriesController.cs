@@ -21,7 +21,7 @@ namespace ExchangeApp.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(nomCountries.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
+            return View(nomCountries.OrderBy(l => l.Name).ThenBy(l=>l.RegionId).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult AddEditCountry(int countryId)

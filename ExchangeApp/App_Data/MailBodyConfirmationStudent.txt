@@ -1,12 +1,13 @@
-﻿Dear (Gender) (FirstName) (LastName), 
+﻿<p>Dear (Gender) (FirstName) (LastName),</p> 
 
-Your application for student mobility to the (UniversityCountry) in the business program (ProgramEnrolled)
+<p>Your application for student mobility to the (University) in the business program "(FacultyProgram)"
 for the (SemesterOfEnrollment) semester has been dispatched. 
-Your application is sent to the mobility coordinator of the (UniversityCountry). 
+Your application was sent to the mobility coordinator of the (University). 
 Please allow at least 21 days for your application to be processed by the enrollment committee. 
-The final decision for your acceptance will depend on your transcript and personal interview. 
+The final decision for your acceptance will depend on your transcript and personal interview. </p>
 
-Thank you for participating in the ACBSP Student Mobility Program
-Respectfully,
-Prof. Dr. Emil Gjorgov
-Director of European Operations 
+<p>Thank you for participating in the ACBSP Student Mobility Program</p>
+<p>Respectfully,</p>
+
+<p>Prof. Dr. Emil Gjorgov</p>
+<p>Director of European Operations</p>

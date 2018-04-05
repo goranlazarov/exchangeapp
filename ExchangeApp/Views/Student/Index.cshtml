@@ -72,7 +72,7 @@
                                     <span>@Model.Faculty.Website</span>
                                 </li>
                                 <li>
-                                    <label>Date of Matriculation: </label>
+                                    <label>Date of Membership: </label>
                                     <span>@Model.Faculty.DateOfMatriculation</span>
                                 </li>
                                 <li>
@@ -144,7 +144,7 @@
                                             <sup>*</sup>
                                         </label>
                                         <div>
-                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter first name" } })
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { placeholder = "Enter your first name" } })
                                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
