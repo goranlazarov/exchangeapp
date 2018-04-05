@@ -22,7 +22,7 @@ namespace ExchangeApp.Controllers
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(nomNationalities.OrderBy(l => l.Registered).ToPagedList(pageNumber, pageSize));
+            return View(nomNationalities.OrderBy(l => l.Name).ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult AddEditNationality(int nationalityId)

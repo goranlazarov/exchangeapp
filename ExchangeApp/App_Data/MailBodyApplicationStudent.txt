@@ -1,13 +1,13 @@
-﻿Dear Mobility Coordinator,
+﻿<p>Dear Mobility Coordinator,</p>
 
-My name is (Gender) (FirstName) (LastName) I am from (CountryOfOrigin) 
+<p>My name is (Gender) (FirstName) (LastName) I am from (CountryOfOrigin) 
 and wish to apply for student mobility to your business program.
-I am currently enrolled in a business program (ProgramEnrolled) in (SemesterOfEnrollment) semester
+I am currently enrolled in a business program "(ProgramEnrolled)" in the (SemesterOfEnrollment) semester
 at the (UniversityFrom) with year of enrollment (YearOfEnrollment) and expect to graduate in (YearOfCompletion). 
 My nationality is (Nationality) and the level of my English proficiency is (EnglishLevel), 
-which is sufficient to follow and complete the semester requirements.
-Please find enclosed a copy of my current grades and transcripts. 
+which is sufficient to follow and complete the semester and requirements.
+Please find enclosed a copy of my current grades and transcripts. </p>
 
-Look forward to hear from you soon,
-(Gender) (FirstName) (LastName)
-(EmailAddress)
+<p>Look forward to hear from you soon,</p>
+<p>(Gender) (FirstName) (LastName)</p>
+<p>(EmailAddress)</p>

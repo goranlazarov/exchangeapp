@@ -49,7 +49,7 @@ namespace ExchangeApp.Helpers
                 mail.Subject = ApplicationMailSubject;
                 string pathFile = Model.FacultySelected ? @"~/App_Data/MailBodyApplicationFaculty.txt" : @"~/App_Data/MailBodyApplicationStudent.txt";
                 var fileContents = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(pathFile));
-                mail.IsBodyHtml = false;
+                mail.IsBodyHtml = true;
                 mail.Body = Model.FacultySelected ? SetUpBodyApplicationFaculty(fileContents) : SetUpBodyApplicationStudent(fileContents);
 
                 Attachment messageAttachment = new Attachment(Model.CV.InputStream, Model.CV.FileName);
@@ -67,7 +67,7 @@ namespace ExchangeApp.Helpers
                 string pathFile = Model.FacultySelected ? @"~/App_Data/MailBodyConfirmationFaculty.txt" : @"~/App_Data/MailBodyConfirmationStudent.txt";
                 var fileContents = System.IO.File.ReadAllText(HttpContext.Current.Server.MapPath(pathFile));
                 mail.Body = Model.FacultySelected ? SetUpBodyConfirmationFaculty(fileContents) : SetUpBodyConfirmationStudent(fileContents);
-                mail.IsBodyHtml = false;
+                mail.IsBodyHtml = true;
             }
 
             return mail;
@@ -82,7 +82,7 @@ namespace ExchangeApp.Helpers
                              .Replace("(HighestDegree)", Model.HighestDegree)
                              .Replace("(FirstCourse)", Model.FirstCourseName).Replace("(SecondCourse)", Model.SecondCourseName)
                              .Replace("(ThirdCourse)", Model.ThirdCourseName).Replace("(FourthCourse)", Model.FourthCourseName)
-                             .Replace("(Program)", Model.Faculty.Program);
+                             .Replace("(Program)", Model.Faculty.Program);  
 
             return content;
 
@@ -115,7 +115,7 @@ namespace ExchangeApp.Helpers
                              .Replace("(LastName)", Model.LastName)
                              .Replace("(ProgramEnrolled)", Model.Faculty.Program)
                              .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
-                             .Replace("(UniversityCountry)", Model.Faculty.CountryObj.Name);
+                             .Replace("(University)", Model.Faculty.Name);
 
             return content;
 
@@ -126,9 +126,9 @@ namespace ExchangeApp.Helpers
             content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms."))
                              .Replace("(FirstName)", Model.FirstName)
                              .Replace("(LastName)", Model.LastName)
-                             .Replace("(ProgramEnrolled)", Model.Faculty.Program)
+                             .Replace("(Program)", Model.Faculty.Program)
                              .Replace("(SemesterOfEnrollment)", Model.SemesterEnrolled)
-                             .Replace("(UniversityCountry)", Model.Faculty.CountryObj.Name);
+                             .Replace("(University)", Model.Faculty.Name);
             return content;
 
         }

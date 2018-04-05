@@ -115,7 +115,7 @@ namespace ExchangeApp.Controllers
 
                         DisplaySuccessMessage("Successfully sent mail for application!");
                         logger.Info("Successfully sent mail for application!");
-                        return View("Index", svm);
+                        return RedirectToAction("Index", "Home");
                     }
                     catch (Exception e)
                     {

@@ -38,7 +38,7 @@
                         @Html.DisplayFor(modelItem => item.Program)
                     </div>
                     <div class="cell">
-                        @Html.DisplayFor(modelItem => item.Email)
+                        @Html.DisplayFor(modelItem => item.CountryObj.Name)
                     </div>
                     <div class="cell-act">
                         <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
