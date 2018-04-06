@@ -11,3 +11,7 @@ Parameter name: address ,other info ->
 2018-04-05 23:46:09.3171|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
 2018-04-05 23:49:57.3397|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
 2018-04-05 23:53:40.1964|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-06 17:09:50.4427|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-06 17:14:46.0889|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-06 17:18:11.1436|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!
+2018-04-06 17:19:40.4969|INFO|ExchangeApp.Controllers.StudentController|Successfully sent mail for application!

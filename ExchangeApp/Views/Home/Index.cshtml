@@ -30,10 +30,11 @@
             <div class="interior clearfix">
 
                 <div id="featured-job-listing" class="clearfix">
-                    <ul>
-                        @if (ViewBag.LinkToOther == "Faculty")
-                        {
-                            foreach (var item in Model.StudentsPlaces)
+
+                    @if (ViewBag.LinkToOther == "Faculty")
+                    {
+                        <ul>
+                            @foreach (var item in Model.StudentsPlaces)
                             {
                                 <li>
                                     @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
@@ -62,10 +63,14 @@
 
                                 </li>
                             }
-                        }
-                        else
-                        {
-                            foreach (var item in Model.TeacherPlaces)
+                        </ul>
+                        <a class="secondary clearfix" href='@Url.Action("ListFaculties", "Home", new { StudentSelected = true })'>View All</a>
+
+                    }
+                    else
+                    {
+                        <ul>
+                            @foreach (var item in Model.TeacherPlaces)
                             {
                                 <li>
                                     @if (item.IsFeatured.HasValue && item.IsFeatured.Value)
@@ -92,10 +97,12 @@
                                     <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.FacultyTypeOfExchangeObj.Name.ToString()</span></span>
                                 </li>
                             }
-                        }
+                        </ul>
+                        <a class="secondary clearfix" href='@Url.Action("ListFaculties", "Home", new { FacultySelected = true })'>View All</a>
+                    }
 
-                    </ul>
-                    <a class="secondary clearfix" href='@Url.Action("ListFaculties", "Home")'>View All</a>
+
+
                 </div>
 
 

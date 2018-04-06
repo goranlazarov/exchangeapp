@@ -75,14 +75,37 @@ namespace ExchangeApp.Helpers
 
         private static string SetUpBodyApplicationFaculty(string content)
         {
+            string courses = (!string.IsNullOrEmpty(Model.FirstCourseName) ? ", " + Model.FirstCourseName : "") +
+                                (!string.IsNullOrEmpty(Model.SecondCourseName) ? ", " + Model.SecondCourseName: "") +
+                                (!string.IsNullOrEmpty(Model.ThirdCourseName) ? ", " + Model.ThirdCourseName : "") +
+                                (!string.IsNullOrEmpty(Model.FourthCourseName) ? ", " + Model.FourthCourseName : "");
+
+            courses = courses.Trim(' ').Trim(',').Trim(' ');
+            int commas = courses.Count(c => c == ',');
+            if (commas >= 1)
+            {
+                string[] parts = courses.Split(',');
+                courses = "";
+                for(int i = 0; i < parts.Length; i++)
+                {
+                    if(i == parts.Length - 1)
+                    {
+                        courses += " and " + parts[i];
+                    }
+                    else
+                    {
+                        courses += ", " + parts[i];
+                    }
+                }
+                courses = courses.Trim(' ').Trim(',').Trim(' ');
+            }
+
             content = content.Replace("(Gender)", (Model.Gender == "Male" ? "Mr." : "Ms.")).Replace("(FirstName)", Model.FirstName)
                              .Replace("(LastName)", Model.LastName).Replace("(CountryOfOrigin)", Model.CountryOfOrigin)
                              .Replace("(Nationality)", Model.Nationality).Replace("(EnglishLevel)", Model.EnglishLevel)
                              .Replace("(UniversityFrom)", Model.UniversityFrom).Replace("(EmailAddress)", Model.Email)
                              .Replace("(HighestDegree)", Model.HighestDegree)
-                             .Replace("(FirstCourse)", Model.FirstCourseName).Replace("(SecondCourse)", Model.SecondCourseName)
-                             .Replace("(ThirdCourse)", Model.ThirdCourseName).Replace("(FourthCourse)", Model.FourthCourseName)
-                             .Replace("(Program)", Model.Faculty.Program);  
+                             .Replace("(Courses)", courses).Replace("(Program)", Model.Faculty.Program);  
 
             return content;
 
