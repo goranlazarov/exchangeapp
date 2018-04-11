@@ -21,7 +21,7 @@ namespace ExchangeApp.Controllers
             AddFields();
 
             var ReturnModel = new FacultiesViewModel();
-            var facultiesFiltered = db.Faculties.ToList();
+            var facultiesFiltered = db.Faculties.Where(f=>f.Display.HasValue && f.Display.Value).ToList();
 
             if (flag.HasValue)
             {
@@ -104,7 +104,7 @@ namespace ExchangeApp.Controllers
                 FacultySelected = currFac;
             }
 
-            var facultiesFiltered = db.Faculties.ToList();
+            var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value).ToList();
             if (!string.IsNullOrEmpty(SearchKeyword))
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.Name.Contains(SearchKeyword)).ToList();

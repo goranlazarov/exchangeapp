@@ -98,6 +98,9 @@ namespace ExchangeApp.Models
         [Display(Name = "Featured faculty")]
         public bool? IsFeatured { get; set; }
 
+        [Display(Name = "Display")]
+        public bool? Display { get; set; }
+
         public virtual ICollection<Subject> Subjects { get; set; }
 
         public byte[] LogoImage { get; set; }

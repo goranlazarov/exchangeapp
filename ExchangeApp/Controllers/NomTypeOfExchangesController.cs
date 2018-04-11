@@ -34,6 +34,9 @@ namespace ExchangeApp.Controllers
                 NomTypeOfExchange typeOfExchange = db.TypesOfExchange.Find(typeId);
                 model.ID = typeOfExchange.ID;
                 model.Name = typeOfExchange.Name;
+                model.Faculty = typeOfExchange.Faculty;
+                model.Student = typeOfExchange.Student;
+
             }
 
             return PartialView("AddEditTypeOfExchange", model);
@@ -54,6 +57,8 @@ namespace ExchangeApp.Controllers
                         NomTypeOfExchange typeDb = db.TypesOfExchange.FirstOrDefault(x => x.ID == model.ID);
                         typeDb.ID = model.ID;
                         typeDb.Name = model.Name;
+                        typeDb.Student = model.Student;
+                        typeDb.Faculty = model.Faculty;
 
                         message = "Successfully edited type of exchange!";
 
@@ -69,6 +74,8 @@ namespace ExchangeApp.Controllers
                         NomTypeOfExchange type = new NomTypeOfExchange();
                         type.ID = model.ID;
                         type.Name = model.Name;
+                        type.Faculty = model.Faculty;
+                        type.Student = model.Student;
 
                         message = "Successfully added type of exchange!";
 

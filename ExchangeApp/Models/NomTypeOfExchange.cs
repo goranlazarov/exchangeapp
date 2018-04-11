@@ -10,6 +10,12 @@ namespace ExchangeApp.Models
         [StringLength(50)]
         public string Name { get; set; }
 
+        [Display(Name = "Faculty")]
+        public bool? Faculty { get; set; }
+
+        [Display(Name = "Student")]
+        public bool? Student { get; set; }
+
         public virtual ICollection<Faculty> StudentFaculties { get; set; }
         public virtual ICollection<Faculty> TeacherFaculties { get; set; }
 
