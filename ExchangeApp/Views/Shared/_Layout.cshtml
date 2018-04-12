@@ -16,8 +16,11 @@
             <nav id="menu" role="navigation" aria-label="Navigation">
                 <a id="nav-trigger"><i class="fa fa-bars"></i></a>
                 <ul class="clearfix">
-                    <li class="nav-student">
-                        <a href="@Url.Action("Index", "Home", new { flag = (@ViewBag.LinkToOther == "Faculty" ? 1 : 0) })" class="mobile-hide">@ViewBag.LinkToOther</a>
+                    <li class="nav-tabs" style="background-color: @ViewBag.ColorS">
+                        <a href="@Url.Action("Index", "Home", new { flag = 0 })" class="mobile-hide">Student</a>
+                    </li>
+                    <li class="nav-tabs" style="background-color: @ViewBag.ColorF">
+                        <a href="@Url.Action("Index", "Home", new { flag = 1 })" class="mobile-hide">Faculty</a>
                     </li>
                 </ul>
             </nav>
