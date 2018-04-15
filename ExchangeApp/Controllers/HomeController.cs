@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using System.Data.Entity.Core.Objects;
 
 namespace ExchangeApp.Controllers
 {
@@ -24,15 +25,13 @@ namespace ExchangeApp.Controllers
             AddFields();
 
             var ReturnModel = new FacultiesViewModel();
-            var facultiesFiltered = db.Faculties.Where(f=>f.Display.HasValue && f.Display.Value && 
+            var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value &&
                                                 ((f.FacultyApplicationDate.HasValue
-                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
-                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day)
+                                                && EntityFunctions.TruncateTime(f.FacultyApplicationDate.Value) >= 
+                                                EntityFunctions.TruncateTime(DateTime.Now))
                                                 || (f.StudentApplicationDate.HasValue
-                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
-                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day))).ToList();
+                                                  && EntityFunctions.TruncateTime(f.StudentApplicationDate.Value) >= 
+                                                  EntityFunctions.TruncateTime(DateTime.Now)))).ToList();
 
             if (flag.HasValue)
             {
@@ -117,15 +116,14 @@ namespace ExchangeApp.Controllers
                 FacultySelected = currFac;
             }
 
-            var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value 
-                                                && ((f.FacultyApplicationDate.HasValue 
-                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year 
-                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month 
-                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day)
-                                                || (f.StudentApplicationDate.HasValue 
-                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
-                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day))).ToList();
+            var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value &&
+                                                ((f.FacultyApplicationDate.HasValue
+                                                && EntityFunctions.TruncateTime(f.FacultyApplicationDate.Value) >=
+                                                EntityFunctions.TruncateTime(DateTime.Now))
+                                                || (f.StudentApplicationDate.HasValue
+                                                  && EntityFunctions.TruncateTime(f.StudentApplicationDate.Value) >=
+                                                  EntityFunctions.TruncateTime(DateTime.Now)))).ToList();
+
             if (!string.IsNullOrEmpty(SearchKeyword))
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.Name.ToLower().Contains(SearchKeyword.ToLower())).ToList();
