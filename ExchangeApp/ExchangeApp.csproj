@@ -290,9 +290,18 @@
     <Compile Include="Migrations\201804102218301_TypesOfExchangeColumns.Designer.cs">
       <DependentUpon>201804102218301_TypesOfExchangeColumns.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804111854150_FacultyRemovedFromSubject.cs" />
+    <Compile Include="Migrations\201804111854150_FacultyRemovedFromSubject.Designer.cs">
+      <DependentUpon>201804111854150_FacultyRemovedFromSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804111943392_NewTableAdded.cs" />
+    <Compile Include="Migrations\201804111943392_NewTableAdded.Designer.cs">
+      <DependentUpon>201804111943392_NewTableAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseObject.cs" />
+    <Compile Include="Models\FacultyCourses.cs" />
     <Compile Include="Models\FacultyViewModel.cs" />
     <Compile Include="Models\Faculty.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -326,6 +335,7 @@
     <Content Include="App_Data\Manual.txt" />
     <Content Include="App_Data\MailBodyConfirmationStudent.txt" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
+    <Content Include="Content\css\chosen.css" />
     <Content Include="Content\css\combined.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\ionicons.css" />
@@ -335,6 +345,7 @@
     <Content Include="Content\images\acbsp_logo.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\bkgrd-preferred.png" />
+    <Content Include="Content\images\chosen-sprite.png" />
     <Content Include="Content\images\Countries.png" />
     <Content Include="Content\images\Degree.png" />
     <Content Include="Content\images\EnglishLevel.png" />
@@ -390,6 +401,7 @@
     <Content Include="Content\fonts\ionicons.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -538,6 +550,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804102218301_TypesOfExchangeColumns.resx">
       <DependentUpon>201804102218301_TypesOfExchangeColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804111854150_FacultyRemovedFromSubject.resx">
+      <DependentUpon>201804111854150_FacultyRemovedFromSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804111943392_NewTableAdded.resx">
+      <DependentUpon>201804111943392_NewTableAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

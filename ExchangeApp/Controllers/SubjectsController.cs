@@ -18,7 +18,7 @@ namespace ExchangeApp.Controllers
         // GET: Subjects
         public ActionResult Index(int? page)
         {
-            var subjects = db.Subjects.Include(s => s.FacultyObj).Include(s => s.LastUpdatedByUser).Include(s => s.RegisteredByUser);
+            var subjects = db.Subjects.Include(s => s.LastUpdatedByUser).Include(s => s.RegisteredByUser);
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);
@@ -40,7 +40,6 @@ namespace ExchangeApp.Controllers
                 Subject subject = db.Subjects.Find(subjectId);
                 model.ID = subject.ID;
                 model.Name = subject.Name;
-                model.FacultyId = subject.FacultyId;
             }
 
             return PartialView("AddEditSubject", model);
@@ -61,29 +60,23 @@ namespace ExchangeApp.Controllers
                         Subject subjectDb = db.Subjects.FirstOrDefault(x => x.ID == model.ID);
                         subjectDb.ID = model.ID;
                         subjectDb.Name = model.Name;
-                        subjectDb.FacultyObj = model.FacultyObj;
-                        subjectDb.FacultyId = model.FacultyId;
 
-                        message = "Successfully edited subject!";
+                        message = "Successfully edited course!";
 
                         db.SaveChanges();
                     }
                     else
                     {
-                        if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.FacultyId == model.FacultyId))
+                        if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower()))
                         {
-                            throw new Exception("Subject for that faculty already exists!");
+                            throw new Exception("Course for that faculty already exists!");
                         }
 
                         Subject subject = new Subject();
                         subject.ID = model.ID;
                         subject.Name = model.Name;
 
-                        Faculty faculty = db.Faculties.Find(model.FacultyId);
-                        subject.FacultyObj = faculty;
-                        subject.FacultyId = faculty.ID;
-
-                        message = "Successfully added subject!";
+                        message = "Successfully added course!";
 
                         db.Subjects.Add(subject);
                         db.SaveChanges();
@@ -116,7 +109,7 @@ namespace ExchangeApp.Controllers
             db.Subjects.Remove(subject);
             db.SaveChanges();
 
-            DisplaySuccessMessage("Successfully deleted subject!");
+            DisplaySuccessMessage("Successfully deleted course!");
             return Json(true);
         }
 

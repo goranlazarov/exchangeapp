@@ -101,7 +101,10 @@ namespace ExchangeApp.Models
         [Display(Name = "Display")]
         public bool? Display { get; set; }
 
-        public virtual ICollection<Subject> Subjects { get; set; }
+        [NotMapped]
+        public int[] SelectedSubjectsIds { get; set; }
+
+        public virtual ICollection<FacultyCourses> Courses { get; set; }
 
         public byte[] LogoImage { get; set; }
 

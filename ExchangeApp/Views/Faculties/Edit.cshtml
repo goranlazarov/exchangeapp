@@ -184,103 +184,114 @@
                 </div>
             </div>
 
-            <div class="clearfix"></div>
-            @*STUDENT*@
-            <div id="studentPlaces" class="row col-lg-12 col-md-10 mt-10">
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Student Type of Exchange
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.DropDownListFor(model => model.StudentTypeOfExchangeId, ViewBag.TypesOfExchangeStudent as SelectList, "Select type of exchange")
-                        @Html.ValidationMessageFor(model => model.StudentTypeOfExchangeId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Student Places Available
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.StudentPlacesAvailable, new { htmlAttributes = new { placeholder = "Enter student places available" } })
-                        @Html.ValidationMessageFor(model => model.StudentPlacesAvailable, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Student Application Date
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.StudentApplicationDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select student application date" })
-                        @Html.ValidationMessageFor(model => model.StudentApplicationDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Student Enrollment Date
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.StudentEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select student enrollment date" })
-                        @Html.ValidationMessageFor(model => model.StudentEnrollmentDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-            <div id="facultyPlaces" class="row col-lg-12 col-md-10 mt-10">
                 <div class="clearfix"></div>
-                @*FACULTY*@
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Faculty Type of Exchange
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.DropDownListFor(model => model.FacultyTypeOfExchangeId, ViewBag.TypesOfExchangeFaculty as SelectList, "Select type of exchange")
-                        @Html.ValidationMessageFor(model => model.FacultyTypeOfExchangeId, "", new { @class = "text-danger" })
+                @*STUDENT*@
+                <div id="studentPlaces" class="row col-lg-12 col-md-10 mt-10">
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Student Type of Exchange
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.StudentTypeOfExchangeId, ViewBag.TypesOfExchangeStudent as SelectList, "Select type of exchange")
+                            @Html.ValidationMessageFor(model => model.StudentTypeOfExchangeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Student Places Available
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.StudentPlacesAvailable, new { htmlAttributes = new { placeholder = "Enter student places available" } })
+                            @Html.ValidationMessageFor(model => model.StudentPlacesAvailable, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Student Application Date
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.StudentApplicationDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select student application date" })
+                            @Html.ValidationMessageFor(model => model.StudentApplicationDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Student Enrollment Date
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.StudentEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select student enrollment date" })
+                            @Html.ValidationMessageFor(model => model.StudentEnrollmentDate, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Faculty Places Available
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.EditorFor(model => model.FacultyPlacesAvailable, new { htmlAttributes = new { placeholder = "Enter faculty places available" } })
-                        @Html.ValidationMessageFor(model => model.FacultyPlacesAvailable, "", new { @class = "text-danger" })
+                <div id="facultyPlaces" class="row col-lg-12 col-md-10 mt-10">
+                    <div class="clearfix"></div>
+                    @*FACULTY*@
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Faculty Type of Exchange
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.FacultyTypeOfExchangeId, ViewBag.TypesOfExchangeFaculty as SelectList, "Select type of exchange")
+                            @Html.ValidationMessageFor(model => model.FacultyTypeOfExchangeId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Faculty Places Available
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.EditorFor(model => model.FacultyPlacesAvailable, new { htmlAttributes = new { placeholder = "Enter faculty places available" } })
+                            @Html.ValidationMessageFor(model => model.FacultyPlacesAvailable, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Faculty Application Date
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.FacultyApplicationDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty application date" })
+                            @Html.ValidationMessageFor(model => model.FacultyApplicationDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-10 mt-10">
+                        <label>
+                            Faculty Engagement Date
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.TextBoxFor(model => model.FacultyEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty engagement date" })
+                            @Html.ValidationMessageFor(model => model.FacultyEnrollmentDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-6 col-md-10 mt-10">
+                        <label>
+                            Faculty Courses
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.SelectedSubjectsIds, ViewBag.Subjects as MultiSelectList, new { id = "selectedCourses", data_placeholder = "Select courses", multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.SelectedSubjectsIds, "", new { @class = "text-danger pos" })
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Faculty Application Date
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.FacultyApplicationDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty application date" })
-                        @Html.ValidationMessageFor(model => model.FacultyApplicationDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-10 mt-10">
-                    <label>
-                        Faculty Engagement Date
-                        <sup>*</sup>
-                    </label>
-                    <div>
-                        @Html.TextBoxFor(model => model.FacultyEnrollmentDate, "{0:MM/dd/yyyy}", new { @class = "datepicker", onkeydown = "return false", placeholder = "Select faculty engagement date" })
-                        @Html.ValidationMessageFor(model => model.FacultyEnrollmentDate, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+                @Html.HiddenFor(m => m.LogoImage)
 
-            </div>
-            @Html.HiddenFor(m => m.LogoImage)
-
-            @Html.HiddenFor(m => m.LastUpdated)
-            @Html.HiddenFor(m => m.Registered)
-            @Html.HiddenFor(m => m.RegisteredBy)
-            @Html.HiddenFor(m => m.LastUpdatedBy)
-            @Html.HiddenFor(model => model.ID)
-            @Html.HiddenFor(model => model.RowVersion)
+                @Html.HiddenFor(m => m.LastUpdated)
+                @Html.HiddenFor(m => m.Registered)
+                @Html.HiddenFor(m => m.RegisteredBy)
+                @Html.HiddenFor(m => m.LastUpdatedBy)
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.RowVersion)
+                @Html.HiddenFor(model => model.Courses)
 
             <div class="col-md-10 mt-30" style="margin-left:89%">
                 <input type="submit" value="Save" class="btn btn-success">
@@ -305,21 +316,58 @@
                                 </div>
                             </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
+                <input type="hidden" id="hiddenId" />
+
             </div>
-            <input type="hidden" id="hiddenId" />
-        </div>
         }
+
+        @*<input id="firstCourse" />
+            <input id="secondCourse" />
+            <input id="thirdCourse" />
+            <input id="fourthCourse" value="-1" />*@
 
     </div>
 </div>
 @section scripts {
     <script>
     $(document).ready(function () {
-
         $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+
+        $('#selectedCourses').chosen();
+
+        var err = $(".field-validation-error").length;
+
+        if (err == 0) {
+            sessionStorage.removeItem('courses');
+        }
+
+        var previous = sessionStorage.getItem('courses');
+
+        if (previous != null) {
+            var data = previous.split(",");
+            var prev = [];
+
+            for (var i = 0; i < data.length; i++) {
+                prev.push(parseInt(data[i]));
+            }
+
+            $('#selectedCourses').val(prev).trigger("chosen:updated.chosen");
+        }
+        else {
+                $.ajax({
+                type: "POST",
+                url: "/Faculties/GetCourses",
+                data: { id: @Model.ID },
+                success: function (data) {
+                    $("#selectedCourses").val(data).trigger("chosen:updated.chosen");
+                }
+        });
+        }
+
         var studentPlaces = @(Model.StudentPlacesAvailable.HasValue ? Model.StudentPlacesAvailable.Value : 0);
         var facultyPlaces = @(Model.FacultyPlacesAvailable.HasValue ? Model.FacultyPlacesAvailable.Value : 0);
 
@@ -335,6 +383,7 @@
     if (facultyPlaces != null && facultyPlaces > 0 || $("#chkFaculty").is(':checked')) {
         $("#facultyPlaces").show();
         $("#chkFaculty").prop('checked', true);
+
     }
     else {
         $("#facultyPlaces").hide();
@@ -366,6 +415,7 @@
             $('#FacultyPlacesAvailable').val(null);
             $('#FacultyApplicationDate').val(null);
             $('#FacultyEnrollmentDate').val(null);
+            $('#selectedCourses').val(null).trigger("chosen:updated.chosen");
         }
         });
 
@@ -389,5 +439,13 @@
             });
 
         }
+    </script>
+
+    <script>
+        $("form").submit(function () {
+            var values = $("#selectedCourses").val();
+            sessionStorage.setItem('courses', values);
+
+        });
     </script>
 }

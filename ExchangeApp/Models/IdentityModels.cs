@@ -129,6 +129,8 @@ namespace ExchangeApp.Models
 
         public DbSet<Faculty> Faculties { get; set; }
 
+        public DbSet<FacultyCourses> FacultyCourses { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -139,7 +141,7 @@ namespace ExchangeApp.Models
                 .IsFixedLength();
 
             modelBuilder.Entity<Faculty>()
-                .HasMany(e => e.Subjects)
+                .HasMany(e => e.Courses)
                 .WithRequired(e => e.FacultyObj)
                 .HasForeignKey(e => e.FacultyId)
                 .WillCascadeOnDelete(true);

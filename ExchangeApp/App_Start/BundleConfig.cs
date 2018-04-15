@@ -10,7 +10,9 @@ namespace ExchangeApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-1.10.2.min.js",
-                        "~/Scripts/jquery-{version}.js"
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/chosen.jquery.min.js"
+
                         ));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -31,6 +33,7 @@ namespace ExchangeApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                        "~/Content/css/bootstrap.min.css",
                        "~/Content/css/bootstrap-datepicker.css",
+                       "~/Content/css/chosen.css",
                         "~/Content/css/screen.css",
                         "~/Content/css/font-awesome.css",
                         "~/Content/css/custom.css",

@@ -30,6 +30,10 @@ a {
     font-family: Helvetica Neue, Roboto, sans-serif;
 }
 
+.pos {
+    position: absolute;
+}
+
 
 .error-page-img {
     margin-top: 10%;
