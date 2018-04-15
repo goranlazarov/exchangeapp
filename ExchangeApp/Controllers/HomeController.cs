@@ -12,6 +12,9 @@ namespace ExchangeApp.Controllers
     {
         public ActionResult Index(int? flag)
         {
+            string pathFile = @"~/App_Data/Manual.txt";
+            var fileContents = System.IO.File.ReadAllText(System.Web.HttpContext.Current.Server.MapPath(pathFile));
+            ViewBag.Manual = fileContents;
             if (flag.HasValue)
                 ViewBag.LinkToOther = (flag.Value == 1 ? "Student" : "Faculty");
             else

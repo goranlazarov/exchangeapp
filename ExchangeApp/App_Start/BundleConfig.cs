@@ -23,7 +23,6 @@ namespace ExchangeApp
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/js/bootstrap.min.js",
                       "~/Scripts/js/bootstrap-datepicker.js",
-                      //"~/Scripts/js/active.js",
                       "~/Scripts/js/plugins.js",
                       "~/Scripts/js/popper.min.js",
                       "~/Scripts/js/scripts.min.js",
@@ -42,6 +41,8 @@ namespace ExchangeApp
 
             bundles.Add(new ScriptBundle("~/bundles/toastr").Include(
                        "~/Scripts/toastr.js*"));
+            bundles.Add(new ScriptBundle("~/bundles/script-custom-editor").Include(
+                                             "~/Scripts/js/script-custom-editor.js"));
 
         }
 

@@ -223,6 +223,7 @@
     <Compile Include="Controllers\NomNationalitiesController.cs" />
     <Compile Include="Controllers\NomRegionsController.cs" />
     <Compile Include="Controllers\NomSchoolYearsController.cs" />
+    <Compile Include="Controllers\ManualController.cs" />
     <Compile Include="Controllers\NomTypeOfExchangesController.cs" />
     <Compile Include="Controllers\SemestersController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
@@ -304,6 +305,7 @@
     <Compile Include="Models\NomRegion.cs" />
     <Compile Include="Models\NomSchoolYear.cs" />
     <Compile Include="Models\NomTypeOfExchange.cs" />
+    <Compile Include="Models\ManualViewModel.cs" />
     <Compile Include="Models\Semester.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\FacultiesViewModel.cs" />
@@ -321,6 +323,7 @@
     <!-- <Content Include="Content\bootstrap.css" /> -->
     <Content Include="App_Data\MailBodyApplicationFaculty.txt" />
     <Content Include="App_Data\MailBodyConfirmationFaculty.txt" />
+    <Content Include="App_Data\Manual.txt" />
     <Content Include="App_Data\MailBodyConfirmationStudent.txt" />
     <Content Include="Content\css\bootstrap-datepicker.css" />
     <Content Include="Content\css\combined.css" />
@@ -401,11 +404,13 @@
     <Content Include="Scripts\js\plugins.js" />
     <Content Include="Scripts\js\popper.min.js" />
     <Content Include="Scripts\js\scripts.js" />
+    <Content Include="Scripts\js\sript-custom-editor.js" />
     <Content Include="Scripts\js\vendor\jquery-3.2.1.min.js" />
     <Content Include="Scripts\js\vendor\modernizr-3.5.0.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sript-custom-editor.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config">
@@ -485,6 +490,7 @@
     <Content Include="NLog.Release.config">
       <DependentUpon>NLog.config</DependentUpon>
     </Content>
+    <Content Include="Views\Manual\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\ViewModel\" />

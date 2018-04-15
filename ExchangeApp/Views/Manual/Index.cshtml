@@ -1,0 +1,55 @@
+﻿@model ExchangeApp.Models.ManualViewModel
+
+@{
+    ViewBag.Title = "Manual";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="interior site">
+        <div>
+            <a href="@Url.Action("Index", "Admin" )" title="Back" style="font-size: 25px; color:#FA803B !important;"><i class="icon ion-android-arrow-dropleft-circle" ></i></a>
+        </div>
+        <p>Enter and format text for manual here</p>
+        @using (Html.BeginForm("Save", "Manual"))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="col-md-8">
+                    <div class="input-group">
+                        @Html.TextArea("ManualText", new
+                        {
+                            rows = "20",
+                            style = "resize:none;width:600px;",
+                            @class = "form-control input-lg textarea-editor"
+                        })
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-lg-6 col-md-10 mt-5">
+                    <div class="pl-31">
+                        <button id="btnSubmit" type="submit" style="border-radius:0px !important;" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    <script>
+        $('.textarea-editor').summernote({
+            height: 300, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: true // set focus to editable area after initializing summernote
+        });
+    </script>
+}
