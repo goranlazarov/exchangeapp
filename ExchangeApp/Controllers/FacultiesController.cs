@@ -45,10 +45,9 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.OrderBy(x => x.Name).ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Student.HasValue && t.Student.Value).ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Faculty.HasValue && t.Faculty.Value).ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
-
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             List<Subject> subjects = db.Subjects.ToList();
@@ -65,7 +64,7 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId, IsFeatured, SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
+        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId, IsFeatured, Display, SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
 
             if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower()))
@@ -164,10 +163,9 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.OrderBy(x => x.Name).ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Student.HasValue && t.Student.Value).ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Faculty.HasValue && t.Faculty.Value).ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
-
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             List<Subject> subjects = db.Subjects.ToList();
@@ -192,11 +190,12 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t=>t.Student.HasValue && t.Student.Value).ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Faculty.HasValue && t.Faculty.Value).ToList();
             List<Subject> subjects = db.Subjects.ToList();
             ViewBag.Subjects = new MultiSelectList(subjects, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
+     
             ViewBag.FacultyTypeOfExchangeId = new SelectList(typesOfExchangesFaculty, "ID", "Name", faculty.FacultyTypeOfExchangeId);
             ViewBag.StudentTypeOfExchangeId = new SelectList(typesOfExchangesStudent, "ID", "Name", faculty.StudentTypeOfExchangeId);
 
@@ -213,7 +212,7 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, IsFeatured, LogoImage,SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
+        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, IsFeatured, Display, LogoImage,SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
 
             if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower() && x.ID != faculty.ID))
@@ -318,10 +317,9 @@ namespace ExchangeApp.Controllers
             List<NomCountry> countriesList = db.Countries.ToList();
             ViewBag.CountriesList = new SelectList(countriesList, "ID", "Name");
 
-            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
+            List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.Where(t => t.Student.HasValue && t.Student.Value).ToList();
+            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.Where(t => t.Faculty.HasValue && t.Faculty.Value).ToList();
             ViewBag.TypesOfExchangeStudent = new SelectList(typesOfExchangesStudent, "ID", "Name");
-
-            List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
             List<Subject> subjects = db.Subjects.ToList();

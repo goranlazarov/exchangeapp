@@ -281,6 +281,14 @@
     <Compile Include="Migrations\201804032201374_SemesterCleaned.Designer.cs">
       <DependentUpon>201804032201374_SemesterCleaned.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804102144447_DisplayColumnFaculties.cs" />
+    <Compile Include="Migrations\201804102144447_DisplayColumnFaculties.Designer.cs">
+      <DependentUpon>201804102144447_DisplayColumnFaculties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102218301_TypesOfExchangeColumns.cs" />
+    <Compile Include="Migrations\201804102218301_TypesOfExchangeColumns.Designer.cs">
+      <DependentUpon>201804102218301_TypesOfExchangeColumns.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201804111854150_FacultyRemovedFromSubject.cs" />
     <Compile Include="Migrations\201804111854150_FacultyRemovedFromSubject.Designer.cs">
       <DependentUpon>201804111854150_FacultyRemovedFromSubject.cs</DependentUpon>
@@ -530,6 +538,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804032201374_SemesterCleaned.resx">
       <DependentUpon>201804032201374_SemesterCleaned.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102144447_DisplayColumnFaculties.resx">
+      <DependentUpon>201804102144447_DisplayColumnFaculties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102218301_TypesOfExchangeColumns.resx">
+      <DependentUpon>201804102218301_TypesOfExchangeColumns.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804111854150_FacultyRemovedFromSubject.resx">
       <DependentUpon>201804111854150_FacultyRemovedFromSubject.cs</DependentUpon>

@@ -55,6 +55,8 @@ namespace ExchangeApp.Models
 
         public bool? IsFeatured { get; set; }
 
+        public bool? Display { get; set; }
+
         public virtual ICollection<Subject> Subjects { get; set; }
 
         public byte[] LogoImage { get; set; }
@@ -84,6 +86,8 @@ namespace ExchangeApp.Models
             this.FacultyTypeOfExchangeId = faculty.FacultyTypeOfExchangeId;
             this.FacultyTypeOfExchangeObj = faculty.FacultyTypeOfExchangeObj;
             this.IsFeatured = faculty.IsFeatured;
+            this.Display = faculty.Display;
+
             this.LogoImage = faculty.LogoImage;
             
     }

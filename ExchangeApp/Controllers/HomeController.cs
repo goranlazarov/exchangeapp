@@ -21,21 +21,30 @@ namespace ExchangeApp.Controllers
             AddFields();
 
             var ReturnModel = new FacultiesViewModel();
-            var facultiesFiltered = db.Faculties.ToList();
+            var facultiesFiltered = db.Faculties.Where(f=>f.Display.HasValue && f.Display.Value && 
+                                                ((f.FacultyApplicationDate.HasValue
+                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
+                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
+                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day)
+                                                || (f.StudentApplicationDate.HasValue
+                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
+                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
+                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day))).ToList();
 
             if (flag.HasValue)
             {
                 if (!String.IsNullOrEmpty(ViewBag.LinkToOther.ToString()) && ViewBag.LinkToOther.ToString().Equals("Student"))
                 {
+                    ViewBag.ColorF = "lightblue";
                     var facultiesTeachersFiltered = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                         f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                            f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
+                                                            f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.FacultyApplicationDate.Value).Take(10);
                     if (facultiesTeachersFiltered.ToList().Count < 10)
                     {
                         var facultiesTeachersFilteredNotFeatured = facultiesFiltered.Where(f =>
                                                 (!f.IsFeatured.HasValue || (f.IsFeatured.HasValue && !f.IsFeatured.Value)) &&
                                                 f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10 - facultiesTeachersFiltered.ToList().Count);
+                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue).ToList().OrderBy(l => l.FacultyApplicationDate.Value).Take(10 - facultiesTeachersFiltered.ToList().Count);
 
 
                         facultiesTeachersFiltered = facultiesTeachersFiltered.Concat(facultiesTeachersFilteredNotFeatured);
@@ -46,15 +55,16 @@ namespace ExchangeApp.Controllers
 
             }
 
+            ViewBag.ColorS = "lightblue";
             var facultiesFilteredFinal = facultiesFiltered.Where(f => (f.IsFeatured.HasValue && f.IsFeatured.Value) &&
                                                f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
-                                               f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10);
+                                               f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.StudentApplicationDate.Value).Take(10);
             if (facultiesFilteredFinal.ToList().Count < 10)
             {
                 var facultiesStudentsFilteredNotFeatured = facultiesFiltered.Where(f =>
                                         (!f.IsFeatured.HasValue || (f.IsFeatured.HasValue && !f.IsFeatured.Value)) &&
                                         f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
-                                        f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.Registered).Take(10 - facultiesFilteredFinal.ToList().Count);
+                                        f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue).ToList().OrderBy(l => l.StudentApplicationDate.Value).Take(10 - facultiesFilteredFinal.ToList().Count);
 
                 facultiesFilteredFinal = facultiesFilteredFinal.Concat(facultiesStudentsFilteredNotFeatured);
             }
@@ -104,10 +114,18 @@ namespace ExchangeApp.Controllers
                 FacultySelected = currFac;
             }
 
-            var facultiesFiltered = db.Faculties.ToList();
+            var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value 
+                                                && ((f.FacultyApplicationDate.HasValue 
+                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year 
+                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month 
+                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day)
+                                                || (f.StudentApplicationDate.HasValue 
+                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
+                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
+                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day))).ToList();
             if (!string.IsNullOrEmpty(SearchKeyword))
             {
-                facultiesFiltered = facultiesFiltered.Where(f => f.Name.Contains(SearchKeyword)).ToList();
+                facultiesFiltered = facultiesFiltered.Where(f => f.Name.ToLower().Contains(SearchKeyword.ToLower())).ToList();
             }
             if (CountryId.HasValue && CountryId != -1)
             {
@@ -115,32 +133,44 @@ namespace ExchangeApp.Controllers
             }
             if (!string.IsNullOrEmpty(SearchProgram))
             {
-                facultiesFiltered = facultiesFiltered.Where(f => f.Program.Contains(SearchProgram)).ToList();
+                facultiesFiltered = facultiesFiltered.Where(f => f.Program.ToLower().Contains(SearchProgram.ToLower())).ToList();
             }
 
+
             //TO DO - logika so datumi za sporedba so momentalen datum
-            if ((StudentSelected.HasValue && StudentSelected.Value) || (FacultySelected.HasValue && FacultySelected.Value))
+            if ((StudentSelected.HasValue && StudentSelected.Value))
             {
                 facultiesFiltered = facultiesFiltered.Where(f =>
                                             (f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
-                                                f.StudentApplicationDate.HasValue && f.StudentEnrollmentDate.HasValue &&
-                                                (StudentSelected.HasValue && StudentSelected.Value)
-                                        ) ||
-                                           (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                f.FacultyApplicationDate.HasValue && f.FacultyEnrollmentDate.HasValue &&
-                                                (FacultySelected.HasValue && FacultySelected.Value)
-                                        )
-                                        ).ToList();
+                                                f.StudentApplicationDate.HasValue
+                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
+                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
+                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day && 
+                                                f.StudentEnrollmentDate.HasValue &&
+                                                (StudentSelected.HasValue && StudentSelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.StudentApplicationDate.Value).ToList();
             }
+            else
+                if((FacultySelected.HasValue && FacultySelected.Value))
+                {
+                    facultiesFiltered = facultiesFiltered.Where(f => (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                                f.FacultyApplicationDate.HasValue
+                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
+                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
+                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day &&
+                                                f.FacultyEnrollmentDate.HasValue &&
+                                                (FacultySelected.HasValue && FacultySelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
+                }
 
             SearchViewModel svm = new SearchViewModel();
             svm.SearchKeyword = SearchKeyword;
             svm.CountryId = (CountryId.HasValue ? CountryId.Value : -1);
             ViewBag.SearchViewModel = svm;
 
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
-            return View(facultiesFiltered.OrderByDescending(l => l.IsFeatured).ThenByDescending(l => l.Registered).ToPagedList(pageNumber, pageSize));
+
+            return View(facultiesFiltered.ToPagedList(pageNumber, pageSize));
 
         }
 
