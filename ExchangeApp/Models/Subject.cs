@@ -14,13 +14,5 @@ namespace ExchangeApp.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please choose faculty")]
-        [Display(Name = "Faculty")]
-        public int? FacultyId { get; set; }
-
-        [Display(Name = "Faculty")]
-        [ForeignKey("FacultyId")]
-        public virtual Faculty FacultyObj { get; set; }
-
     }
 }

@@ -122,7 +122,7 @@
                             <sup>*</sup>
                         </label>
                         <div>
-                            @Html.TextAreaFor(model => model.Description, 6, 151, new { maxlength = 2000})
+                            @Html.TextAreaFor(model => model.Description, 6, 151, new { maxlength = 2000 })
                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -239,6 +239,17 @@
                             @Html.ValidationMessageFor(model => model.FacultyEnrollmentDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-6 col-md-10 mt-10">
+                        <label>
+                            Faculty Courses
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.SelectedSubjectsIds, ViewBag.Subjects as MultiSelectList, new { id = "selectedCourses", data_placeholder = "Select courses", multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.SelectedSubjectsIds, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-md-10 mt-30" style="margin-left:89%">
@@ -252,6 +263,27 @@
     <script>
         $(document).ready(function () {
             $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+
+            $('#selectedCourses').chosen();
+
+            var err = $(".field-validation-error").length;
+
+            if (err == 0) {
+                sessionStorage.removeItem('courses');
+            }
+
+            var previous = sessionStorage.getItem('courses');
+
+            if (previous != null) {
+                var data = previous.split(",");
+                var prev = [];
+
+                for (var i = 0; i < data.length; i++) {
+                    prev.push(parseInt(data[i]));
+                }
+
+                $('#selectedCourses').val(prev).trigger("chosen:updated.chosen");
+            }
 
             var generateAgreementNumber = function () {
                 var pom = ("" + Math.random()).substring(2, 7);
@@ -313,10 +345,19 @@
                     $('#FacultyPlacesAvailable').val(null);
                     $('#FacultyApplicationDate').val(null);
                     $('#FacultyEnrollmentDate').val(null);
+                    $('#SelectedSubjectsIds').val(null);
                 }
             });
         });
 
+    </script>
+
+    <script>
+        $("form").submit(function () {
+            var values = $("#selectedCourses").val();
+            sessionStorage.setItem('courses', values);
+
+        });
     </script>
 }
 

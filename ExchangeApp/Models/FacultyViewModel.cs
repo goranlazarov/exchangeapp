@@ -84,7 +84,6 @@ namespace ExchangeApp.Models
             this.FacultyTypeOfExchangeId = faculty.FacultyTypeOfExchangeId;
             this.FacultyTypeOfExchangeObj = faculty.FacultyTypeOfExchangeObj;
             this.IsFeatured = faculty.IsFeatured;
-            this.Subjects = faculty.Subjects;
             this.LogoImage = faculty.LogoImage;
             
     }

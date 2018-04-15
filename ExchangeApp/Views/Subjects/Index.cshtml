@@ -16,9 +16,6 @@
                     Subject name
                 </div>
                 <div class="cell">
-                    College/University
-                </div>
-                <div class="cell">
                     Actions
                 </div>
             </div>
@@ -28,9 +25,6 @@
                 <div class="row">
                     <div class="cell">
                         @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="cell">
-                        @Html.DisplayFor(modelItem => item.FacultyObj.Name)
                     </div>
                     <div class="cell-act">
                         <a onclick="AddEditSubject(@item.ID)" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |

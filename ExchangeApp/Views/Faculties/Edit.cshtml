@@ -265,7 +265,17 @@
                             @Html.ValidationMessageFor(model => model.FacultyEnrollmentDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <div class="clearfix"></div>
+                    <div class="col-lg-6 col-md-10 mt-10">
+                        <label>
+                            Faculty Courses
+                            <sup>*</sup>
+                        </label>
+                        <div>
+                            @Html.DropDownListFor(model => model.SelectedSubjectsIds, ViewBag.Subjects as MultiSelectList, new { id = "selectedCourses", data_placeholder = "Select courses", multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.SelectedSubjectsIds, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 </div>
                 @Html.HiddenFor(m => m.LogoImage)
 
@@ -275,6 +285,7 @@
                 @Html.HiddenFor(m => m.LastUpdatedBy)
                 @Html.HiddenFor(model => model.ID)
                 @Html.HiddenFor(model => model.RowVersion)
+                @Html.HiddenFor(model => model.Courses)
 
                 <div class="col-md-10 mt-30" style="margin-left:89%">
                     <input type="submit" value="Save" class="btn btn-success">
@@ -304,16 +315,53 @@
                     </div>
                 </div>
                 <input type="hidden" id="hiddenId" />
+
             </div>
         }
+
+        @*<input id="firstCourse" />
+            <input id="secondCourse" />
+            <input id="thirdCourse" />
+            <input id="fourthCourse" value="-1" />*@
 
     </div>
 </div>
 @section scripts {
     <script>
     $(document).ready(function () {
-
         $('.datepicker').datepicker({ dateFormat: 'MM-DD-YYYY' });
+
+        $('#selectedCourses').chosen();
+
+        var err = $(".field-validation-error").length;
+
+        if (err == 0) {
+            sessionStorage.removeItem('courses');
+        }
+
+        var previous = sessionStorage.getItem('courses');
+
+        if (previous != null) {
+            var data = previous.split(",");
+            var prev = [];
+
+            for (var i = 0; i < data.length; i++) {
+                prev.push(parseInt(data[i]));
+            }
+
+            $('#selectedCourses').val(prev).trigger("chosen:updated.chosen");
+        }
+        else {
+                $.ajax({
+                type: "POST",
+                url: "/Faculties/GetCourses",
+                data: { id: @Model.ID },
+                success: function (data) {
+                    $("#selectedCourses").val(data).trigger("chosen:updated.chosen");
+                }
+        });
+        }
+
         var studentPlaces = @(Model.StudentPlacesAvailable.HasValue ? Model.StudentPlacesAvailable.Value : 0);
         var facultyPlaces = @(Model.FacultyPlacesAvailable.HasValue ? Model.FacultyPlacesAvailable.Value : 0);
 
@@ -329,6 +377,7 @@
     if (facultyPlaces != null && facultyPlaces > 0 || $("#chkFaculty").is(':checked')) {
         $("#facultyPlaces").show();
         $("#chkFaculty").prop('checked', true);
+
     }
     else {
         $("#facultyPlaces").hide();
@@ -360,6 +409,7 @@
             $('#FacultyPlacesAvailable').val(null);
             $('#FacultyApplicationDate').val(null);
             $('#FacultyEnrollmentDate').val(null);
+            $('#selectedCourses').val(null).trigger("chosen:updated.chosen");
         }
         });
 
@@ -383,5 +433,13 @@
             });
 
         }
+    </script>
+
+    <script>
+        $("form").submit(function () {
+            var values = $("#selectedCourses").val();
+            sessionStorage.setItem('courses', values);
+
+        });
     </script>
 }

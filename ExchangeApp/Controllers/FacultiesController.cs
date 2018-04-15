@@ -51,6 +51,8 @@ namespace ExchangeApp.Controllers
             List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
 
+            List<Subject> subjects = db.Subjects.ToList();
+            ViewBag.Subjects = new MultiSelectList(subjects, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName");
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName");
@@ -63,8 +65,9 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId, IsFeatured")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
+        public ActionResult Create([Bind(Include = "ID,Name,Program,Email,Description,AgreementNumber,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId, IsFeatured, SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
+
             if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower()))
             {
                 ModelState.AddModelError("Name", "College/university with that name already exists");
@@ -113,6 +116,10 @@ namespace ExchangeApp.Controllers
                 {
                     ModelState.AddModelError("FacultyEnrollmentDate", "Please choose enrollment date");
                 }
+                if (faculty.SelectedSubjectsIds == null || faculty.SelectedSubjectsIds.Count() == 0)
+                {
+                    ModelState.AddModelError("SelectedSubjectsIds", "Please choose at least one course");
+                }
             }
 
             if (ModelState.IsValid)
@@ -132,10 +139,25 @@ namespace ExchangeApp.Controllers
                     }
                 }
 
+                if (faculty.SelectedSubjectsIds != null)
+                {
+                    for (var i = 0; i < faculty.SelectedSubjectsIds.Count(); i++)
+                    {
+                        FacultyCourses fc = new FacultyCourses();
+                        fc.FacultyId = faculty.ID;
+                        fc.FacultyObj = faculty;
+
+                        var SubjectObj = db.Subjects.Find(faculty.SelectedSubjectsIds[i]);
+                        fc.SubjectId = faculty.SelectedSubjectsIds[i];
+                        fc.SubjectObj = SubjectObj;
+
+                        db.FacultyCourses.Add(fc);
+                    }
+                }
+
                 db.Faculties.Add(faculty);
                 db.SaveChanges();
                 DisplaySuccessMessage("Successfully added new faculty!");
-
                 return RedirectToAction("Index");
             }
 
@@ -147,6 +169,9 @@ namespace ExchangeApp.Controllers
 
             List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
+
+            List<Subject> subjects = db.Subjects.ToList();
+            ViewBag.Subjects = new MultiSelectList(subjects, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
@@ -167,6 +192,9 @@ namespace ExchangeApp.Controllers
                 return HttpNotFound();
             }
 
+            List<Subject> subjects = db.Subjects.ToList();
+            ViewBag.Subjects = new MultiSelectList(subjects, "ID", "Name");
+
             List<NomTypeOfExchange> typesOfExchangesStudent = db.TypesOfExchange.ToList();
             List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.FacultyTypeOfExchangeId = new SelectList(typesOfExchangesFaculty, "ID", "Name", faculty.FacultyTypeOfExchangeId);
@@ -177,8 +205,6 @@ namespace ExchangeApp.Controllers
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
 
 
-
-
             return View(faculty);
         }
 
@@ -187,8 +213,9 @@ namespace ExchangeApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, IsFeatured, LogoImage")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
+        public ActionResult Edit([Bind(Include = "ID,Name,Program,Email,Website,CountryId,DateOfMatriculation,AccreditationNumber,DateOfAccreditation,AgreementNumber, Description,StudentPlacesAvailable,StudentApplicationDate,StudentEnrollmentDate,FacultyPlacesAvailable,FacultyApplicationDate,FacultyEnrollmentDate,StudentTypeOfExchangeId,FacultyTypeOfExchangeId,Registered,RegisteredBy,LastUpdated,LastUpdatedBy,RowVersion, IsFeatured, LogoImage,SelectedSubjectsIds")] Faculty faculty, bool StudentSelected, bool FacultySelected, HttpPostedFileBase File)
         {
+
             if (db.Faculties.Any(x => x.Name.ToLower() == faculty.Name.ToLower() && x.ID != faculty.ID))
             {
                 ModelState.AddModelError("Name", "College/university with that name already exists");
@@ -237,6 +264,10 @@ namespace ExchangeApp.Controllers
                 {
                     ModelState.AddModelError("FacultyEnrollmentDate", "Please choose engagement date");
                 }
+                if (faculty.SelectedSubjectsIds == null || faculty.SelectedSubjectsIds.Count() == 0)
+                {
+                    ModelState.AddModelError("SelectedSubjectsIds", "Please choose at least one course");
+                }
             }
 
             if (ModelState.IsValid)
@@ -254,9 +285,29 @@ namespace ExchangeApp.Controllers
                         DisplayErrorMessage("Image format is not valid or image is bigger than 3MB!");
                         return RedirectToAction("Index");
                     }
-
                 }
 
+                if (faculty.SelectedSubjectsIds != null)
+                {
+                    db.FacultyCourses.RemoveRange(db.FacultyCourses.Where(x => x.FacultyId == faculty.ID));
+
+                    for (var i = 0; i < faculty.SelectedSubjectsIds.Count(); i++)
+                    {
+                        FacultyCourses fc = new FacultyCourses();
+                        fc.FacultyId = faculty.ID;
+                        fc.FacultyObj = faculty;
+
+                        var SubjectObj = db.Subjects.Find(faculty.SelectedSubjectsIds[i]);
+                        fc.SubjectId = faculty.SelectedSubjectsIds[i];
+                        fc.SubjectObj = SubjectObj;
+
+                        db.FacultyCourses.Add(fc);
+                    }
+                }
+                else
+                {
+                    db.FacultyCourses.RemoveRange(db.FacultyCourses.Where(x => x.FacultyId == faculty.ID));
+                }
 
                 db.Entry(faculty).State = EntityState.Modified;
                 db.SaveChanges();
@@ -272,6 +323,9 @@ namespace ExchangeApp.Controllers
 
             List<NomTypeOfExchange> typesOfExchangesFaculty = db.TypesOfExchange.ToList();
             ViewBag.TypesOfExchangeFaculty = new SelectList(typesOfExchangesFaculty, "ID", "Name");
+
+            List<Subject> subjects = db.Subjects.ToList();
+            ViewBag.Subjects = new MultiSelectList(subjects, "ID", "Name");
 
             ViewBag.LastUpdatedBy = new SelectList(db.Users, "Id", "FirstName", faculty.LastUpdatedBy);
             ViewBag.RegisteredBy = new SelectList(db.Users, "Id", "FirstName", faculty.RegisteredBy);
@@ -352,5 +406,19 @@ namespace ExchangeApp.Controllers
                 return Json(true);
             }
         }
+
+        public JsonResult GetCourses(int id)
+        {
+            var faculty = db.Faculties.Find(id);
+            List<int> courses = new List<int>();
+
+            foreach (var crs in faculty.Courses)
+            {
+                courses.Add(crs.SubjectObj.ID);
+            }
+
+            return this.Json(courses, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

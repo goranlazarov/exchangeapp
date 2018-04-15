@@ -98,7 +98,10 @@ namespace ExchangeApp.Models
         [Display(Name = "Featured faculty")]
         public bool? IsFeatured { get; set; }
 
-        public virtual ICollection<Subject> Subjects { get; set; }
+        [NotMapped]
+        public int[] SelectedSubjectsIds { get; set; }
+
+        public virtual ICollection<FacultyCourses> Courses { get; set; }
 
         public byte[] LogoImage { get; set; }
 
