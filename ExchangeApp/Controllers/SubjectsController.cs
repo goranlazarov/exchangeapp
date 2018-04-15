@@ -61,7 +61,7 @@ namespace ExchangeApp.Controllers
                         subjectDb.ID = model.ID;
                         subjectDb.Name = model.Name;
 
-                        message = "Successfully edited subject!";
+                        message = "Successfully edited course!";
 
                         db.SaveChanges();
                     }
@@ -69,14 +69,14 @@ namespace ExchangeApp.Controllers
                     {
                         if (db.Subjects.Any(x => x.Name.ToLower() == model.Name.ToLower()))
                         {
-                            throw new Exception("Subject for that faculty already exists!");
+                            throw new Exception("Course for that faculty already exists!");
                         }
 
                         Subject subject = new Subject();
                         subject.ID = model.ID;
                         subject.Name = model.Name;
 
-                        message = "Successfully added subject!";
+                        message = "Successfully added course!";
 
                         db.Subjects.Add(subject);
                         db.SaveChanges();
@@ -109,7 +109,7 @@ namespace ExchangeApp.Controllers
             db.Subjects.Remove(subject);
             db.SaveChanges();
 
-            DisplaySuccessMessage("Successfully deleted subject!");
+            DisplaySuccessMessage("Successfully deleted course!");
             return Json(true);
         }
 

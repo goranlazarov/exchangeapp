@@ -247,7 +247,7 @@
                         </label>
                         <div>
                             @Html.DropDownListFor(model => model.SelectedSubjectsIds, ViewBag.Subjects as MultiSelectList, new { id = "selectedCourses", data_placeholder = "Select courses", multiple = "multiple" })
-                            @Html.ValidationMessageFor(model => model.SelectedSubjectsIds, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.SelectedSubjectsIds, "", new { @class = "text-danger pos" })
                         </div>
                     </div>
                 </div>

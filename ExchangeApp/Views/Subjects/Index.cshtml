@@ -1,7 +1,7 @@
 ﻿@model PagedList.IPagedList<ExchangeApp.Models.Subject>
 @using PagedList.Mvc;
 @{
-    ViewBag.Title = "Subjects";
+    ViewBag.Title = "Courses";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container">
@@ -13,7 +13,7 @@
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    Subject name
+                    Course name
                 </div>
                 <div class="cell">
                     Actions
@@ -40,7 +40,7 @@
                             <h4 class="modal-title" id="myModalLabel">Confirmation dialog</h4>
                         </div>
                         <div class="modal-body pd-10">
-                            Are you sure you want to delete this subject?
+                            Are you sure you want to delete this course?
                         </div>
                         <div class="modal-footer pd-0">
                             <div>
@@ -61,7 +61,7 @@
                 <div class="modal-dialog modal-md " role="document">
                     <div class="modal-content">
                         <div class="modal-header pd-5">
-                            <h4 class="modal-title" id="myModalLabel">Add/Edit subject</h4>
+                            <h4 class="modal-title" id="myModalLabel">Add/Edit course</h4>
                         </div>
                         <div class="modal-body pd-10" id="editModalBody">
 

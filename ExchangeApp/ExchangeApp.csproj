@@ -491,7 +491,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\FacultyCourses\" />
     <Folder Include="Views\ViewModel\" />
   </ItemGroup>
   <ItemGroup>
