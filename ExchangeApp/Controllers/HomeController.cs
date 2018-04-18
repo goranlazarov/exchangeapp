@@ -76,10 +76,11 @@ namespace ExchangeApp.Controllers
 
         }
 
-        public ActionResult ListFaculties(bool? StudentSelected, bool? FacultySelected, bool? currStud, bool? currFac, string SearchProgram, string currentProgram, string SearchKeyword, string currentFilter, int? CountryId, int? currentCountry, int? page)
+        public ActionResult ListFaculties(bool? StudentSelected, bool? FacultySelected, bool? currStud, bool? currFac, string SearchProgram, string currentProgram, string SearchKeyword, string currentFilter, int? CountryId, int? currentCountry, int? RegionId, int? currentRegion, int? page)
         {
             ViewBag.CurrentFilter = string.IsNullOrEmpty(SearchKeyword) ? currentFilter : SearchKeyword;
             ViewBag.CurrentCountry = CountryId.HasValue ? CountryId : currentCountry;
+            ViewBag.CurrentRegion = RegionId.HasValue ? RegionId : currentRegion;
             ViewBag.CurrentProgram = string.IsNullOrEmpty(SearchProgram) ? currentProgram : SearchProgram;
             ViewBag.CurrentStudent = StudentSelected.HasValue ? StudentSelected : currStud;
             ViewBag.CurrentFaculty = FacultySelected.HasValue ? FacultySelected : currFac;
@@ -99,6 +100,11 @@ namespace ExchangeApp.Controllers
             if (!CountryId.HasValue)
             {
                 CountryId = currentCountry;
+            }
+
+            if (!RegionId.HasValue)
+            {
+                RegionId = currentRegion;
             }
 
             if (string.IsNullOrEmpty(SearchProgram))
@@ -122,7 +128,7 @@ namespace ExchangeApp.Controllers
                                                 EntityFunctions.TruncateTime(DateTime.Now))
                                                 || (f.StudentApplicationDate.HasValue
                                                   && EntityFunctions.TruncateTime(f.StudentApplicationDate.Value) >=
-                                                  EntityFunctions.TruncateTime(DateTime.Now)))).ToList();
+                                                  EntityFunctions.TruncateTime(DateTime.Now)))).OrderByDescending(l => l.IsFeatured).ThenBy(l => l.StudentApplicationDate.Value).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
 
             if (!string.IsNullOrEmpty(SearchKeyword))
             {
@@ -131,6 +137,10 @@ namespace ExchangeApp.Controllers
             if (CountryId.HasValue && CountryId != -1)
             {
                 facultiesFiltered = facultiesFiltered.Where(f => f.CountryId.HasValue && f.CountryId == CountryId).ToList();
+            }
+            if (RegionId.HasValue && RegionId != -1 && CountryId.HasValue && CountryId == -1)
+            {
+                facultiesFiltered = facultiesFiltered.Where(f => f.CountryObj!=null && f.CountryObj.RegionId == RegionId).ToList();
             }
             if (!string.IsNullOrEmpty(SearchProgram))
             {
@@ -146,25 +156,26 @@ namespace ExchangeApp.Controllers
                                                 f.StudentApplicationDate.HasValue
                                                 && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
                                                 && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day && 
+                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day &&
                                                 f.StudentEnrollmentDate.HasValue &&
                                                 (StudentSelected.HasValue && StudentSelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.StudentApplicationDate.Value).ToList();
             }
             else
                 if((FacultySelected.HasValue && FacultySelected.Value))
                 {
-                    facultiesFiltered = facultiesFiltered.Where(f => (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
-                                                f.FacultyApplicationDate.HasValue
-                                                && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
-                                                && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day &&
-                                                f.FacultyEnrollmentDate.HasValue &&
-                                                (FacultySelected.HasValue && FacultySelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
+                facultiesFiltered = facultiesFiltered.Where(f => (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
+                                            f.FacultyApplicationDate.HasValue
+                                            && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
+                                            && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
+                                            && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day &&
+                                            f.FacultyEnrollmentDate.HasValue &&
+                                            (FacultySelected.HasValue && FacultySelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
                 }
 
             SearchViewModel svm = new SearchViewModel();
             svm.SearchKeyword = SearchKeyword;
             svm.CountryId = (CountryId.HasValue ? CountryId.Value : -1);
+            svm.RegionId = (RegionId.HasValue ? RegionId.Value : -1);
             ViewBag.SearchViewModel = svm;
 
 
@@ -199,7 +210,13 @@ namespace ExchangeApp.Controllers
         [HttpGet]
         public JsonResult getCountries(int regionId)
         {
-            var countries = db.Countries.Where(c => (c.RegionId.Value == regionId && regionId != -1) || regionId == -1).Select(c => new
+            NomCountry initialC = new NomCountry();
+            initialC.ID = -1;
+            initialC.Name = "Entire region";
+            List<Models.NomCountry> listCountries = new List<Models.NomCountry>();
+            listCountries.Add(initialC);
+            listCountries.AddRange(db.Countries.Where(c => (c.RegionId.Value == regionId && regionId != -1) || regionId == -1).OrderBy(x => x.Name));
+            var countries = listCountries.Select(c => new
             {
                 ID = c.ID,
                 Name = c.Name

@@ -132,7 +132,7 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                 @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
-                                                     new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
+                                                     new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentRegion = ViewBag.CurrentRegion, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
             </section>
 
         </div>

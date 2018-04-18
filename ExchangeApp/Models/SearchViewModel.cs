@@ -11,6 +11,7 @@ namespace ExchangeApp.Models
 
         public string SearchKeyword { get; set; }
         public int CountryId { get; set; }
+        public int RegionId { get; set; }
 
     }
 }
