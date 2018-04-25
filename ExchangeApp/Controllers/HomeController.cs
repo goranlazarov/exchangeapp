@@ -27,10 +27,10 @@ namespace ExchangeApp.Controllers
             var ReturnModel = new FacultiesViewModel();
             var facultiesFiltered = db.Faculties.Where(f => f.Display.HasValue && f.Display.Value &&
                                                 ((f.FacultyApplicationDate.HasValue
-                                                && EntityFunctions.TruncateTime(f.FacultyApplicationDate.Value) >= 
+                                                && EntityFunctions.TruncateTime(f.FacultyApplicationDate.Value) >=
                                                 EntityFunctions.TruncateTime(DateTime.Now))
                                                 || (f.StudentApplicationDate.HasValue
-                                                  && EntityFunctions.TruncateTime(f.StudentApplicationDate.Value) >= 
+                                                  && EntityFunctions.TruncateTime(f.StudentApplicationDate.Value) >=
                                                   EntityFunctions.TruncateTime(DateTime.Now)))).ToList();
 
             if (flag.HasValue)
@@ -50,7 +50,14 @@ namespace ExchangeApp.Controllers
 
 
                         facultiesTeachersFiltered = facultiesTeachersFiltered.Concat(facultiesTeachersFilteredNotFeatured);
+
                     }
+
+                    foreach (var fax in facultiesTeachersFiltered)
+                    {
+                        fax.CoursesString = string.Join(", ", fax.Courses.Select(x => x.SubjectObj.Name));
+                    }
+
                     ReturnModel.TeacherPlaces = new List<Faculty>(facultiesTeachersFiltered);
                     return View(ReturnModel);
                 }
@@ -140,7 +147,7 @@ namespace ExchangeApp.Controllers
             }
             if (RegionId.HasValue && RegionId != -1 && CountryId.HasValue && CountryId == -1)
             {
-                facultiesFiltered = facultiesFiltered.Where(f => f.CountryObj!=null && f.CountryObj.RegionId == RegionId).ToList();
+                facultiesFiltered = facultiesFiltered.Where(f => f.CountryObj != null && f.CountryObj.RegionId == RegionId).ToList();
             }
             if (!string.IsNullOrEmpty(SearchProgram))
             {
@@ -161,8 +168,8 @@ namespace ExchangeApp.Controllers
                                                 (StudentSelected.HasValue && StudentSelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.StudentApplicationDate.Value).ToList();
             }
             else
-                if((FacultySelected.HasValue && FacultySelected.Value))
-                {
+                if ((FacultySelected.HasValue && FacultySelected.Value))
+            {
                 facultiesFiltered = facultiesFiltered.Where(f => (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
                                             f.FacultyApplicationDate.HasValue
                                             && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
@@ -170,14 +177,18 @@ namespace ExchangeApp.Controllers
                                             && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day &&
                                             f.FacultyEnrollmentDate.HasValue &&
                                             (FacultySelected.HasValue && FacultySelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
+
+                foreach (var fax in facultiesFiltered)
+                {
+                    fax.CoursesString = string.Join(", ", fax.Courses.Select(x => x.SubjectObj.Name));
                 }
+            }
 
             SearchViewModel svm = new SearchViewModel();
             svm.SearchKeyword = SearchKeyword;
             svm.CountryId = (CountryId.HasValue ? CountryId.Value : -1);
             svm.RegionId = (RegionId.HasValue ? RegionId.Value : -1);
             ViewBag.SearchViewModel = svm;
-
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);

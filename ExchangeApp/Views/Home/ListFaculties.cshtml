@@ -108,6 +108,14 @@
                                         <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available</span>
                                         <br />
                                         <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.FacultyTypeOfExchangeObj.Name.ToString()</span></span>
+
+                                        if (item.CoursesString != null)
+                                        {
+                                            <br />
+                                            <span style="color: #f4424b;font-style: oblique;">
+                                                Courses offered: <strong style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.CoursesString</strong>
+                                            </span>
+                                        }
                                         <br />
                                         <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.FacultyApplicationDate.Value.ToShortDateString()</span></span>
 
@@ -132,7 +140,7 @@
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
                 @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
-                                                     new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentRegion = ViewBag.CurrentRegion, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
+                                                                                             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentRegion = ViewBag.CurrentRegion, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
             </section>
 
         </div>

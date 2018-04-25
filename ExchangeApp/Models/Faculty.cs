@@ -108,5 +108,8 @@ namespace ExchangeApp.Models
 
         public byte[] LogoImage { get; set; }
 
+        [NotMapped]
+        public string CoursesString { get; set; }
+
     }
 }
