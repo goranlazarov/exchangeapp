@@ -103,7 +103,7 @@
                                     <div>
                                         <p style="font-style:italic;">Posted: @item.Registered.Value.ToShortDateString()</p>
                                     </div>
-                                    @if (!string.IsNullOrEmpty(item.FacultyPlacesAvailable.ToString()))
+                                    @if (!((bool?)ViewBag.CurrentStudent).HasValue || (((bool?)ViewBag.CurrentStudent).HasValue && !((bool?)ViewBag.CurrentStudent).Value))
                                     {
                                         <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available</span>
                                         <br />
@@ -139,8 +139,7 @@
                 </div>
                 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-                @Html.PagedListPager(Model, page => Url.Action("ListFaculties",
-                                                                                             new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentRegion = ViewBag.CurrentRegion, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
+                @Html.PagedListPager(Model, page => Url.Action("ListFaculties", new { page, currentFilter = ViewBag.CurrentFilter, currentCountry = ViewBag.CurrentCountry, currentRegion = ViewBag.CurrentRegion, currentProgram = ViewBag.CurrentProgram, currStud = ViewBag.CurrentStudent, currFac = ViewBag.CurrentFaculty }))
             </section>
 
         </div>

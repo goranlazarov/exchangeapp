@@ -15,9 +15,31 @@ namespace ExchangeApp.Controllers
     {
 
         // GET: Faculties
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,int ? RegionId, int? currentRegion)
         {
+            ViewBag.CurrentRegion = RegionId.HasValue ? RegionId : currentRegion;
+
+            NomRegion initial = new NomRegion();
+            initial.ID = -1;
+            initial.Name = "All regions";
+            List<Models.NomRegion> list = new List<Models.NomRegion>();
+            list.Add(initial);
+            list.AddRange(db.Regions);
+            
+            ViewBag.RegionId = new SelectList(list, "ID", "Name", ViewBag.CurrentRegion);
+
+            if (!RegionId.HasValue)
+            {
+                RegionId = currentRegion;
+            }
+
             var faculties = db.Faculties.Include(f => f.CountryObj).Include(f => f.FacultyTypeOfExchangeObj).Include(f => f.LastUpdatedByUser).Include(f => f.RegisteredByUser).Include(f => f.StudentTypeOfExchangeObj);
+
+            if (RegionId.HasValue && RegionId != -1)
+            {
+                faculties = faculties.Where(f => f.CountryObj != null && f.CountryObj.RegionId == RegionId);
+            }
+
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);

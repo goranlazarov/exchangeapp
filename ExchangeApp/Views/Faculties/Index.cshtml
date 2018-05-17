@@ -12,10 +12,20 @@
             <a href="@Url.Action("Index", "Admin" )" title="Back" style="font-size: 25px;"><i class="icon ion-android-arrow-dropleft-circle"></i></a>
             <a href="@Url.Action("Create", "Faculties")"><button class="primary btn-create" type="submit">Add new</button></a>
         </div>
+
+        @using (Html.BeginForm("Index", "Faculties"))
+        {
+        <div style="margin-bottom:50px;">
+            <div class="select-style" style="display:inline-block; width:250px;">
+                @Html.DropDownList("RegionId")
+            </div>
+
+            <button class="primary primary-applied" type="submit">Search</button>
+        </div>
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    College/University 
+                    College/University
                 </div>
                 <div class="cell">
                     Program
@@ -30,22 +40,22 @@
 
             @foreach (var item in Model)
             {
-                <div class="row">
-                    <div class="cell">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </div>
-                    <div class="cell">
-                        @Html.DisplayFor(modelItem => item.Program)
-                    </div>
-                    <div class="cell">
-                        @Html.DisplayFor(modelItem => item.CountryObj.Name)
-                    </div>
-                    <div class="cell-act">
-                        <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
-                        <a href="@Url.Action("Details", "Faculties", new { id = item.ID })" title="Details"><i class="icon ion-ios-list-outline"></i></a> |
-                        <a onclick="DeleteFaculty(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
-                    </div>
+            <div class="row">
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.Name)
                 </div>
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.Program)
+                </div>
+                <div class="cell">
+                    @Html.DisplayFor(modelItem => item.CountryObj.Name)
+                </div>
+                <div class="cell-act">
+                    <a href="@Url.Action("Edit", "Faculties", new { id = item.ID })" title="Edit"><i class="icon ion-ios-compose-outline"></i></a> |
+                    <a href="@Url.Action("Details", "Faculties", new { id = item.ID })" title="Details"><i class="icon ion-ios-list-outline"></i></a> |
+                    <a onclick="DeleteFaculty(@item.ID)" title="Delete"><i class="icon ion-ios-trash-outline"></i></a>
+                </div>
+            </div>
 
             }
 
@@ -76,9 +86,10 @@
         <div class="custom-pag" style="text-align:center;">
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-        </div>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentRegion = ViewBag.CurrentRegion }))
 
+        </div>
+        }
         <input type="hidden" id="hiddenId" />
     </div>
     @section scripts {
