@@ -13,20 +13,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="ApplicationInsights.config">
       <publishTime>03/07/2018 21:12:01</publishTime>
     </File>
+    <File Include="App_Code/ToastrBuilder.cshtml">
+      <publishTime>03/07/2018 21:12:01</publishTime>
+    </File>
     <File Include="App_Data/MailBodyApplicationFaculty.txt">
       <publishTime>04/11/2018 20:20:47</publishTime>
     </File>
     <File Include="App_Data/MailBodyApplicationStudent.txt">
-      <publishTime>05/04/2018 23:17:57</publishTime>
+      <publishTime>04/05/2018 23:17:57</publishTime>
     </File>
     <File Include="App_Data/MailBodyConfirmationFaculty.txt">
-      <publishTime>05/04/2018 23:36:07</publishTime>
+      <publishTime>04/05/2018 23:36:07</publishTime>
     </File>
     <File Include="App_Data/MailBodyConfirmationStudent.txt">
-      <publishTime>05/04/2018 23:37:03</publishTime>
+      <publishTime>04/05/2018 23:37:03</publishTime>
     </File>
     <File Include="App_Data/Manual.txt">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>05/22/2018 22:14:27</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>03/07/2018 21:12:01</publishTime>
@@ -38,16 +41,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:01</publishTime>
     </File>
     <File Include="bin/App_Code.compiled">
-      <publishTime>05/23/2018 23:13:47</publishTime>
+      <publishTime>05/24/2018 01:05:27</publishTime>
     </File>
     <File Include="bin/App_Code.dll">
-      <publishTime>05/23/2018 23:13:47</publishTime>
+      <publishTime>05/24/2018 01:05:27</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>05/23/2018 23:13:48</publishTime>
+      <publishTime>05/24/2018 01:05:28</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>05/23/2018 23:13:48</publishTime>
+      <publishTime>05/24/2018 01:05:28</publishTime>
     </File>
     <File Include="bin/DnsClient.dll">
       <publishTime>03/21/2018 19:25:30</publishTime>
@@ -59,10 +62,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/ExchangeApp.dll">
-      <publishTime>05/23/2018 23:13:14</publishTime>
+      <publishTime>05/24/2018 01:05:06</publishTime>
     </File>
     <File Include="bin/ExchangeApp.pdb">
-      <publishTime>05/23/2018 23:13:14</publishTime>
+      <publishTime>05/24/2018 01:05:06</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>03/07/2018 21:12:02</publishTime>
@@ -122,25 +125,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/NLog.dll">
-      <publishTime>03/04/2018 17:34:12</publishTime>
+      <publishTime>04/03/2018 17:34:12</publishTime>
     </File>
     <File Include="bin/Owin.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/PagedList.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/PagedList.Mvc.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>03/07/2018 21:12:02</publishTime>
@@ -287,31 +290,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/21/2018 19:25:30</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>07/03/2018 21:12:02</publishTime>
+      <publishTime>03/07/2018 21:12:02</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
-      <publishTime>07/03/2018 21:12:03</publishTime>
+      <publishTime>03/07/2018 21:12:03</publishTime>
     </File>
     <File Include="Content/css/bootstrap-datepicker.css">
       <publishTime>03/07/2018 21:12:01</publishTime>
@@ -383,7 +386,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/25/2018 19:32:49</publishTime>
     </File>
     <File Include="Content/images/hero.jpg">
-      <publishTime>03/26/2018 20:16:54</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Content/images/Highest-Degree.png">
       <publishTime>03/25/2018 19:32:49</publishTime>
@@ -484,6 +487,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="favicon.ico">
       <publishTime>03/07/2018 21:12:01</publishTime>
     </File>
+    <File Include="Global.asax">
+      <publishTime>03/07/2018 21:12:01</publishTime>
+    </File>
     <File Include="Log.txt">
       <publishTime>04/11/2018 20:20:47</publishTime>
     </File>
@@ -497,7 +503,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2018 17:34:12</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>05/23/2018 23:25:52</publishTime>
+      <publishTime>05/24/2018 01:05:18</publishTime>
     </File>
     <File Include="Scripts/bootstrap-def.js">
       <publishTime>03/07/2018 21:12:01</publishTime>
@@ -638,10 +644,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:01</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/18/2018 00:06:29</publishTime>
+      <publishTime>05/21/2018 22:35:56</publishTime>
     </File>
     <File Include="Views/Home/ListFaculties.cshtml">
-      <publishTime>05/18/2018 00:05:59</publishTime>
+      <publishTime>05/23/2018 23:01:53</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>03/07/2018 21:12:01</publishTime>
@@ -758,7 +764,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/07/2018 21:12:01</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/23/2018 23:13:31</publishTime>
+      <publishTime>05/24/2018 00:43:12</publishTime>
     </File>
   </ItemGroup>
 </Project>
