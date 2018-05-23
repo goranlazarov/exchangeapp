@@ -105,6 +105,8 @@ namespace ExchangeApp.Controllers
             ViewBag.CurrentCountry = CountryId.HasValue ? CountryId : currentCountry;
             ViewBag.CurrentRegion = RegionId.HasValue ? RegionId : currentRegion;
             ViewBag.CurrentProgram = string.IsNullOrEmpty(SearchProgram) ? currentProgram : SearchProgram;
+
+
             ViewBag.CurrentStudent = StudentSelected.HasValue ? StudentSelected : currStud;
             ViewBag.CurrentFaculty = FacultySelected.HasValue ? FacultySelected : currFac;
 
@@ -177,10 +179,8 @@ namespace ExchangeApp.Controllers
                 facultiesFiltered = facultiesFiltered.Where(f =>
                                             (f.StudentPlacesAvailable.HasValue && f.StudentPlacesAvailable.Value > 0 &&
                                                 f.StudentApplicationDate.HasValue
-                                                && f.StudentApplicationDate.Value.Year >= DateTime.Now.Year
-                                                && f.StudentApplicationDate.Value.Month >= DateTime.Now.Month
-                                                && f.StudentApplicationDate.Value.Day >= DateTime.Now.Day &&
-                                                f.StudentEnrollmentDate.HasValue &&
+                                                && f.StudentApplicationDate.Value >= DateTime.Today
+                                                && f.StudentEnrollmentDate.HasValue &&
                                                 (StudentSelected.HasValue && StudentSelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.StudentApplicationDate.Value).ToList();
             }
             else
@@ -188,16 +188,14 @@ namespace ExchangeApp.Controllers
             {
                 facultiesFiltered = facultiesFiltered.Where(f => (f.FacultyPlacesAvailable.HasValue && f.FacultyPlacesAvailable.Value > 0 &&
                                             f.FacultyApplicationDate.HasValue
-                                            && f.FacultyApplicationDate.Value.Year >= DateTime.Now.Year
-                                            && f.FacultyApplicationDate.Value.Month >= DateTime.Now.Month
-                                            && f.FacultyApplicationDate.Value.Day >= DateTime.Now.Day &&
-                                            f.FacultyEnrollmentDate.HasValue &&
+                                            && f.FacultyApplicationDate.Value >= DateTime.Today
+                                            && f.FacultyEnrollmentDate.HasValue &&
                                             (FacultySelected.HasValue && FacultySelected.Value))).ToList().OrderByDescending(l => l.IsFeatured).ThenBy(l => l.FacultyApplicationDate.Value).ToList();
+            }
 
-                foreach (var fax in facultiesFiltered)
-                {
-                    fax.CoursesString = string.Join(", ", fax.Courses.Select(x => x.SubjectObj.Name));
-                }
+            foreach (var fax in facultiesFiltered)
+            {
+                fax.CoursesString = string.Join(", ", fax.Courses.Select(x => x.SubjectObj.Name));
             }
 
             SearchViewModel svm = new SearchViewModel();

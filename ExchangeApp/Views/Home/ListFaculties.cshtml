@@ -103,7 +103,21 @@
                                     <div>
                                         <p style="font-style:italic;">Posted: @item.Registered.Value.ToShortDateString()</p>
                                     </div>
-                                    @if (!((bool?)ViewBag.CurrentStudent).HasValue || (((bool?)ViewBag.CurrentStudent).HasValue && !((bool?)ViewBag.CurrentStudent).Value))
+
+                                    @if ((((bool?)ViewBag.CurrentStudent).HasValue && ((bool?)ViewBag.CurrentStudent).Value) &&
+                                        (!((bool?)ViewBag.CurrentFaculty).HasValue || (((bool?)ViewBag.CurrentFaculty).HasValue && !((bool?)ViewBag.CurrentFaculty).Value)))
+
+                                    {
+                                        <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.StudentPlacesAvailable.ToString()</span> student exchange positions are available</span>
+                                        <br />
+                                        <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.StudentTypeOfExchangeObj.Name.ToString()</span></span>
+                                        <br />
+                                        <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.StudentApplicationDate.Value.ToShortDateString()</span></span>
+
+                                    }
+
+                                    @if ((((bool?)ViewBag.CurrentFaculty).HasValue && ((bool?)ViewBag.CurrentFaculty).Value) &&
+                                            (!((bool?)ViewBag.CurrentStudent).HasValue || (((bool?)ViewBag.CurrentStudent).HasValue && !((bool?)ViewBag.CurrentStudent).Value)))
                                     {
                                         <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available</span>
                                         <br />
@@ -120,14 +134,39 @@
                                         <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.FacultyApplicationDate.Value.ToShortDateString()</span></span>
 
                                     }
-                                    else
-                                    {
-                                        <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.StudentPlacesAvailable.ToString()</span> student exchange positions are available</span>
-                                        <br />
-                                        <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.StudentTypeOfExchangeObj.Name.ToString()</span></span>
-                                        <br />
-                                        <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.StudentApplicationDate.Value.ToShortDateString()</span></span>
 
+                                    @if (((((bool?)ViewBag.CurrentStudent).HasValue && ((bool?)ViewBag.CurrentStudent).Value)
+                                            && (((bool?)ViewBag.CurrentFaculty).HasValue && ((bool?)ViewBag.CurrentFaculty).Value))
+                                            || (((bool?)ViewBag.CurrentStudent).HasValue && (!(bool?)ViewBag.CurrentStudent).Value && ((bool?)ViewBag.CurrentFaculty).HasValue && (!(bool?)ViewBag.CurrentFaculty).Value)
+                                            || ((!((bool?)ViewBag.CurrentStudent).HasValue && (!((bool?)ViewBag.CurrentFaculty).HasValue))))
+                                    {
+                                        if (item.FacultyTypeOfExchangeObj != null)
+                                        {
+                                            <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.FacultyPlacesAvailable.ToString()</span> faculty exchange positions are available</span>
+                                            <br />
+                                            <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.FacultyTypeOfExchangeObj.Name.ToString()</span></span>
+
+                                            if (item.CoursesString != null)
+                                            {
+                                                <br />
+                                                <span style="color: #f4424b;font-style: oblique;">
+                                                    Courses offered: <strong style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.CoursesString</strong>
+                                                </span>
+                                            }
+                                            <br />
+                                            <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.FacultyApplicationDate.Value.ToShortDateString()</span></span>
+                                            <br />
+
+                                        }
+
+                                        if (item.StudentTypeOfExchangeObj != null)
+                                        {
+                                            <span style="font-style:italic; color:forestgreen;"><span style="font-size:large; font-weight:900;">@item.StudentPlacesAvailable.ToString()</span> student exchange positions are available</span>
+                                            <br />
+                                            <span style="color: #002157;font-style: italic;">Type of exchange: <span style="font-weight: 900; font-size: 12px; font-style: italic;">@item.StudentTypeOfExchangeObj.Name.ToString()</span></span>
+                                            <br />
+                                            <span style="color: #ff6a00;font-style: oblique;">Date of application: <span style="font-weight: 900; font-size: 12px; font-style: oblique;">@item.StudentApplicationDate.Value.ToShortDateString()</span></span>
+                                        }
                                     }
 
                                     <input type="hidden" value=39431667 class="ga_job_id">
@@ -153,6 +192,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+
     var url = '@Url.Action("getCountries", "Home")';
     var countries = $('#CountryId');
         function CallChangeFunc(val) {
